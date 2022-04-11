@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,5 +27,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        ResetPassword::createUrlUsing(function ($user, string $token) {
+            $baseUrl = env('FRONT_END_BASE_URL','https://bubblecolony.com/');
+            return $baseUrl.'change-password?token='.$token. '&email='.$user->email;
+        });
     }
 }

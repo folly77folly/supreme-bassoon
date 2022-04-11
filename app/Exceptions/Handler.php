@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Database\QueryException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -37,5 +41,48 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof AuthenticationException) {
+            return response()->json([
+                'status' => 'failed',
+                'status_code' => '401',
+                'message' => "You are not authorized"
+            ], 401);
+        }elseif($exception instanceof ModelNotFoundException)
+        {
+            return response()->json([
+                'status' => 'failed',
+                'status_code' => '404',
+                'message' => "Resource not found"
+            ], 404);
+        }
+        elseif($exception instanceof QueryException)
+        {
+            return response()->json([
+                'status' => 'failed',
+                'status_code' => '500',
+                'message' => $exception->getMessage(),
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+            ], 500);
+        }
+        elseif($exception instanceof InvalidSignatureException)
+        {
+            return response()->json([
+                'status' => 'failed',
+                'status_code' => '500',
+                'message' => 'the verification link is invalid',
+            ], 404);
+        }
+        // return response()->json([
+        //     'status' => 'failed',
+        //     'status_code' => 404,
+        //     'message' => $exception->getMessage(),
+        //     'error' => $exception->errors()
+        // ], 404);QueryException
+            return parent::render($request, $exception);
     }
 }
