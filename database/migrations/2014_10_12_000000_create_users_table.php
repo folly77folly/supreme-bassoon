@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('has_child')->default(0);
             $table->foreignId('role_id')->default(6)->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->string('otp_code')->nullable();
+            $table->timestamp('otp_expiry')->nullable();
             $table->boolean('is_active')->default(1);
             $table->rememberToken();
             $table->timestamps();
