@@ -5,41 +5,32 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
+use App\Service\ApiResponseService;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\CategoryRequest;
+
 
 class ProductCategoryController extends Controller
-{
+{   
+
    //Create Category 
-
-    public function create(Request $request){
-
-         $request->validate([
-            'name'=>'required',
-            'description'=>'required|max:400'
-        ]);
+    public function create(CategoryRequest $request){
 
         $data = ProductCategory::create([
             'name' => $request->name,
             'description' => $request->description,
         ]);
 
-        return response()->json([
-            $data,
-            'status' => 'success',
-        ]);
+        return $this->apiResponse->successwithData($data, 'Product Category Created Successfully', 200);
     }
 
     public function index(){
 
         $data = ProductCategory::all();
-        return response()->json($data);
+        return $this->apiResponse->successwithData($data, 'Get All Product Category Successfully', 200);
     }
 
-    public function update(Request $request, $id){
-
-        $request->validate([
-            'name'=>'required',
-            'description'=>'required|max:400'
-        ]);
+    public function update(CategoryRequest $request, $id){
 
         $product = ProductCategory::find($id);
         $product->update([
@@ -47,19 +38,13 @@ class ProductCategoryController extends Controller
             'description' => $request->description,
         ]);
 
-         return response()->json([
-            $product,
-            'status' => 'success',
-        ]);
+         return $this->apiResponse->successwithData($product, 'Product Category Updated Successfully', 200);
     }
 
     public function delete($id)
     {
         $product = ProductCategory::destroy($id);
-        return response()->json([
-            'msg' => 'Deleted Successfully',
-            $product,
-        ]);
+        return $this->apiResponse->successwithData($product, 'Product Category Deleted Successfully');
     }
 
 }
