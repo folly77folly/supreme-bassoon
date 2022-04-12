@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\ProductSubcategoryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+//Product categories Routes here
+Route::post('create-product-category', [ProductCategoryController::class, 'create']);
+Route::get('product-categories', [ProductCategoryController::class, 'index']);
+Route::post('edit-product-category/{id}', [ProductCategoryController::class, 'update']);
+Route::delete('delete-product-category/{id}', [ProductCategoryController::class, 'delete']);
