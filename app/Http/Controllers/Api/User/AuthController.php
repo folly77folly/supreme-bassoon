@@ -20,7 +20,7 @@ class AuthController extends Controller
     //
     public function register(RegisterRequest $request)
     {
-
+        // dd($request);
         try {
         $newUser = DB::transaction(function ()  use ($request) {
             // code...
@@ -32,32 +32,19 @@ class AuthController extends Controller
                 'email' => strtolower($validatedData["email"]),
                 'phone_no' => $validatedData["phone_no"],
                 'password' => $validatedData["password"],
+                'has_child' => $validatedData['has_child']
             ];
             $latestUser = User::create($userData);
             $user = User::find($latestUser->id);
+            if($validatedData["has_child"]){
+                $user->children()->createMany($validatedData['children']);
+            }
 
             event(new Registered($user));
-            
-            // $accessToken = $user->createToken($userData['email'])->plainTextToken;
-            // $accessToken = $user->createToken('token-name')->plainTextToken;
+            return $user;
 
-            // $data = [
-            //     "auth" => [
-            //         "token" => $accessToken,
-            //     ],
-            //     "profile" => [
-            //         "first_name" => $user->first_name,
-            //         "user_id" => $user->last_name,
-            //         "phone_no" => $user->phone_no,
-            //     ],
-            //     "role" => [
-            //         "id" => $user->role_id,
-            //         "name" => $user->role->name,
-            //     ],
-            // ];
-            // return $data;
         }, 2);
-        return $this->apiResponse->success('Registration Successful Check your mail for verification link');
+        return $this->apiResponse->created($newUser, 'Registration Successful Check your mail for verification link');
         } catch (Throwable $th) {
         DB::Rollback();
             return $this->apiResponse->exceptionFailure($th);
