@@ -21,13 +21,13 @@ class ProductCategoryController extends Controller
             'description' => $request->description,
         ]);
 
-        return $this->apiResponse->successwithData($data, 'Product Category Created Successfully', 200);
+        return $this->apiResponse->successwithData($data, 'Product Category Created Successfully');
     }
 
     public function index(){
 
         $data = ProductCategory::all();
-        return $this->apiResponse->successwithData($data, 'Get All Product Category Successfully', 200);
+        return $this->apiResponse->successwithData($data, 'Get All Product Category Successfully');
     }
 
     public function update(CategoryRequest $request, $id){
@@ -38,7 +38,7 @@ class ProductCategoryController extends Controller
             'description' => $request->description,
         ]);
 
-         return $this->apiResponse->successwithData($product, 'Product Category Updated Successfully', 200);
+         return $this->apiResponse->successwithData($product, 'Product Category Updated Successfully');
     }
 
     public function delete($id)
