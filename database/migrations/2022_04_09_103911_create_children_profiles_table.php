@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('full_name');
             $table->foreignId('gender_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->string('phone_number');
+            $table->integer('age');
+            $table->string('phone_number')->nullable();
             $table->timestamps();
         });
     }
