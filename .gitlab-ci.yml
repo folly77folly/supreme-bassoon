@@ -1,4 +1,4 @@
-image: cylab/php74
+image: keinos/php8-jit:latest
 
 test:
   before_script:
