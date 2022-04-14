@@ -27,6 +27,7 @@ Route::post('create-product-category', [ProductCategoryController::class, 'creat
 Route::get('product-categories', [ProductCategoryController::class, 'index']);
 Route::post('edit-product-category/{id}', [ProductCategoryController::class, 'update']);
 Route::delete('delete-product-category/{id}', [ProductCategoryController::class, 'delete']);
+Route::post('category-subcategories/{category_id}', [ProductCategoryController::class, 'GetSubcategories']);
 
 //Product Subcategory Routes here
 Route::post('create-product-subcategory/{ProductCategoryId}', [ProductSubcategoryController::class, 'create']);

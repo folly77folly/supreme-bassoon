@@ -47,4 +47,29 @@ class ProductCategoryController extends Controller
         return $this->apiResponse->successwithData($product, 'Product Category Deleted Successfully');
     }
 
+    //Get all produc subtcategory related a product category method
+    public function GetSubcategories($category_id){
+
+        $ProductCategory = ProductCategory::find($category_id);
+        if($ProductCategory){
+
+           $ProductSubCategory = ProductCategory::find($category_id)->ProductSubcategory;
+
+           if(!$ProductSubCategory){
+
+             return $this->apiResponse->failure('Product Category doesnt have subcategories');
+             
+           }else{
+             
+             return $this->apiResponse->successwithData($ProductSubCategory);
+
+           }
+        }else{
+            return $this->apiResponse->failure('Product Category not found');
+        }
+
+    }
+    
+
+ 
 }
