@@ -1,7 +1,9 @@
-image: keinos/php8-jit:latest
+image: php:latest
 
 test:
   before_script:
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar install
     # use our custom .env file
     - cp .env.testing .env
 
