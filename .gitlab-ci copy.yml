@@ -1,0 +1,28 @@
+image: cylab/php74
+
+test:
+  before_script:
+    # use our custom .env file
+    - cp env.testing .env
+
+    # install the application
+    - COMPOSER_CACHE_DIR=composer-cache composer install
+    - php artisan key:generate
+    - touch storage/app/db.sqlite
+    - php artisan migrate
+
+    # Optionally, we can install nodejs to build our js and css files
+    - curl -sL https://deb.nodesource.com/setup_10.x | bash -
+    - apt install nodejs -y
+    - npm install
+    - npm run prod
+
+  # run the tests
+  script:
+    - vendor/bin/phpunit
+
+  # what we want to store locally to speed up the next run of this job
+  cache:
+    paths:
+      - composer-cache/
+      - node_modules/
