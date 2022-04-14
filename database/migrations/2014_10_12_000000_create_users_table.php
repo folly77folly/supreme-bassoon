@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('otp_code')->nullable();
             $table->timestamp('otp_expiry')->nullable();
             $table->boolean('is_active')->default(1);
+            $table->ipAddress('ip_address')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
