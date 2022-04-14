@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\City;
+use App\Models\State;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -18,8 +20,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('full_name')->nullable();
             $table->string('phone_no')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
+            $table->foreignIdFor(City::class)->nullable();
+            $table->foreignIdFor(State::class)->nullable();
             $table->timestamps();
         });
     }
