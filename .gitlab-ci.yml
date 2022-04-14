@@ -3,7 +3,7 @@ image: cylab/php74
 test:
   before_script:
     # use our custom .env file
-    - cp env.testing .env
+    - cp .env.testing .env
 
     # install the application
     - COMPOSER_CACHE_DIR=composer-cache composer install
