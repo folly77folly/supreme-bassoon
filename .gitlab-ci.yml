@@ -15,8 +15,8 @@ services:
   - mysql:latest
 
 variables:
-  MYSQL_DATABASE: project_name
-  MYSQL_ROOT_PASSWORD: secret
+  MYSQL_DATABASE: bc_ecommerce_backend
+  MYSQL_ROOT_PASSWORD: password
 
 # This folder is cached between builds
 # https://docs.gitlab.com/ee/ci/yaml/index.html#cache
