@@ -17,10 +17,10 @@ test:
     - php artisan migrate
 
     # Optionally, we can install nodejs to build our js and css files
-    - curl -sL https://deb.nodesource.com/setup_10.x | bash -
-    - apt install nodejs -y
-    - npm install
-    - npm run prod
+    # - curl -sL https://deb.nodesource.com/setup_10.x | bash -
+    # - apt install nodejs -y
+    # - npm install
+    # - npm run prod
 
   # run the tests
   script:
@@ -30,4 +30,4 @@ test:
   cache:
     paths:
       - composer-cache/
-      - node_modules/
+      # - node_modules/
