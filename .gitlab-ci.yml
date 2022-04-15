@@ -14,7 +14,7 @@ test:
     # - COMPOSER_CACHE_DIR=composer-cache composer install
     - php artisan key:generate
     - touch storage/app/db.sqlite
-    - php artisan migrate
+    - php artisan migrate:fresh --seed
 
     # Optionally, we can install nodejs to build our js and css files
     # - curl -sL https://deb.nodesource.com/setup_10.x | bash -
