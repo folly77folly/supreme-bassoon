@@ -1,5 +1,9 @@
 image: php:latest
 
+stages:
+  - test
+  - deploy
+
 test:
   before_script:
     - apt-get update -yqq
@@ -25,9 +29,13 @@ test:
   # run the tests
   script:
     - vendor/bin/phpunit
+    - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY
 
   # what we want to store locally to speed up the next run of this job
   cache:
     paths:
       - composer-cache/
       # - node_modules/
+deploy:
+  script:
+    - echo 'done'
