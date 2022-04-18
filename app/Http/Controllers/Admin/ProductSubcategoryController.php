@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ProductSubcategory;
+use App\Models\ProductSubCategory;
 use App\Models\ProductCategory;
 use App\Service\ApiResponseService;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class ProductSubcategoryController extends Controller
 
         if($ProductCategory){
 
-           $ProductSubCategory = ProductSubcategory::create([
+           $ProductSubCategory = ProductSubCategory::create([
               'name' => $request->name,
               'product_category_id' => $ProductCategory->id,
            ]);
@@ -46,7 +46,7 @@ class ProductSubcategoryController extends Controller
 
         if($ProductCategory){
 
-            $ProductSubcategoryId = ProductSubcategory::find($id);
+            $ProductSubcategoryId = ProductSubCategory::find($id);
             if($ProductSubcategoryId){
 
                 $ProductSubcategoryId->update([
@@ -68,7 +68,7 @@ class ProductSubcategoryController extends Controller
     //Delete Product Subcategory method here
     public function delete($id)
     {
-        $product = ProductSubcategory::destroy($id);
+        $product = ProductSubCategory::destroy($id);
         return $this->apiResponse->successwithData($product, 'Product SubCategory Deleted Successfully');
     }
 
