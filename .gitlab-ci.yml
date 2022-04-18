@@ -2,12 +2,13 @@ image: php:latest
 
 stages:
   - test
-  - deploy
+  - staging
 
 test:
   before_script:
     - apt-get update -yqq
     - apt-get -y install git
+    - gem install dpl
     # - docker-php-ext-install mbstring pdo_mysql curl json intl gd xml zip bz2 opcache
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
@@ -36,6 +37,10 @@ test:
     paths:
       - composer-cache/
       # - node_modules/
-deploy:
-  script:
-    - echo 'done'
+staging:
+    stage: staging
+    image: php:latest
+    script:
+        - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY
+    only:
+        - development
