@@ -36,5 +36,7 @@ test:
       - composer-cache/
       # - node_modules/
 deploy:
+  before_script:
+    - echo 'b4 script'
   script:
     - echo 'done'
