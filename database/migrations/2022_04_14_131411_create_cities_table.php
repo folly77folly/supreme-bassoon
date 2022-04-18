@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('children_profiles', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->string('full_name');
-            $table->foreignId('gender_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('age');
-            $table->string('phone_number')->nullable();
+            $table->string('name');
+            $table->foreignId('state_id')->constrained();
+            $table->boolean('is_active')->default(1)->comment('0=>inactive', '1=>active');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('children_profiles');
+        Schema::dropIfExists('cities');
     }
 };
