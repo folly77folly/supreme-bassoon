@@ -45,3 +45,5 @@ deploy:
   script:
     - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY
     - echo 'done'
+  only:
+    - development
