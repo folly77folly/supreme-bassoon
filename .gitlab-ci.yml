@@ -1,0 +1,49 @@
+image: php:latest
+
+stages:
+  - test
+  - deploy
+
+test:
+  before_script:
+    - apt-get update -yqq
+    - apt-get -y install git
+    # - docker-php-ext-install mbstring pdo_mysql curl json intl gd xml zip bz2 opcache
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar install
+    # use our custom .env file
+    - cp .env.testing .env
+
+    # install the application
+    # - COMPOSER_CACHE_DIR=composer-cache composer install
+    - php artisan key:generate
+    - touch storage/app/db.sqlite
+    - php artisan migrate:fresh --seed
+
+    # Optionally, we can install nodejs to build our js and css files
+    # - curl -sL https://deb.nodesource.com/setup_10.x | bash -
+    # - apt install nodejs -y
+    # - npm install
+    # - npm run prod
+
+  # run the tests
+  script:
+    - vendor/bin/phpunit
+
+  # what we want to store locally to speed up the next run of this job
+  cache:
+    paths:
+      - composer-cache/
+      # - node_modules/
+deploy:
+  before_script:
+    - echo 'b4 script'
+    - apt-get update -qq
+    - apt-get install -y -qq git
+    - apt-get install -y ruby
+    - gem install dpl
+  script:
+    - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY
+    - echo 'done'
+  only:
+    - development
