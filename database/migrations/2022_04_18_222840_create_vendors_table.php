@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('vendor_name');
             $table->string('contact_name');
-            $table->integer('phone_number');
-            $table->string('email')->unique();
+            $table->VARCHAR('phone_no');
+            $table->string('email');
             $table->string('store_address');
             $table->string('description');
             $table->timestamps();

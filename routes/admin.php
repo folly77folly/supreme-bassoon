@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductSubcategoryController;
+use App\Http\Controllers\Admin\VendorController;
 
 
 /*
@@ -34,3 +35,6 @@ Route::post('create-product-subcategory/{ProductCategoryId}', [ProductSubcategor
 Route::get('product-subcategories', [ProductSubcategoryController::class, 'index']);
 Route::post('edit-product-subcategory/{ProductCategoryId}/{id}', [ProductSubcategoryController::class, 'update']);
 Route::delete('delete-product-subcategory/{id}', [ProductSubcategoryController::class, 'delete']);
+
+//Vendors Routes definred here
+Route::post('create-vendor', [VendorController::class, 'create']);
