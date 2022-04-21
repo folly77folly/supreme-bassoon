@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -69,7 +69,7 @@ class ProductSubcategoryController extends Controller
     public function delete($id)
     {
         $product = ProductSubCategory::destroy($id);
-        return $this->apiResponse->successwithData($product, 'Product SubCategory Deleted Successfully');
+        return $this->apiResponse->success('Product SubCategory Deleted Successfully');
     }
 
 
