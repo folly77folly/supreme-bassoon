@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\City;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 
 class CitySeeder extends Seeder
