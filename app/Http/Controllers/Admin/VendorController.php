@@ -19,7 +19,7 @@ class VendorController extends Controller
        $vendor->contact_name = $request->contact_name;
        $vendor->phone_no = $request->phone_no;
        $vendor->email = $request->email;
-       $vendor->state_address = $request->state_address;
+       $vendor->store_address = $request->store_address;
        $vendor->description = $request->description;
 
        $vendor->save();

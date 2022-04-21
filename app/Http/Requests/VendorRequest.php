@@ -28,7 +28,7 @@ class VendorRequest extends FormRequest
             'contact_name'=> 'required',
             'phone_no' => 'required|regex:/^\+234[0-9]{10}/',
             'email'=> ['required','email:rfc,dns', 'unique:users'],
-            'state_address' => 'required',
+            'store_address' => 'required',
             'description' => 'required',
         ];
     }
