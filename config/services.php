@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'cloudinary' => [
+        'cloudinary_url' => env('CLOUDINARY_URL', 'cloudinary://621744322635994:Ae52325MUyyE9Lkng-vwNaxvOOU@valenci007'),
+        'cloudinary_upload_preset' => env('CLOUDINARY_UPLOAD_PRESET'),
+        'cloudinary_notification_url' => env('CLOUDINARY_NOTIFICATION_URL'),
+    ],
+
 ];

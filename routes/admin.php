@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Api\Admin\MediaUploadController;
 use App\Http\Controllers\Admin\ProductSubcategoryController;
+
 
 
 /*
@@ -27,3 +29,6 @@ Route::post('create-product-category', [ProductCategoryController::class, 'creat
 Route::get('product-categories', [ProductCategoryController::class, 'index']);
 Route::post('edit-product-category/{id}', [ProductCategoryController::class, 'update']);
 Route::delete('delete-product-category/{id}', [ProductCategoryController::class, 'delete']);
+Route::apiResources([
+    'media-upload'=> MediaUploadController::class,
+]);
