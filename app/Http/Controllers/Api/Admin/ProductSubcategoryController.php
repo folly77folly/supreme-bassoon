@@ -16,19 +16,19 @@ class ProductSubcategoryController extends Controller
 
         $ProductCategory = ProductCategory::find($ProductCategoryId);
 
-        if($ProductCategory){
+        if(!$ProductCategory){
 
-           $ProductSubCategory = ProductSubCategory::create([
-              'name' => $request->name,
-              'product_category_id' => $ProductCategory->id,
-           ]);
-
-           return $this->apiResponse->successwithData($ProductSubCategory, 'Product Subcategory Created Successfully');
-
-        }else{
             return $this->apiResponse->failure('No such product category id');
-        }
 
+        }
+           
+        $ProductSubCategory = ProductSubCategory::create([
+            'name' => $request->name,
+            'product_category_id' => $ProductCategory->id,
+        ]);
+
+        return $this->apiResponse->successwithData($ProductSubCategory, 'Product Subcategory Created Successfully');
+           
     }
 
     //Show all product subcategories here
