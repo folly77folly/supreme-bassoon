@@ -26,7 +26,7 @@ class VendorRequest extends FormRequest
         return [
             'vendor_name'=> 'required|string|max:400',
             'contact_name'=> 'required|max:400',
-            'phone_no' => 'required|regex:/^\+234[0-9]{10}/',
+            'phone_no' => 'required|regex:/^\+234[0-9]{10}/|unique:vendors',
             'email'=> ['required','email:rfc,dns', 'unique:vendors'],
             'store_address' => 'required|max:400',
             'description' => 'required|max:400',
