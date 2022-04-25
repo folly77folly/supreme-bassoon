@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ProductSubcategory;
+use App\Models\ProductSubCategory;
 
 class ProductCategory extends Model
 {
@@ -23,7 +23,7 @@ class ProductCategory extends Model
 
     //Relationship function goes here
     public function ProductSubcategory(){
-        return $this->hasMany(ProductSubcategory::class);
+        return $this->hasMany(ProductSubCategory::class);
     }
 
 
