@@ -65,15 +65,11 @@ class CloudinaryService{
         return date('YmdHi').'_'.Str::Slug($filename,'_');
     }
 
-    public function removeMedia($file)
+    public function removeMedia($url)
     {
-        $arraySplits = explode('/',$file);
-        $arrayCount = count($arraySplits);
-        $folderName = $arraySplits[$arrayCount-2];
-        $lastArray = end($arraySplits);
-        $fileName =explode('.',$lastArray);
-        $result = $fileName[0];
-        $answer = Cloudinary::destroy($folderName.'/'.$result);
+        $folderName = bc_get_folder_name_from_url($url);
+        $fileName = bc_get_file_name_from_url($url);
+        $answer = Cloudinary::destroy($folderName.'/'.$fileName);
 
     }
 

@@ -31,12 +31,8 @@ class MediaUploadController extends Controller
     public function store(SaveMediaUploadRequest $request)
     {
         //
-        // dd($request->file('files')->getRealPath());
-        // $uploadedFileUrl = Cloudinary::upload($request->file('files')->getRealPath())->getSecurePath();
-        // dd($uploadedFileUrl);
         $validatedData = $request->validated();
-        // dd($request->has('files'));
-        if(!$request->has('files')){
+        if(!$request->hasFile('files')){
             return $this->apiResponse->failure('Files to upload not found');
         }
         $imagesAllowedExtension = ['bmp','jpg','png', 'jpeg'];
