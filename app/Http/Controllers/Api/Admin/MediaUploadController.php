@@ -93,8 +93,20 @@ class MediaUploadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         //
+        try {
+            //code...
+            $file = new CloudinaryService;
+            $file->removeMedia($request->file);
+            return $this->apiResponse->success('File deleted successfully');
+        } catch (\Throwable $th) {
+            //throw $th;
+            Log::error($th->getMessage());
+            Log::error($th->getFile());
+            Log::error($th->getLine());
+            return $this->apiResponse->failure('something went wrong');
+        }
     }
 }

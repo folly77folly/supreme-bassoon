@@ -3,6 +3,7 @@ namespace App\Service;
 
 
 
+use Illuminate\Support\Str;
 use App\Exceptions\ApiResponseException;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
@@ -28,12 +29,11 @@ class CloudinaryService{
         //upload file
         foreach ($files as $key => $file) {
             # code...
-            // dd($file->getRealPath());
-            // $fileUrl = Cloudinary::upload($file)->getRealPath()->getSecurePath();
-            // $request->file->storeOnCloudinary('lambogini');
-            $uploadedFileUrl = $file->storeOnCloudinary($folderName);
-            // $uploadedFileUrl = Cloudinary::upload($file->getRealPath())->getSecurePath();
-            $result[] = $uploadedFileUrl;
+            // dd($files);
+            $fileName = $this->getCustomFileName($file);
+            $uploadedFileUrl = $file->storeOnCloudinaryAs($folderName, $fileName);
+
+            $result[] = $uploadedFileUrl->getSecurePath();
         }
         return $result;
     }
@@ -57,5 +57,24 @@ class CloudinaryService{
         return true;
     }
 
+    public function getCustomFileName($file)
+    {
+        $fileNameWithExtension = $file->getClientOriginalName();
+        //get filename without extension
+        $filename = pathinfo($fileNameWithExtension, PATHINFO_FILENAME);
+        return date('YmdHi').'_'.Str::Slug($filename,'_');
+    }
+
+    public function removeMedia($file)
+    {
+        $arraySplits = explode('/',$file);
+        $arrayCount = count($arraySplits);
+        $folderName = $arraySplits[$arrayCount-2];
+        $lastArray = end($arraySplits);
+        $fileName =explode('.',$lastArray);
+        $result = $fileName[0];
+        $answer = Cloudinary::destroy($folderName.'/'.$result);
+
+    }
 
 }
