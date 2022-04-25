@@ -24,7 +24,7 @@ class VendorRequest extends FormRequest
     public function rules()
     {
         return [
-            'vendor_name'=> 'required|string|max:400',
+            'vendor_name'=> 'required|string|max:400|unique:vendors',
             'contact_name'=> 'required|max:400',
             'phone_no' => 'required|regex:/^\+234[0-9]{10}/|unique:vendors',
             'email'=> ['required','email:rfc,dns', 'unique:vendors'],
@@ -33,6 +33,7 @@ class VendorRequest extends FormRequest
         ];
     }
 
+   
     //Define error message
     public function messages(){
 

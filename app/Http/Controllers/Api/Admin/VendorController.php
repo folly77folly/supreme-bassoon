@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Service\ApiResponseService;
+use App\Http\Requests\EditVendorRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Vendor;
-use App\Service\ApiResponseService;
 use App\Http\Requests\VendorRequest;
 
 class VendorController extends Controller
@@ -15,12 +17,13 @@ class VendorController extends Controller
 
        $vendor = new Vendor;
 
-       $vendor->vendor_name = $request->vendor_name;
-       $vendor->contact_name = $request->contact_name;
+       $vendor->vendor_name = strtolower($request->vendor_name);
+       $vendor->contact_name = strtolower($request->contact_name);
        $vendor->phone_no = $request->phone_no;
-       $vendor->email = $request->email;
+       $vendor->email = strtolower($request->email);
        $vendor->store_address = $request->store_address;
        $vendor->description = $request->description;
+       $vendor->slug = Str::slug($request->vendor_name);
 
        $vendor->save();
 
@@ -31,7 +34,7 @@ class VendorController extends Controller
     //Get all vendors method
     public function index(){
 
-       $vendors = Vendor::all();
+       $vendors = Vendor::paginate(4);
        return $this->apiResponse->successwithData($vendors, 'List of all vendors');
 
     }
@@ -39,14 +42,15 @@ class VendorController extends Controller
     //Update vendore method defined here
     public function update(VendorRequest $request, $id){
 
-      $vendors = Vendor::find($id);
+      $vendors = Vendor::findOrFail($id);
 
-       $vendors->vendor_name = $request->vendor_name;
-       $vendors->contact_name = $request->contact_name;
+       $vendors->vendor_name = strtolower($request->vendor_name);
+       $vendors->contact_name = strtolower($request->contact_name);
        $vendors->phone_no = $request->phone_no;
-       $vendors->email = $request->email;
+       $vendors->email = strtolower($request->email);
        $vendors->store_address = $request->store_address;
        $vendors->description = $request->description;
+       $vendors->slug = Str::slug($request->vendor_name);
 
        $vendors->save();
 
@@ -60,5 +64,11 @@ class VendorController extends Controller
     {
         $vendor = Vendor::destroy($id);
         return $this->apiResponse->success('Product SubCategory Deleted Successfully');
+    }
+
+    //Show a vendor
+    public function show(Request $request, Vendor $vendor){
+     
+      return $vendor;
     }
 }

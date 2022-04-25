@@ -41,3 +41,4 @@ Route::post('create-vendor', [VendorController::class, 'create']);
 Route::get('all-vendors', [VendorController::class, 'index']);
 Route::post('edit-vendors/{id}', [VendorController::class, 'update']);
 Route::delete('delete-vendors/{id}', [VendorController::class, 'delete']);
+Route::get('show-vendor/{vendor:slug}', [VendorController::class, 'show']);

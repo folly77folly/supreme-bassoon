@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('store_address');
             $table->string('description');
             $table->boolean('is_active')->default(1);
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
