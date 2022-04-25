@@ -49,7 +49,7 @@ class VendorController extends Controller
        $vendors = Vendor::where('slug', $slug)->first();
 
        if(!$vendors){
-         return $this->apiResponse->failure('Slug not found');
+         return $this->apiResponse->failure('Vendor not found');
        }
        $vendors->vendor_name = strtolower($request->vendor_name);
        $vendors->contact_name = strtolower($request->contact_name);
@@ -65,7 +65,7 @@ class VendorController extends Controller
 
    }
 
-   
+
     //Delete Vendors method here
     
     public function delete($id)
