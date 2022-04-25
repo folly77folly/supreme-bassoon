@@ -44,10 +44,13 @@ class VendorController extends Controller
     //Update vendore method defined here
     public function update(VendorRequest $request, $slug){
 
-      $formData = $request->validated();
+       $formData = $request->validated();
 
        $vendors = Vendor::where('slug', $slug)->first();
 
+       if(!$vendors){
+         return $this->apiResponse->failure('Slug not found');
+       }
        $vendors->vendor_name = strtolower($request->vendor_name);
        $vendors->contact_name = strtolower($request->contact_name);
        $vendors->phone_no = $request->phone_no;
@@ -60,8 +63,9 @@ class VendorController extends Controller
 
        return $this->apiResponse->successwithData($vendors, 'Vendor Updated successfully');
 
-    }
+   }
 
+   
     //Delete Vendors method here
     
     public function delete($id)
