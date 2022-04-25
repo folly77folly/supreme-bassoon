@@ -32,7 +32,7 @@ class ProductCategoryController extends Controller
 
     public function update(CategoryRequest $request, $id){
 
-        $product = ProductCategory::find($id);
+        $product = ProductCategory::findOrFail($id);
         $product->update([
             'name' => $request->name,
             'description' => $request->description,
@@ -41,32 +41,29 @@ class ProductCategoryController extends Controller
          return $this->apiResponse->successwithData($product, 'Product Category Updated Successfully');
     }
 
+    //Delete Method
     public function delete($id)
     {
         $product = ProductCategory::destroy($id);
         return $this->apiResponse->successwithData($product, 'Product Category Deleted Successfully');
     }
 
+
     //Get all produc subtcategory related a product category method
     public function GetSubcategories($category_id){
 
-        $ProductCategory = ProductCategory::find($category_id);
-        if($ProductCategory){
+           $ProductCategory = ProductCategory::find($category_id);
+           if(!$ProductCategory){
+              return $this->apiResponse->failure('Category not found');
+           }
 
            $ProductSubCategory = ProductCategory::find($category_id)->ProductSubcategory;
-
            if(!$ProductSubCategory){
-
-             return $this->apiResponse->failure('Product Category doesnt have subcategories');
-             
-           }else{
-             
-             return $this->apiResponse->successwithData($ProductSubCategory);
-
+                return $this->apiResponse->failure('Category doesnt have sub-category');
            }
-        }else{
-            return $this->apiResponse->failure('Product Category not found');
-        }
+
+            return $this->apiResponse->successwithData($ProductSubCategory);
+       
 
     }
     

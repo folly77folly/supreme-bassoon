@@ -15,6 +15,8 @@ class VendorController extends Controller
     //create vendor method here
     public function create(VendorRequest $request){
 
+       $formData = $request->validated();
+
        $vendor = new Vendor;
 
        $vendor->vendor_name = strtolower($request->vendor_name);
@@ -40,9 +42,11 @@ class VendorController extends Controller
     }
 
     //Update vendore method defined here
-    public function update(VendorRequest $request, $id){
+    public function update(VendorRequest $request, $slug){
 
-      $vendors = Vendor::findOrFail($id);
+      $formData = $request->validated();
+
+       $vendors = Vendor::where('slug', $slug)->first();
 
        $vendors->vendor_name = strtolower($request->vendor_name);
        $vendors->contact_name = strtolower($request->contact_name);

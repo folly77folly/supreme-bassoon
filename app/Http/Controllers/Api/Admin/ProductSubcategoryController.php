@@ -14,13 +14,9 @@ class ProductSubcategoryController extends Controller
 {
     public function create(SubcategoryRequest $request, $ProductCategoryId){
 
-        $ProductCategory = ProductCategory::find($ProductCategoryId);
+        $formData = $request->validated();
 
-        if(!$ProductCategory){
-
-            return $this->apiResponse->failure('No such product category id');
-
-        }
+        $ProductCategory = ProductCategory::findOrFail($ProductCategoryId);
            
         $ProductSubCategory = ProductSubCategory::create([
             'name' => $request->name,
@@ -42,6 +38,8 @@ class ProductSubcategoryController extends Controller
     //Edit Product subcategory method
     public function update(SubcategoryRequest $request, $ProductCategoryId, $id){
 
+        $formData = $request->validated();
+        
         $ProductCategory = ProductCategory::find($ProductCategoryId);
 
         if($ProductCategory){

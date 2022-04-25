@@ -11,16 +11,17 @@ return new class extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
-            $table->string('vendor_name');
-            $table->string('contact_name');
-            $table->string('phone_no', 64);
-            $table->string('email');
-            $table->string('store_address');
-            $table->string('description');
+            $table->string('vendor_name', 50)->unique();
+            $table->string('contact_name', 50)->unique();
+            $table->string('phone_no', 20);
+            $table->string('email')->unique();
+            $table->string('store_address', 150);
+            $table->string('description', 200);
             $table->boolean('is_active')->default(1);
             $table->string('slug')->unique();
             $table->timestamps();

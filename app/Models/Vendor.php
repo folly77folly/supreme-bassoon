@@ -9,8 +9,19 @@ class Vendor extends Model
 {
     use HasFactory;
 
-     protected $fillable = ['vendor_name', 'contact_name', 'phone_no', 'email', 'state_address', 'description', 'is_active'];
+    protected $fillable = [
 
+         'vendor_name', 
+         'contact_name', 
+         'phone_no', 
+         'email', 
+         'state_address', 
+         'description', 
+         'is_active'
+     ];
+
+
+     //Define Casts here
      protected $casts = [
         'is_active' => 'boolean',
      ];
