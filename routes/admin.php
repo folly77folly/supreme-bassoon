@@ -2,9 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Api\Admin\MediaUploadController;
-use App\Http\Controllers\Admin\ProductSubcategoryController;
+use App\Http\Controllers\Api\Admin\ProductCategoryController;
+use App\Http\Controllers\Api\Admin\ProductSubcategoryController;
+use App\Http\Controllers\Api\Admin\VendorController;
 
 
 
@@ -32,3 +33,17 @@ Route::delete('delete-product-category/{id}', [ProductCategoryController::class,
 Route::apiResources([
     'media-upload'=> MediaUploadController::class,
 ]);
+Route::post('category-subcategories/{category_id}', [ProductCategoryController::class, 'GetSubcategories']);
+
+//Product Subcategory Routes here
+Route::post('create-product-subcategory/{ProductCategoryId}', [ProductSubcategoryController::class, 'create']);
+Route::get('product-subcategories', [ProductSubcategoryController::class, 'index']);
+Route::post('edit-product-subcategory/{ProductCategoryId}/{id}', [ProductSubcategoryController::class, 'update']);
+Route::delete('delete-product-subcategory/{id}', [ProductSubcategoryController::class, 'delete']);
+
+//Vendors Routes definred here
+Route::post('create-vendor', [VendorController::class, 'create']);
+Route::get('all-vendors', [VendorController::class, 'index']);
+Route::post('edit-vendors/{vendor:slug}', [VendorController::class, 'update']);
+Route::delete('delete-vendors/{id}', [VendorController::class, 'delete']);
+Route::get('show-vendor/{vendor:slug}', [VendorController::class, 'show']);
