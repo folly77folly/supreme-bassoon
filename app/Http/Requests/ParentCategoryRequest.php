@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubcategoryRequest extends FormRequest
+class ParentCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,8 @@ class SubcategoryRequest extends FormRequest
     {
         return [
             //Validation rules goes here
-            'name'=>'required|string|max:255|unique:product_sub_categories',
+            'name'=>'required|string|max:255|unique:parent_categories',
+            'product_category_id' => 'required|exists:product_categories,id'
         ];
     }
 }
