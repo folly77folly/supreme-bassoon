@@ -32,7 +32,6 @@ class RegisterRequest extends FormRequest
             'email'=> ['required','email:rfc,dns', 'unique:users'],
             "phone_no" => ['required', 'numeric','digits:11'],
             "has_child" => ['required','boolean'],
-            // 'password'=> ['required','confirmed','min:8','regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'],
             'password'=> ['required','confirmed',Password::min(8)
             ->letters()
             ->mixedCase()
@@ -41,7 +40,6 @@ class RegisterRequest extends FormRequest
             ->uncompromised()
             ],
             "ip_address" => ['filled'],
-            // 'children' => ['required_if:has_child,1', 'array:full_name,gender,age']
             'children.*.full_name' => ['required_if:has_child,1', 'max:40'],
             'children.*.gender_id' => ['required_if:has_child,1', 'integer', 'exists:genders,id'],
             'children.*.age' => ['required_if:has_child,1', 'integer', 'gt:0'],

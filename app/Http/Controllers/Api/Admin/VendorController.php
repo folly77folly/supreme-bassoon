@@ -13,7 +13,7 @@ use App\Http\Requests\VendorRequest;
 class VendorController extends Controller
 {
     //create vendor method here
-    public function create(VendorRequest $request){
+    public function store(VendorRequest $request){
 
        $formData = $request->validated();
 
@@ -29,19 +29,19 @@ class VendorController extends Controller
 
        $vendor->save();
 
-       return $this->apiResponse->successwithData($vendor, 'Vendor created successfully');
+       return $this->apiResponse->created($vendor, 'Vendor created successfully');
 
     }
 
     //Get all vendors method
     public function index(){
 
-       $vendors = Vendor::paginate(4);
-       return $this->apiResponse->successwithData($vendors, 'List of all vendors');
+       $vendors = Vendor::paginate(config('constants.PAGE_LIMIT.user'));
+       return $this->apiResponse->successWithData($vendors, 'List of all vendors');
 
     }
 
-    //Update vendore method defined here
+    //Update vendor method defined here
     public function update(VendorRequest $request, $slug){
 
        $formData = $request->validated();
@@ -61,22 +61,25 @@ class VendorController extends Controller
 
        $vendors->save();
 
-       return $this->apiResponse->successwithData($vendors, 'Vendor Updated successfully');
+       return $this->apiResponse->successWithData($vendors, 'Vendor Updated successfully');
 
    }
 
 
     //Delete Vendors method here
     
-    public function delete($id)
+    public function destroy($id)
     {
         $vendor = Vendor::destroy($id);
-        return $this->apiResponse->success('Product SubCategory Deleted Successfully');
+        return $this->apiResponse->success('Vendor  deleted successfully');
     }
 
     //Show a vendor
-    public function show(Request $request, Vendor $vendor){
-     
-      return $vendor;
+    public function show($slug){
+      $vendor = Vendor::where('slug', $slug)->first();
+      if(!$vendor){
+        return $this->apiResponse->failure('Vendor not found');
+      }
+      return $this->apiResponse->successWithData($vendor, 'Vendor retrieved successfully',);
     }
 }

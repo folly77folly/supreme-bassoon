@@ -32,15 +32,10 @@ Route::post('edit-product-category/{id}', [ProductCategoryController::class, 'up
 Route::delete('delete-product-category/{id}', [ProductCategoryController::class, 'delete']);
 Route::apiResources([
     'media-upload'=> MediaUploadController::class,
+    'vendor' => VendorController::class,
 ]);
 Route::post('category-subcategories/{category_id}', [ProductCategoryController::class, 'GetSubcategories']);
 
-//Vendors Routes definred here
-Route::post('create-vendor', [VendorController::class, 'create']);
-Route::get('all-vendors', [VendorController::class, 'index']);
-Route::post('edit-vendors/{vendor:slug}', [VendorController::class, 'update']);
-Route::delete('delete-vendors/{id}', [VendorController::class, 'delete']);
-Route::get('show-vendor/{vendor:slug}', [VendorController::class, 'show']);
 
 //Parent Category Routes defined here
 Route::get('parent-category', [ParentCategoryController::class, 'index']);
