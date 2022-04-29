@@ -26,7 +26,7 @@ class ParentCategoryRequest extends FormRequest
         return [
             //Validation rules goes here
             'name'=>'required|string|max:255|unique:parent_categories',
-            'product_category_id' => 'required'
+            'product_category_id' => 'required|exists:product_categories,id'
         ];
     }
 }
