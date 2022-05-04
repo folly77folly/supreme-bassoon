@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Vendor;
 
 use Tests\TestCase;
 use App\Models\Vendor;
@@ -66,6 +66,17 @@ class VendorFeatureTest extends TestCase
         $response = $this->withHeaders([
             'Accept' => "application/json",
         ])->getJson('/api/admin/vendor/'.$vendor->slug);
+
+        $response->assertOk();
+    }
+
+    public function test_thant_i_can_view_all_vendors()
+    {
+        $vendor = Vendor::factory()->create();
+
+        $response = $this->withHeaders([
+            'Accept' => "application/json",
+        ])->getJson('/api/admin/vendor');
 
         $response->assertOk();
     }

@@ -7,12 +7,19 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production"         
     },
     "devDependencies": {
         "axios": "^0.25",
+        "husky": "^4.3.8",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+
+    "husky":{
+        "hooks":{
+            "pre-commit":"php artisan test --parallel"
+        }
     }
 }

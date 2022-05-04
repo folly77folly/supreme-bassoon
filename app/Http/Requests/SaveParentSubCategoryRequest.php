@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ParentCategoryRequest extends FormRequest
+class SaveParentSubCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,10 @@ class ParentCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        // dd($this->request->method());
         return [
-            //Validation rules goes here
-            'name'=>'required|string|max:255|unique:parent_categories,name',
-            'product_category_id' => 'required|exists:product_categories,id',
+            //
+            'name'=>'required|string|max:255|unique:parent_sub_categories,name',
+            'parent_category_id' => 'required|exists:parent_categories,id',
             'description' => ['nullable'],
             'banner_image' => ['nullable'],
             'thumbnail_image' => ['nullable'],

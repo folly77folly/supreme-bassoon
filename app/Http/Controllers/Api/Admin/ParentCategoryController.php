@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ParentCategory;
 use App\Models\ProductCategory;
 use App\Service\ApiResponseService;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ParentCategoryRequest;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\EditParentCategoryRequest;
 
 class ParentCategoryController extends Controller
 {
@@ -19,25 +20,8 @@ class ParentCategoryController extends Controller
      */
     public function index()
     {
-        $data = ParentCategory::paginate(5);
-        return $this->apiResponse->successwithData($data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(ParentCategoryRequest $request)
-    {
-         $formData = $request->validated();
-
-         $ProductCategory = ProductCategory::findOrFail($request->product_category_id);
-         $ParentCategory = ParentCategory::create([
-            'name' => $request->name,
-            'product_category_id' => $ProductCategory->id,
-         ]);
-        return $this->apiResponse->successwithData($ParentCategory, 'Parent Category Created Successfully');
+        $data = ParentCategory::with('parentSubCategory')->paginate(config('constants.PAGE_LIMIT.admin'));
+        return $this->apiResponse->successWithData($data);
     }
 
     /**
@@ -46,9 +30,14 @@ class ParentCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ParentCategoryRequest $request)
     {
         //
+        $formData = $request->validated();
+        $ProductCategory = ProductCategory::find($request->product_category_id);
+        $ParentCategory = $ProductCategory->parentCategory()->create($formData);
+
+       return $this->apiResponse->created($ParentCategory, 'Parents Category Created Successfully');
     }
 
     /**
@@ -60,17 +49,9 @@ class ParentCategoryController extends Controller
     public function show($id)
     {
         //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-       
+        $ParentCategory = ParentCategory::findOrFail($id);
+        $data = $ParentCategory->load('parentSubCategory');
+        return $this->apiResponse->successWithData($data);
     }
 
     /**
@@ -80,17 +61,14 @@ class ParentCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ParentCategoryRequest $request, $id)
+    public function update(EditParentCategoryRequest $request, $id)
     {
         $formData = $request->validated();
 
-        $ParentCategoryId = ParentCategory::find($id);
-        $ParentCategoryId->update([
-            'name' => $request->name,
-            'product_category_id' => $request->product_category_id,
-        ]);
+        $ParentCategory = ParentCategory::findOrFail($id);
+        $data = $ParentCategory->fill($request->all());
 
-        return $this->apiResponse->successwithData($ParentCategoryId, 'Parent Category Updated Successfully');
+        return $this->apiResponse->successWithData($data, 'Parent Category Updated Successfully');
     }
 
     /**
