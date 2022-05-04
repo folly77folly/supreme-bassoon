@@ -20,7 +20,7 @@ class AuthController extends Controller
     //
     public function register(RegisterRequest $request)
     {
-        // dd($request);
+
         try {
         $newUser = DB::transaction(function ()  use ($request) {
             // code...
@@ -109,6 +109,6 @@ class AuthController extends Controller
         $newPassword = $validatedData['new_password'];
         $user->password = Hash::make($newPassword);
         $user->save();
-        return $this->apiResponse->successwithData('Password changed successfully', Response::HTTP_OK, $user);
+        return $this->apiResponse->successWithData('Password changed successfully', Response::HTTP_OK, $user);
     }
 }

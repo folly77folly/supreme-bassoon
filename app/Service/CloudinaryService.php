@@ -29,7 +29,6 @@ class CloudinaryService{
         //upload file
         foreach ($files as $key => $file) {
             # code...
-            // dd($files);
             $fileName = $this->getCustomFileName($file);
             $uploadedFileUrl = $file->storeOnCloudinaryAs($folderName, $fileName);
 
@@ -51,7 +50,6 @@ class CloudinaryService{
         foreach ($files as $key => $file) {
             # code...
             $fileSize = $file->getSize();
-            // dd($fileSize);
            if($fileSize > 10000000000) return false;
         }
         return true;

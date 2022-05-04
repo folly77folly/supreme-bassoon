@@ -7,31 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ProductCategory extends Model
+class ParentSubCategory extends Model
 {
-      use HasFactory;
+    use HasFactory;
 
-     protected $dates = ['deleted_at'];
-
-
-     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = [];
-
-
+    
     protected $casts = [
         'is_active' => 'boolean',
     ];
 
 
-    //Relationship function goes here
-    public function parentCategory(){
-        return $this->hasMany(ParentCategory::class);
+    public function parentCategory()
+    {
+      return $this->belongsTo(ParentCategory::class);
     }
-
 
     protected function name(): Attribute
     {
@@ -40,7 +30,4 @@ class ProductCategory extends Model
             get: fn ($value) => ucfirst($value),
         );
     }
-
-
-
 }

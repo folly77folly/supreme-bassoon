@@ -14,56 +14,44 @@ class ProductCategoryController extends Controller
 {   
 
    //Create Category 
-    public function create(CategoryRequest $request){
+    public function store(CategoryRequest $request){
 
-        $data = ProductCategory::create([
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
-
-        return $this->apiResponse->successwithData($data, 'Product Category Created Successfully');
+        $formData = $request->validated();
+        $data = ProductCategory::create($formData);
+        return $this->apiResponse->created($data, 'Product Category Created Successfully');
     }
 
     public function index(){
 
-        $data = ProductCategory::all();
-        return $this->apiResponse->successwithData($data, 'Get All Product Category Successfully');
+        $data = ProductCategory::where('is_active', true)->with('parentCategory')->get();
+        return $this->apiResponse->successWithData($data, 'Get All Product Category Successfully');
     }
 
     public function update(CategoryRequest $request, $id){
-
+        $formData = $request->validated();
         $product = ProductCategory::findOrFail($id);
-        $product->update([
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
+        $product->update($formData);
 
-         return $this->apiResponse->successwithData($product, 'Product Category Updated Successfully');
+         return $this->apiResponse->successWithData($product, 'Product Category Updated Successfully');
     }
 
     //Delete Method
-    public function delete($id)
+    public function destroy($id)
     {
         $product = ProductCategory::destroy($id);
-        return $this->apiResponse->successwithData($product, 'Product Category Deleted Successfully');
+        return $this->apiResponse->success('Product Category Deleted Successfully');
     }
 
 
-    //Get all produc subtcategory related a product category method
-    public function GetSubcategories($category_id){
+    //Get all product category related a product category method
+    public function show($category_id){
 
            $ProductCategory = ProductCategory::find($category_id);
            if(!$ProductCategory){
               return $this->apiResponse->failure('Category not found');
            }
 
-           $ProductSubCategory = ProductCategory::find($category_id)->ProductSubcategory;
-           if(!$ProductSubCategory){
-                return $this->apiResponse->failure('Category doesnt have sub-category');
-           }
-
-            return $this->apiResponse->successwithData($ProductSubCategory);
-       
+            return $this->apiResponse->successWithData($ProductCategory->load('parentCategory'));
 
     }
     

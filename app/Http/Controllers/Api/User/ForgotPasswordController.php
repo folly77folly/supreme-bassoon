@@ -79,7 +79,7 @@ class ForgotPasswordController extends Controller
             'token' => 'required|string',
             'password' => 'required|string|confirmed'
         ]);
-        // dd($credentials);
+
         // $reset_password_status = Password::reset($credentials, function ($user, $password) {
         //     dd('uswe');
         //     $user->password = Hash::make($password);
@@ -87,8 +87,6 @@ class ForgotPasswordController extends Controller
         //     $user->save();
         //     event(new PasswordReset($user));
         // });
-
-        // dd(Password::PASSWORD_RESET);
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),

@@ -25,7 +25,9 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name'=>'required|string|max:255',
-            'description'=>'required|max:400|string'
+            'description'=>'required|max:400|string',
+            'banner_image' => ['nullable'],
+            'thumbnail_image' => ['nullable'],
         ];
     }
 }

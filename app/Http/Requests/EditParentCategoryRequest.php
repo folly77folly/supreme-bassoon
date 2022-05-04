@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ParentCategoryRequest extends FormRequest
+class EditParentCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +26,10 @@ class ParentCategoryRequest extends FormRequest
     {
 
         return [
+            //
             //Validation rules goes here
-            'name'=>'required|string|max:255|unique:parent_categories,name',
-            'product_category_id' => 'required|exists:product_categories,id',
+            'name'=>['string','max:255',Rule::unique('parent_categories')->ignore(intVal($this->parent_category))],
+            'product_category_id' => ['exists:product_categories,id'],
             'description' => ['nullable'],
             'banner_image' => ['nullable'],
             'thumbnail_image' => ['nullable'],
