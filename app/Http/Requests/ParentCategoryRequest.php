@@ -23,7 +23,7 @@ class ParentCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        // dd($this->request->method());
+
         return [
             //Validation rules goes here
             'name'=>'required|string|max:255|unique:parent_categories,name',

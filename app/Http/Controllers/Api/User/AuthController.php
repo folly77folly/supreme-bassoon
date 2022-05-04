@@ -20,7 +20,7 @@ class AuthController extends Controller
     //
     public function register(RegisterRequest $request)
     {
-        // dd($request);
+
         try {
         $newUser = DB::transaction(function ()  use ($request) {
             // code...
