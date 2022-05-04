@@ -33,6 +33,5 @@ Route::apiResources([
     'parent-sub-category' => ParentSubCategoryController::class,
 
 ]);
-Route::post('category-subcategories/{category_id}', [ProductCategoryController::class, 'GetSubcategories']);
 
 
