@@ -19,7 +19,7 @@
 
     "husky":{
         "hooks":{
-            "pre-commit":"php artisan test --parallel"
+            "pre-push":"php artisan test --parallel"
         }
     }
 }
