@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Admin\ColorController;
 use App\Http\Controllers\Api\Admin\VendorController;
 use App\Http\Controllers\Api\Admin\MediaUploadController;
 use App\Http\Controllers\Api\Admin\ParentCategoryController;
@@ -31,6 +32,7 @@ Route::apiResources([
     'product-category' => ProductCategoryController::class,
     'parent-category' => ParentCategoryController::class,
     'parent-sub-category' => ParentSubCategoryController::class,
+    'color' => ColorController::class,
 
 ]);
 
