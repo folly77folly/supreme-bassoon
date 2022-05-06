@@ -19,7 +19,6 @@ class ColorController extends Controller
     {
         //
         $colors = Color::status()->get();
-        // dd($colors);
         return $this->apiResponse->successWithData($colors);
     }
 
@@ -48,7 +47,7 @@ class ColorController extends Controller
     {
         //
         $color = Color::findOrFail($id);
-        return $this->apiResponse->created($color, 'color retrieved');
+        return $this->apiResponse->successWithData($color, 'color retrieved');
     }
 
     /**
