@@ -26,7 +26,8 @@ class Product extends Model
 
     protected $appends = [
         'discounted_price',
-        'product_name'
+        'product_name',
+        'inventory_status',
     ];
 
 
@@ -58,6 +59,22 @@ class Product extends Model
     public function getProductNameAttribute()
     {
         return $this->brand . ' ' .$this->name;
+    }
+
+    public function getInventoryStatusAttribute()
+    {
+        if($this->limited_stock){
+            return 'Limited Stock';
+        }
+        if($this->stock_quantity > config('constants.STOCK_LIMIT')){
+            return 'In stock';
+        }
+
+        if($this->stock_quantity < config('constants.STOCK_LIMIT')){
+            return 'Out of stock';
+        }
+
+            
     }
 
 }
