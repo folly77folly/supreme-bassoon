@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Admin\SizeController;
 use App\Http\Controllers\Api\Admin\ColorController;
 use App\Http\Controllers\Api\Admin\VendorController;
+use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\GiftShopController;
 use App\Http\Controllers\Api\Admin\MediaUploadController;
 use App\Http\Controllers\Api\Admin\ParentCategoryController;
@@ -37,6 +38,7 @@ Route::apiResources([
     'color' => ColorController::class,
     'size' => SizeController::class,
     'gift-shop' => GiftShopController::class,
+    'product' => ProductController::class,
 
 ]);
 
