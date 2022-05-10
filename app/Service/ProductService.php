@@ -60,12 +60,18 @@ class ProductService{
                 throw new ApiResponseException('product not found');
             }
             $product = DB::transaction(function () use($validatedData, $newProduct) {
-                $price = $this->getPrice($validatedData['retail_price'], $validatedData['markup_percentage']);
-                if(floatVal($price) !== floatVal($validatedData['price'])){
-                    throw new ApiResponseException("Invalid Price, should be ${price}");
+                if(array_key_exists('retail_price', $validatedData )){
+
+                    $price = $this->getPrice($validatedData['retail_price'], $validatedData['markup_percentage']);
+                    if(floatVal($price) !== floatVal($validatedData['price'])){
+                        throw new ApiResponseException("Invalid Price, should be ${price}");
+                    }
                 }
-            if($validatedData['discount_percentage'] > 0){
-                $validatedData['is_discounted'] = true;
+            if(array_key_exists('discount_percentage', $validatedData)){
+
+                if($validatedData['discount_percentage'] > 0){
+                    $validatedData['is_discounted'] = true;
+                }
             }
             $newProduct->fill($validatedData)->save();
             return $newProduct;

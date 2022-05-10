@@ -21,6 +21,13 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        GiftShop::factory()->count(3)->create();
+        Vendor::factory()->count(3)->create();
+        $product = ProductCategory::factory()
+        ->has(ParentCategory::factory()
+        ->has(ParentSubCategory::factory()))
+        ->count(3)
+        ->create();
 
         $productCategoryIds = ProductCategory::get('id');
         $parentCategoryIds = ParentCategory::get('id');
