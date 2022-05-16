@@ -18,6 +18,7 @@ class Product extends Model
         'limited_stock' => 'boolean',
         'images' => 'array',
         'gift_shops' => 'array',
+        'colors' => 'array',
         'retail_price' => 'double',
         'price' => 'double',
         // 'discounted_price' => 'double',
@@ -43,7 +44,22 @@ class Product extends Model
     public function giftShops(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => bc_get__gift_shop_names_from_array(json_decode($value))
+            get: fn($value) => bc_get_gift_shop_names_from_array(json_decode($value))
+        );
+    }
+
+    public function colors(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => bc_get_colors_from_array(json_decode($value))
+        );
+    }
+
+    public function mainImage(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value) =>  bc_get_file_name_from_url($value),
+            get: fn ($value) => bc_get_file_url_from_file($value),
         );
     }
 

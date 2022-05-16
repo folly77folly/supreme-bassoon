@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Color;
 use App\Models\Vendor;
 use App\Models\GiftShop;
 use App\Models\ParentCategory;
@@ -23,6 +24,7 @@ class ProductFactory extends Factory
     {
         GiftShop::factory()->count(3)->create();
         Vendor::factory()->count(3)->create();
+        Color::factory()->create();
         $product = ProductCategory::factory()
         ->has(ParentCategory::factory()
         ->has(ParentSubCategory::factory()))
@@ -33,6 +35,7 @@ class ProductFactory extends Factory
         $parentCategoryIds = ParentCategory::get('id');
         $parentSubCategoryIds = ParentSubCategory::get('id');
         $vendorIds = Vendor::get('id');
+        $colorIds = Color::get();
         $giftShopIds = GiftShop::get();
         $retailPrice = $this->faker->numberBetween(0, 500);
         $markupPercent = $this->faker->numberBetween(0, 70);
@@ -58,6 +61,7 @@ class ProductFactory extends Factory
             'discount_percentage' => $discountPercent,
             'stock_quantity' => $stockQuantity,
             'gift_shops' => [$this->faker->randomElement($giftShopIds)->id],
+            'colors' => [$this->faker->randomElement($colorIds)->id],
             'images' => $images,
             'is_discounted' => $this->faker->randomElement([0,1]),
         ];

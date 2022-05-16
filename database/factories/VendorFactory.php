@@ -30,6 +30,7 @@ class VendorFactory extends Factory
             'store_address' => $this->faker->text($maxNbChars = 50),
             'description' => $this->faker->text($maxNbChars = 50),
             'slug' => $vendorSlug,
+            'commission_fee' => $this->faker->randomNumber(1,2000)
 
         ];
     }
