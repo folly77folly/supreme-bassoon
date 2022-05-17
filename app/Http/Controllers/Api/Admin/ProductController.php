@@ -41,7 +41,6 @@ class ProductController extends Controller
             $formData = $request->validated();
             $newProduct = new ProductService;
             $product = $newProduct->saveProduct($formData);
-            // $product = Product::create($formData);
             return $this->apiResponse->successWithData($product, 'product successfully created');
 
         } 

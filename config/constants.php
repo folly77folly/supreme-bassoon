@@ -5,4 +5,5 @@ return [
         "user" => 10,
         "admin" => 10,
     ],
+    "STOCK_LIMIT" => 4,
 ];

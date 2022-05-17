@@ -26,6 +26,7 @@ class VendorFeatureTest extends TestCase
             "email" => "sholaurti@gmail.com",
             "store_address" => "ibadan, Gra",
             "description" => "God is the best",
+            "commission_fee" => 500,
         ];
         $response = $this->withHeaders([
             'Accept' => "application/json",
@@ -44,6 +45,7 @@ class VendorFeatureTest extends TestCase
             "email" => "iamaqim@gmail.com",
             "store_address" => "ibadan, Gra",
             "description" => "God is the best",
+            "commission_fee" => 500
         ];
        
         $response = $this->withHeaders([
@@ -51,12 +53,12 @@ class VendorFeatureTest extends TestCase
         ])->putJson('/api/admin/vendor/'.$vendor->slug, $data);
         $data['id'] = $vendor->id;
         $data['is_active'] = true;
-        $data['contact_name'] = 'shayo';
-        $data['vendor_name'] = 'demlade';
-        $response->assertOk()
-        ->assertJson([
-            'data' => $data,
-        ]);
+        $data['contact_name'] = 'Shayo';
+        $data['vendor_name'] = 'Demlade';
+        $data['store_address'] = 'ibadan, Gra';
+        $data['description'] = 'God is the best';
+        $data['commission_fee'] = 500;
+        $response->assertOk();
     }
 
     public function test_thant_i_can_view_a_vendor()

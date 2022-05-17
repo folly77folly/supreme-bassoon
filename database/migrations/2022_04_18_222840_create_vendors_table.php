@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('description', 200);
             $table->boolean('is_active')->default(1);
             $table->string('slug')->unique();
+            $table->double('commission_fee')->default(0);
             $table->timestamps();
         });
     }

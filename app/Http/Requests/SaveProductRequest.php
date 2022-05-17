@@ -36,9 +36,12 @@ class SaveProductRequest extends FormRequest
             'price' => ['required','numeric', 'gt:0'],
             'vendor_id' => ['required','exists:vendors,id'],
             'gift_shops.*' => ['nullable', 'integer', 'exists:gift_shops,id'],
+            'colors.*' => ['nullable', 'integer', 'exists:colors,id'],
+            'dimension' => ['nullable'],   
             'discount_percentage' => ['required'],
             'stock_quantity' => ['required'],
             'images.*' => ['required', 'url'],
+            'main_image' => ['required', 'url'],
             'limited_stock' => ['required', 'boolean']
         ];
     }
@@ -47,6 +50,7 @@ class SaveProductRequest extends FormRequest
     {
         return [
             'gift_shops.*.exists' => 'The selected gift shop is invalid at position #:position.',
+            'colors.*.exists' => 'The selected color is invalid at position #:position.',
         ];
     }
 }
