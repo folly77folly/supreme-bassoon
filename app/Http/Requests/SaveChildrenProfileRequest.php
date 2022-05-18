@@ -24,8 +24,6 @@ class SaveChildrenProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-            'user_id' => 'required|exists:users,id',
             'full_name' => 'required|string|max:255',
             'gender_id' => 'required|exists:genders,id',
             'age' => 'required|numeric|min:2',

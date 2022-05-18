@@ -19,13 +19,14 @@ class VendorController extends Controller
 
        $vendor = new Vendor;
 
-       $vendor->vendor_name = strtolower($request->vendor_name);
-       $vendor->contact_name = strtolower($request->contact_name);
+       $vendor->vendor_name = ($request->vendor_name);
+       $vendor->contact_name = ($request->contact_name);
        $vendor->phone_no = $request->phone_no;
        $vendor->email = strtolower($request->email);
        $vendor->store_address = $request->store_address;
        $vendor->description = $request->description;
        $vendor->slug = Str::slug($request->vendor_name);
+       $vendor->commission_fee = ($request->commission_fee);
 
        $vendor->save();
 
@@ -42,26 +43,18 @@ class VendorController extends Controller
     }
 
     //Update vendor method defined here
-    public function update(VendorRequest $request, $slug){
+    public function update(EditVendorRequest $request, $slug){
 
        $formData = $request->validated();
 
-       $vendors = Vendor::where('slug', $slug)->first();
+       $vendor = Vendor::where('slug', $slug)->first();
 
-       if(!$vendors){
+       if(!$vendor){
          return $this->apiResponse->failure('Vendor not found');
        }
-       $vendors->vendor_name = strtolower($request->vendor_name);
-       $vendors->contact_name = strtolower($request->contact_name);
-       $vendors->phone_no = $request->phone_no;
-       $vendors->email = strtolower($request->email);
-       $vendors->store_address = $request->store_address;
-       $vendors->description = $request->description;
-       $vendors->slug = Str::slug($request->vendor_name);
+       $vendor->fill($request->all())->save();
 
-       $vendors->save();
-
-       return $this->apiResponse->successWithData($vendors, 'Vendor Updated successfully');
+       return $this->apiResponse->successWithData($vendor, 'Vendor Updated successfully');
 
    }
 

@@ -36,9 +36,12 @@ class EditProductRequest extends FormRequest
             'price' => ['nullable','numeric', 'gt:0'],
             'vendor_id' => ['nullable','exists:vendors,id'],
             'gift_shops.*' => ['nullable', 'integer', 'exists:gift_shops,id'],
+            'colors.*' => ['nullable', 'integer', 'exists:colors,id'],
+            'dimension' => ['nullable'],   
             'discount_percentage' => ['nullable'],
             'stock_quantity' => ['nullable'],
             'images.*' => ['nullable', 'url'],
+            'main_image' => ['nullable', 'url'],
             'limited_stock' => ['nullable', 'boolean']
         ];
     }

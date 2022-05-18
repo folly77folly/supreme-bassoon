@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\ChildrenProfile;
 use App\Http\Requests\SaveChildrenProfileRequest;
@@ -18,7 +19,7 @@ class ChildrenProfileController extends Controller
     public function index()
     {
         
-        $data = ChildrenProfile::with('Parent')->get();
+        $data = ChildrenProfile::with('Parent')->where('user_id', Auth::id())->get();
         return $this->apiResponse->successWithData($data, 'Get All Product Children Profile successfully');
     }
 
@@ -29,10 +30,13 @@ class ChildrenProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(SaveChildrenProfileRequest $request)
-    {
+    {   
         $formData = $request->validated();
-        $childrenProfile = ChildrenProfile::create($formData);
-        return $this->apiResponse->created($childrenProfile, 'Children Profile saved successfully');
+        $formData['user_id'] = Auth::id();
+        $ChildrenProfile = ChildrenProfile::create($formData);
+        $data = ChildrenProfile::with('parent')->where('id', $ChildrenProfile->id)->first();
+
+        return $this->apiResponse->created($data, 'Children Profile saved successfully');
     }
 
     /**
@@ -47,7 +51,7 @@ class ChildrenProfileController extends Controller
         if(!$ChildrenProfileId){
             return $this->apiResponse->failure('Children Profile Not Found');
         }
-        return $this->apiResponse->successWithData($ChildrenProfile->load('Parent'));
+        return $this->apiResponse->successWithData($ChildrenProfile);
     }
 
     /**
@@ -60,10 +64,12 @@ class ChildrenProfileController extends Controller
     public function update(EditChildrenProfileRequest $request, $id)
     {
         $formData = $request->validated();
+        $formData['user_id'] = Auth::id();
         $ChildrenProfile = ChildrenProfile::findOrFail($id);
         $ChildrenProfile->update($formData);
+        $data = ChildrenProfile::with('parent')->where('id', $ChildrenProfile->id)->first();
 
-        return $this->apiResponse->successWithData($ChildrenProfile, 'Childern Profile Updated Successfully');
+        return $this->apiResponse->successWithData($data, 'Childern Profile Updated Successfully');
     }
 
     /**

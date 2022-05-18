@@ -31,12 +31,15 @@ return new class extends Migration
             $table->foreignIdFor(Vendor::class)->onUpdate('cascade')->onDelete('cascade');
             // $table->foreignIdFor(GiftShop::class)->onUpdate('cascade')->onDelete('cascade');
             $table->longText('gift_shops');
+            $table->longText('colors');
+            $table->string('dimension')->nullable();
             $table->boolean('is_discounted')->default(0);
             $table->float('discount_percentage')->default(0);
             $table->integer('stock_quantity')->default(0);
             $table->boolean('limited_stock')->default(0);
             $table->string('sku')->nullable();
             $table->longText('images')->nullable();
+            $table->longText('main_image')->nullable();
             $table->boolean('visibility')->default(1);
             $table->timestamps();
         });

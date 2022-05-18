@@ -24,7 +24,13 @@ class EditVendorRequest extends FormRequest
     public function rules()
     {
         return [
-            'slug' => 'required|exists:vendor,id',
+            'vendor_name'=> 'nullable|string|max:400',
+            'contact_name'=> 'nullable|max:400',
+            'phone_no' => 'nullable|regex:/^\+234[0-9]{10}/',
+            'email'=> ['nullable','email:rfc,dns'],
+            'store_address' => 'nullable|max:400',
+            'description' => 'nullable|max:400',
+            'commission_fee' => ['nullable', 'numeric', 'gt:0'],
         ];
     }
 }

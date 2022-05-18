@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Color;
 use App\Models\GiftShop;
 use App\Models\ProductGiftShop;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -39,10 +40,25 @@ if (! function_exists('bc_get_file_url_from_array')) {
     }
 };
 
-if (! function_exists('bc_get__gift_shop_names_from_array')) {
+if (! function_exists('bc_get_gift_shop_names_from_array')) {
     
-    function bc_get__gift_shop_names_from_array($files_arrays){
+    function bc_get_gift_shop_names_from_array($files_arrays){
         $giftShopName = array_map(fn($value) => GiftShop::find($value)->name ?? '', ($files_arrays));
         return $giftShopName;
+    }
+};
+
+
+if (! function_exists('bc_get_colors_from_array')) {
+    function bc_get_colors_from_array($files_arrays){
+        $giftShopName = array_map(fn($value) => Color::find($value)->name ?? '', ($files_arrays));
+        return $giftShopName;
+    }
+};
+
+if (! function_exists('bc_get_file_url_from_file')) {
+    
+    function bc_get_file_url_from_file($file){
+        return env('CLOUDINARY_FULL_URL').$file;
     }
 };

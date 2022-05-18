@@ -24,7 +24,6 @@ class EditChildrenProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['exists:users,id'],
             'full_name' => ['string','max:255'],
             'gender_id' => ['exists:genders,id'],
             'age' => ['nullable'],
