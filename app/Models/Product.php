@@ -21,8 +21,8 @@ class Product extends Model
         'colors' => 'array',
         'retail_price' => 'double',
         'price' => 'double',
-        // 'discounted_price' => 'double',
-        // 'price' => 'double',
+        'commission_fee' => 'double',
+        'discount_percentage' => 'double',
     ];
 
     protected $appends = [
