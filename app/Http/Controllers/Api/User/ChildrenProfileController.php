@@ -19,7 +19,7 @@ class ChildrenProfileController extends Controller
     public function index()
     {
         
-        $data = ChildrenProfile::with('Parent')->where('user_id', Auth::id())->get();
+        $data = ChildrenProfile::with('parent')->where('user_id', Auth::id())->get();
         return $this->apiResponse->successWithData($data, 'Get All Product Children Profile successfully');
     }
 
