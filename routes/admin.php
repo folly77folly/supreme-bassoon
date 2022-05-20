@@ -39,7 +39,6 @@ Route::apiResources([
     'size' => SizeController::class,
     'gift-shop' => GiftShopController::class,
     'product' => ProductController::class,
-
 ]);
 
 
