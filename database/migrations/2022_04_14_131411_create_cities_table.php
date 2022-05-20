@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('state_id')->constrained();
             $table->boolean('is_active')->default(1)->comment('0=>inactive', '1=>active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -20,8 +20,11 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('full_name')->nullable();
             $table->string('phone_no')->nullable();
+            $table->string('address')->nullable();
             $table->foreignIdFor(City::class)->nullable();
             $table->foreignIdFor(State::class)->nullable();
+            $table->boolean('is_primary')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
