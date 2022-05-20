@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\User\AuthController;
 use App\Http\Controllers\Api\User\ChildrenProfileController;
+use App\Http\Controllers\Api\User\CartController;
 use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
 
@@ -50,6 +51,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::apiResources([
       'children-profile' => ChildrenProfileController::class,
+      'cart' => CartController::class,
     ]);
+
+    // Cart
+    Route::POST('cart-quantity-update', [CartController::class, 'quantityUpdate']);
+    Route::GET('cart-summary', [CartController::class, 'showCartSummary']);
 });
 

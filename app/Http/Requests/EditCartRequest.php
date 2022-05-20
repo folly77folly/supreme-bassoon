@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditChildrenProfileRequest extends FormRequest
+class EditCartRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class EditChildrenProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->role_id === config('constants.ROLES.user');
     }
 
     /**
@@ -24,10 +24,8 @@ class EditChildrenProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'full_name' => ['string','max:255', 'nullable'],
-            'gender_id' => ['exists:genders,id', 'nullable'],
-            'age' => ['nullable'],
-            'phone_number' => ['nullable']
+            //
+            'quantity' => ['required', 'integer', 'gt:0']
         ];
     }
 }
