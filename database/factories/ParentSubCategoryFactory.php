@@ -20,7 +20,7 @@ class ParentSubCategoryFactory extends Factory
 
         return [
             //
-            'name' => $this->faker->firstName,
+            'name' => $this->faker->unique()->firstName,
             'description' => $this->faker->text($maxNbChars = 200),
         ];
     }

@@ -6,4 +6,8 @@ return [
         "admin" => 10,
     ],
     "STOCK_LIMIT" => 4,
+
+    "ROLES" => [
+        "user" => 6
+    ],
 ];

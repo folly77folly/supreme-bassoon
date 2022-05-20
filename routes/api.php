@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\User\AuthController;
+use App\Http\Controllers\Api\User\CartController;
 use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
 
@@ -46,5 +47,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::POST('logout', [AuthController::class, 'logout']);
+    Route::apiResources([
+        'cart' => CartController::class,
+
+    ]);
+
+    // Cart
+    Route::POST('cart-quantity-update', [CartController::class, 'quantityUpdate']);
+    Route::GET('cart-summary', [CartController::class, 'showCartSummary']);
 });
 
