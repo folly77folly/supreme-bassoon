@@ -89,8 +89,8 @@ class CartController extends Controller
         //
         try {
             //code...
-            $cart = (new CartService)->removeFromCart($id, auth()->id());
-            return $this->apiResponse->successWithData($cart, 'Product removed successfully');
+        $cart = (new CartService)->removeFromCart($id, auth()->id());
+        return $this->apiResponse->successWithData($cart, 'Product removed successfully');
         }catch(ApiResponseException $ape){
             $this->apiResponse->failure($ape->getMessage());
         }catch(Throwable $th){
@@ -110,8 +110,8 @@ class CartController extends Controller
         $formData = $request->validated();
         try {
             //code...
-            $cart = (new CartService)->cartQuantityUpdate($formData);
-            return $this->apiResponse->successWithData($cart, 'Quantity Updated successfully');
+        $cart = (new CartService)->cartQuantityUpdate($formData);
+        return $this->apiResponse->successWithData($cart, 'Quantity Updated successfully');
         }catch(ApiResponseException $ape){
             $this->apiResponse->failure($ape->getMessage());
         }catch(Throwable $th){

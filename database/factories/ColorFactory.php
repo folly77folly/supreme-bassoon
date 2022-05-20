@@ -19,7 +19,7 @@ class ColorFactory extends Factory
        
         return [
             //
-            'name' => $this->faker->safeColorName(),
+            'name' => $this->faker->unique()->safeColorName(),
         ];
     }
 }

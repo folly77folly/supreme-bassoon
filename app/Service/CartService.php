@@ -44,6 +44,7 @@ class CartService{
         $cart->update([
             'quantity' => $quantity,
         ]);
+        return $cart;
 
     }
 
