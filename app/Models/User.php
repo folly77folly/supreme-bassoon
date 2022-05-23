@@ -10,6 +10,7 @@ use App\Notifications\PasswordChangeNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\ChildrenProfile;
+use App\Models\AddressBook;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -73,5 +74,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function children(){
         return $this->hasMany(ChildrenProfile::class);
+    }
+
+    public function addressBook(){
+        return $this->hasMany(AddressBook::class);
     }
 }
