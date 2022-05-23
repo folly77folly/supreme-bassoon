@@ -58,7 +58,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     //Address Book
     Route::post('default-address-book/{id}', [AddressBookController::class, 'setDefault']);
-    Route::get('thrashed-addresses', [AddressBookController::class, 'allThrashed']);
 
     // Cart
     Route::POST('cart-quantity-update', [CartController::class, 'quantityUpdate']);

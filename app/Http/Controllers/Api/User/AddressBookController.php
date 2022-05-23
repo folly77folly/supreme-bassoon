@@ -21,10 +21,7 @@ class AddressBookController extends Controller
     public function index()
     {
         $userAddressBook = AddressBook::whereBelongsTo(Auth::user())->get();
-        if(checkIfEmpty($userAddressBook)){
-            return $this->apiResponse->success('User doesnt have an address book');
-        }
-        return $this->apiResponse->successWithData($userAddressBook, 'Get a user address book successfully');
+        return $this->apiResponse->success($userAddressBook);
     }
 
     /**
@@ -39,13 +36,12 @@ class AddressBookController extends Controller
        
         $formData = $request->validated();
         $formData['user_id'] = Auth::user()->id;
-        if(checkIfEmpty($userAddressBook)){
+        if(count($userAddressBook) == 0){
             $formData['is_primary'] = true;
         }
         
         $addressBook = AddressBook::create($formData);
-        $data = AddressBook::with('user')->where('id', $addressBook->id)->first();
-        return $this->apiResponse->created($data, 'Address book created successfully');
+        return $this->apiResponse->created($addressBook, 'Address book created successfully');
     }
 
     /**
@@ -54,9 +50,9 @@ class AddressBookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($ChildrenProfileId)
+    public function show($id)
     {
-        $addresBookId = AddressBook::find($ChildrenProfileId);
+        $addresBookId = AddressBook::find($id);
         if(!$addressBookId){
             return $this->apiResponse->failure('Address Book Not Found');
         }
@@ -102,7 +98,7 @@ class AddressBookController extends Controller
     public function setDefault($id)
     {
         $addressBook = AddressBook::findOrFail($id);
-        if($addressBook['user_id'] !== Auth::id()){
+        if($addressBook->user_id !== Auth::id()){
             return $this->apiResponse->failure('User Not Authorised to perform this action');
         }
         $allUserAddressBook = AddressBook::where('user_id', Auth::id());
@@ -112,15 +108,4 @@ class AddressBookController extends Controller
        
     }
 
-     /**
-     * Get All thrashed of a user's address
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function allThrashed(){
-        $addressBook = AddressBook::onlyTrashed()
-        ->where('user_id', Auth::id())->get();
-         return $this->apiResponse->successWithData($addressBook, 'All Thrashed Address Book');
-    }
 }
