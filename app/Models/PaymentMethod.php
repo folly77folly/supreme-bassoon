@@ -14,12 +14,5 @@ class PaymentMethod extends Model
     protected $casts = [
         'status' => 'boolean'
     ];
-
-    protected $fillable = [
-        'name',
-        'desc',
-        'status',
-        
-    ];
     
 }
