@@ -36,7 +36,7 @@ class AddressBookController extends Controller
        
         $formData = $request->validated();
         $formData['user_id'] = Auth::user()->id;
-        if(count($userAddressBook) == 0){
+        if($userAddressBook->count() == 0){
             $formData['is_primary'] = true;
         }
         
@@ -71,8 +71,7 @@ class AddressBookController extends Controller
         $formData = $request->validated();
         $addressBook = AddressBook::findOrFail($id);
         $addressBook->update($formData);
-        $data = AddressBook::with('user')->where('id', $addressBook->id)->first();
-        return $this->apiResponse->created($data, 'Address book updated successfully');
+        return $this->apiResponse->created($addressBook, 'Address book updated successfully');
 
     }
 
