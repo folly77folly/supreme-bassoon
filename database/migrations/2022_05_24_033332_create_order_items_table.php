@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\{Order, Product, Vendor};
 
 return new class extends Migration
 {
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->double('unit_price')->unsigned()->default(0);
             $table->integer('quantity')->default(0)->unsigned();
             $table->double('sub_total')->unsigned();           
-            $table->boolean('completed')->default(0);             
+            $table->boolean('paid')->default(0);             
             $table->timestamps();
         });
     }
