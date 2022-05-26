@@ -60,13 +60,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //Address Book
     Route::post('default-address-book/{id}', [AddressBookController::class, 'setDefault']);
 
-    
+    //Get City dpending on state_id
+    Route::get('state-city/{stateId}', [CityController::class, 'getCity']);
 
     // Cart
     Route::POST('cart-quantity-update', [CartController::class, 'quantityUpdate']);
     Route::GET('cart-summary', [CartController::class, 'showCartSummary']);
 });
 
-//Get City dpending on state_id
-Route::get('state-city/{stateId}', [CityController::class, 'getCity']);
+
 
