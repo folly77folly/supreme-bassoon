@@ -17,7 +17,7 @@ class CityController extends Controller
      */
     public function index()
     {
-       $cities = City::with('state')->paginate(config('constants.PAGE_LIMIT.user'));
+       $cities = City::paginate(config('constants.PAGE_LIMIT.user'));
        return $this->apiResponse->successWithData($cities, 'List of all cities');
     }
 
@@ -72,5 +72,17 @@ class CityController extends Controller
         $city = City::destroy($id);
         return $this->apiResponse->success('City Deleted Successfully');
 
+    }
+
+     /**
+     * Get all city related to selected state.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getCity($stateId)
+    {
+        $cities = City::where('state_id', $stateId)->get();
+        return $this->apiResponse->successWithData($cities);
     }
 }
