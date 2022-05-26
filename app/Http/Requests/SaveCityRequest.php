@@ -27,7 +27,7 @@ class SaveCityRequest extends FormRequest
             "name" => "required|string|max:255|unique:cities",
             "state_id" => "required|exists:states,id",
             "shipping_rate" => "required|max:200",
-            "is_active" => "nullable",
+            "is_active" => "required",
         ];
     }
 }
