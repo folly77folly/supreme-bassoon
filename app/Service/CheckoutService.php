@@ -4,6 +4,7 @@ namespace App\Service;
 use App\Models\City;
 use App\Models\Order;
 use App\Service\CartService;
+use App\Service\PayStackService;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\ApiResponseException;
 
@@ -43,13 +44,20 @@ class CheckoutService{
             'paid' => true,
         ];
 
+        //make call to pay-stack to verify the transaction was completed
+        $verify = (new PayStackService)->verifyReference($formData['reference']);
+        if($verify){
+            $data['approved'] = true;
+        }
+
         $orderItems = $this->getUserOrderItems($formData['user_id']);
 
-        $order = DB::transaction(function () use($data, $orderItems){
+        $order = DB::transaction(function () use($data, $orderItems, $formData){
 
             $order = Order::create($data);
             $order->orderItem()->createMany($orderItems);
-
+            // update the cart to completed
+            $buyers_cart = Cart::active()->where(['user_id' => $user_id])->update(['completed' => true]);
             return $order;
         });
 
@@ -88,7 +96,6 @@ class CheckoutService{
                 'quantity' => $cart->quantity,
                 'total_amount' => $cart->total_amount,
                 'total_discount' => $cart->total_discount,
-                'paid' => true,
             ];
             
         });

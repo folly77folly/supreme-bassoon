@@ -9,7 +9,8 @@ use App\Http\Controllers\Api\User\CartController;
 use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
 use App\Http\Controllers\Api\User\{
-  CheckoutController
+  CheckoutController,
+  WebhookTransactionController
 };
 
 /*
@@ -41,6 +42,7 @@ Route::GET('email/resend', [VerificationController::class, 'resend']);
 Route::GET('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 // Route::POST('otp/verify', 'Api\User\VerificationController@verifyOTP')->name('verification.otp');
 
+Route::POST('/webhook', [WebhookTransactionController::class, 'confirmTransfer']);
 /*
 |--------------------------------------------------------------------------
 | Protected Routes

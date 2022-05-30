@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('reference');
             $table->dateTime('delivery_date');       
             $table->boolean('paid')->default(0);  
-            $table->boolean('status')->default(0);
+            $table->boolean('approved')->default(0);
             $table->timestamps();
         });
     }

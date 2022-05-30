@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use Throwable;
 use Illuminate\Http\Request;
 use App\Service\CheckoutService;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Exceptions\ApiResponseException;
 use App\Http\Requests\SaveCheckoutRequest;
 
 class CheckoutController extends Controller

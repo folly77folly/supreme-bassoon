@@ -30,7 +30,7 @@ class SaveCheckoutRequest extends FormRequest
             'address_book_id' => ['bail','required'],
             'children_profile_id' => ['bail','required'],
             'trans_id' => ['bail','required'],
-            'reference' => ['bail','required'],
+            'reference' => ['bail','required', 'unique:orders,reference'],
         ];
     }
 }
