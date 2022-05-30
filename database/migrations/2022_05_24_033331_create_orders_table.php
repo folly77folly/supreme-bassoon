@@ -20,13 +20,14 @@ return new class extends Migration
             $table->foreignIdFor(ChildrenProfile::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(AddressBook::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(PaymentMethod::class)->onUpdateCascade()->onDeleteCascade();
-            $table->foreignIdFor(DeliveryStatus::class)->onUpdateCascade()->onDeleteCascade();
+            $table->foreignIdFor(DeliveryStatus::class)->default(1)->onUpdateCascade()->onDeleteCascade();
             $table->double('total_price')->unsigned()->default(0);
             $table->double('shipping_price')->unsigned()->default(0);
             $table->string('trans_id');
             $table->string('reference');
             $table->dateTime('delivery_date');       
             $table->boolean('paid')->default(0);  
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

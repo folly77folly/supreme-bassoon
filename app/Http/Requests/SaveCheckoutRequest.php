@@ -27,7 +27,7 @@ class SaveCheckoutRequest extends FormRequest
             //
             'payment_method_id' => ['bail','required', 'numeric'],
             'amount' => ['bail','required', 'numeric'],
-            'address_id' => ['bail','required'],
+            'address_book_id' => ['bail','required'],
             'children_profile_id' => ['bail','required'],
             'trans_id' => ['bail','required'],
             'reference' => ['bail','required'],

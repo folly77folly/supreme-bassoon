@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('delivery_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('description', 200);
+            $table->string('description', 200)->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

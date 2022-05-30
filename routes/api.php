@@ -8,6 +8,9 @@ use App\Http\Controllers\Api\User\AddressBookController;
 use App\Http\Controllers\Api\User\CartController;
 use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
+use App\Http\Controllers\Api\User\{
+  CheckoutController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +57,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
       'children-profile' => ChildrenProfileController::class,
       'cart' => CartController::class,
       'address-book' => AddressBookController::class,
+      'checkout' => CheckoutController::class,
     ]);
 
     //Address Book

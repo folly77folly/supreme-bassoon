@@ -21,8 +21,10 @@ return new class extends Migration
             $table->foreignIdFor(Vendor::class)->onUpdateCascade()->onDeleteCascade();
             $table->double('unit_price')->unsigned()->default(0);
             $table->integer('quantity')->default(0)->unsigned();
-            $table->double('sub_total')->unsigned();           
-            $table->boolean('paid')->default(0);             
+            $table->double('total_amount')->default(0)->unsigned();           
+            $table->double('total_discount')->default(0)->unsigned();           
+            $table->boolean('paid')->default(0);      
+            $table->boolean('status')->default(0);          
             $table->timestamps();
         });
     }

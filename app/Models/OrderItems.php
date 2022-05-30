@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItems extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    protected $casts = [
+        'status' => 'boolean',
+        'paid' => 'boolean',
+    ];
+    
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

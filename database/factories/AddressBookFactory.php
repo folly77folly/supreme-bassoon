@@ -24,8 +24,13 @@ class AddressBookFactory extends Factory
         $numbers = [0, 1];
         return [
             'user_id' => function(){
-                $uid = User::factory()->create();
-                return $uid->id;
+                $userIds = User::get('id');
+                if(count($userIds)  == 0){
+
+                    $uid = User::factory()->create();
+                    return $uid->id;
+                }
+                return $this->faker->randomElement($userIds);
             },
             'full_name' => $this->faker->name(),
             'phone_no' => $this->faker->numerify('####-###-####'),

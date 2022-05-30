@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\User;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Service\CheckoutService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SaveCheckoutRequest;
 
 class CheckoutController extends Controller
 {
@@ -23,9 +25,30 @@ class CheckoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveCheckoutRequest $request)
     {
         //
+        $validatedData = $request->validated();
+        $validatedData['user_id'] = auth()->id();
+        $checkout = new CheckoutService ;
+        try{
+            if($request->payment_method_id === 1){
+                $paidOrder = $checkout->checkoutWithCard($validatedData);
+
+            }elseif($request->payment_method_id === 2){
+                $paidOrder = $checkout->checkoutWithCash($validatedData);
+            }else{
+                $paidOrder = $checkout->checkoutWithPoints($validatedData);
+            }
+
+            return $this->apiResponse->created($paidOrder, 'order placed successfully');
+        }catch(ApiResponseException $ape){
+            return $this->apiResponse->failure($ape->getMessage());
+        }
+        catch(Throwable $th){
+            return $this->apiResponse->failure('something went wrong. try again');
+        }
+
     }
 
     /**

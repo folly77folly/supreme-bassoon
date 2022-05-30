@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             GenderSeeder::class,
             StateSeeder::class,
-            CitySeeder::class
+            CitySeeder::class,
+            DeliveryStatusSeeder::class,
         ]);
     }
 }
