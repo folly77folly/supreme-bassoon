@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\City;
 
-class GetCityController extends Controller
+class CityController extends Controller
 {
     
      /**

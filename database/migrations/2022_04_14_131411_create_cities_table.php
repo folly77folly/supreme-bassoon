@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('state_id')->constrained();
-            $table->double('shipping_rate');
+            $table->double('shipping_rate')->default(0);
             $table->boolean('is_active')->default(1)->comment('0=>inactive', '1=>active');
             $table->softDeletes();
             $table->timestamps();
