@@ -73,16 +73,4 @@ class CityController extends Controller
         return $this->apiResponse->success('City Deleted Successfully');
 
     }
-
-     /**
-     * Get all city related to selected state.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getCity($stateId)
-    {
-        $cities = City::where('state_id', $stateId)->get();
-        return $this->apiResponse->successWithData($cities);
-    }
 }
