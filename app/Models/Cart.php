@@ -25,7 +25,8 @@ class Cart extends Model
 
     public function scopeActive($query){
         return $query->where([
-            'status' => true
+            'status' => true,
+            'completed' => false,
         ])->with(['product','vendor']);
     }
 

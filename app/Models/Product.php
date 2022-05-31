@@ -29,6 +29,7 @@ class Product extends Model
         'discounted_price',
         'product_name',
         'inventory_status',
+        'unit_discount',
     ];
 
 
@@ -91,6 +92,14 @@ class Product extends Model
         }
 
             
+    }
+
+    public function getUnitDiscountAttribute(){
+        if(!$this->is_discounted){
+            return 0.00;
+        }
+        $discountAmt = ($this->discount_percentage/100) * $this->price;
+        return round($discountAmt , 2);
     }
 
 }

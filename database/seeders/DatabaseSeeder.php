@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             GenderSeeder::class,
             StateSeeder::class,
             CitySeeder::class,
+            DeliveryStatusSeeder::class,
             PaymentMethodSeeder::class
         ]);
     }

@@ -9,6 +9,11 @@ use App\Http\Controllers\Api\User\CartController;
 use App\Http\Controllers\Api\User\CityController;
 use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
+use App\Http\Controllers\Api\User\{
+  CheckoutController,
+  WebhookTransactionController,
+  BuyNowController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +44,7 @@ Route::GET('email/resend', [VerificationController::class, 'resend']);
 Route::GET('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 // Route::POST('otp/verify', 'Api\User\VerificationController@verifyOTP')->name('verification.otp');
 
+Route::POST('/webhook', [WebhookTransactionController::class, 'confirmTransfer']);
 /*
 |--------------------------------------------------------------------------
 | Protected Routes
@@ -55,6 +61,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
       'children-profile' => ChildrenProfileController::class,
       'cart' => CartController::class,
       'address-book' => AddressBookController::class,
+      'checkout' => CheckoutController::class,
+      'buy-now' => BuyNowController::class,
     ]);
 
     //Address Book
