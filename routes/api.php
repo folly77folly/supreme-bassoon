@@ -10,7 +10,8 @@ use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
 use App\Http\Controllers\Api\User\{
   CheckoutController,
-  WebhookTransactionController
+  WebhookTransactionController,
+  BuyNowController
 };
 
 /*
@@ -60,6 +61,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
       'cart' => CartController::class,
       'address-book' => AddressBookController::class,
       'checkout' => CheckoutController::class,
+      'buy-now' => BuyNowController::class,
     ]);
 
     //Address Book

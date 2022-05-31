@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveCheckoutRequest extends FormRequest
@@ -31,6 +32,9 @@ class SaveCheckoutRequest extends FormRequest
             'children_profile_id' => ['bail','required'],
             'trans_id' => ['bail','required'],
             'reference' => ['bail','required', 'unique:orders,reference'],
+            'product_id' => ['bail', 'required_if:type,2','uuid', 'exists:products,id'],
+            'quantity' => ['bail', 'numeric','required_if:type,2','gt:0'],
+            'type' => ['bail', 'required','numeric',Rule::in(1,2)],
         ];
     }
 }

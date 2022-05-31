@@ -15,4 +15,8 @@ return [
         'order_shipped' => 2,
         'order_delivered' => 3,
     ],
+    "CHECKOUT_TYPE" => [
+        'checkout' => 1,
+        'buy-now' => 2,
+    ]
 ];

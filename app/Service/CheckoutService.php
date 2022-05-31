@@ -3,6 +3,7 @@ namespace App\Service;
 
 use App\Models\City;
 use App\Models\Order;
+use App\Models\Product;
 use App\Service\CartService;
 use App\Service\PayStackService;
 use Illuminate\Support\Facades\DB;
@@ -16,15 +17,9 @@ class CheckoutService{
 
     public function checkoutWithCard($formData)
     {
-        // dd($formData);
-        // check the amount paid 
-        // $userCart = (new CartService)->myCartSummary($formData['user_id']);
-        // if($formData['amount'] !== $userCart['estimated_total']){
-        //     Throw new ApiResponseException("Invalid amount, Payment must be {$userCart['estimated_total']}");
-        // };
 
-        if(! $this->isPaymentComplete($formData['amount'], $formData['user_id'], $formData['address_book_id'])){
-            $expectedAmount = $this->expectedPayment($formData['amount'], $formData['user_id'], $formData['address_book_id']);
+        if(! $this->isPaymentComplete($formData)){
+            $expectedAmount = $this->expectedPayment($formData);
             Throw new ApiResponseException("Invalid amount, Payment must be {$expectedAmount}");
         }
         
@@ -49,15 +44,22 @@ class CheckoutService{
         if($verify){
             $data['approved'] = true;
         }
+        if (array_key_exists('product_id', $formData) && $formData['type'] === config('constants.CHECKOUT_TYPE.buy-now')){
 
-        $orderItems = $this->getUserOrderItems($formData['user_id']);
+            $orderItems = $this->getBuyNowOrderItems($formData['product_id'], $formData['quantity']);
+            // dd($orderItems);
+        }else{
+            $orderItems = $this->getUserOrderItems($formData['user_id']);
+        }
 
         $order = DB::transaction(function () use($data, $orderItems, $formData){
 
             $order = Order::create($data);
             $order->orderItem()->createMany($orderItems);
-            // update the cart to completed
-            $buyers_cart = Cart::active()->where(['user_id' => $user_id])->update(['completed' => true]);
+            if($formData['type'] === config('constants.CHECKOUT_TYPE.checkout')){
+                // update the cart to completed
+                $buyers_cart = Cart::active()->where(['user_id' => $user_id])->update(['completed' => true]);
+            }
             return $order;
         });
 
@@ -67,13 +69,19 @@ class CheckoutService{
     }
 
 
-    public function isPaymentComplete($amount, $userId, $addressId = null, $type = null){
-        return $amount === $this->expectedPayment($amount, $userId, $addressId = null, $type = null);
+    public function isPaymentComplete($formData){
+        return $formData['amount'] === $this->expectedPayment($formData);
     }
 
-    public function expectedPayment($amount, $userId, $addressId = null, $type = null){
-        $userCart = (new CartService)->myCartSummary($userId);
-        return ($userCart['estimated_total'] + $this->shippingRate($addressId));
+    public function expectedPayment($formData){
+        if($formData['type'] == config('constants.CHECKOUT_TYPE.checkout')){
+            $userCart = (new CartService)->myCartSummary($formData['user_id']);
+            return ($userCart['estimated_total'] + $this->shippingRate($formData['address_book_id']));
+        }
+        
+        $price = $this->productPrice($formData['product_id'], $formData['quantity']);
+        $totalAmount = $price + $this->shippingRate($formData['address_book_id']);
+        return round($totalAmount, 2);
     }
 
     public function shippingRate($addressId)
@@ -100,5 +108,31 @@ class CheckoutService{
             
         });
         return $orderItemsList[0]->toArray();
+    }
+
+    public function getBuyNowOrderItems($productId, $quantity){
+        $product = Product::find($productId);
+        $price = $product->is_discounted ? $product->discounted_price : $product->price;
+
+        $orderItemsList[] = [
+                'product_id' => $product->id,
+                'vendor_id' => $product->vendor_id,
+                'unit_price' => $product->price,
+                'quantity' => $quantity,
+                'total_amount' => $product->price * $quantity,
+                'total_discount' => $product->unit_discount * $quantity,
+            ];
+        
+        return $orderItemsList;
+
+    }
+
+    public function productPrice($productId, $quantity){
+        $product = Product::find($productId);
+        if(!$product){
+            return 0.00;
+        }
+        $price = $product->is_discounted == true ? $product->discounted_price : $product->price;
+        return $price * $quantity;
     }
 }
