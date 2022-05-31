@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\GiftShopController;
 use App\Http\Controllers\Api\Admin\MediaUploadController;
 use App\Http\Controllers\Api\Admin\ParentCategoryController;
+use App\Http\Controllers\Api\Admin\CityController;
 use App\Http\Controllers\Api\Admin\ProductCategoryController;
 use App\Http\Controllers\Api\Admin\ParentSubCategoryController;
 
@@ -39,6 +40,7 @@ Route::apiResources([
     'size' => SizeController::class,
     'gift-shop' => GiftShopController::class,
     'product' => ProductController::class,
+    'city' => CityController::class,
 ]);
 
 
