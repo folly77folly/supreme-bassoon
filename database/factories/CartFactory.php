@@ -22,10 +22,9 @@ class CartFactory extends Factory
 
         return [
             //'
-            'user_id' => function(){
+            'user_id' => function() {
                 $allUsers = User::all();
-                if(!$allUsers){
-
+                if($allUsers->count() == 0){
                     $user = User::factory()->create();
                     return $user->id;
                 }
