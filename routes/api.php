@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\User\AuthController;
 use App\Http\Controllers\Api\User\ChildrenProfileController;
 use App\Http\Controllers\Api\User\AddressBookController;
 use App\Http\Controllers\Api\User\CartController;
+use App\Http\Controllers\Api\User\WishlistController;
 use App\Http\Controllers\Api\User\CityController;
 use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
@@ -61,12 +62,17 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
       'children-profile' => ChildrenProfileController::class,
       'cart' => CartController::class,
       'address-book' => AddressBookController::class,
+      'wishlist' => WishlistController::class,
       'checkout' => CheckoutController::class,
       'buy-now' => BuyNowController::class,
+
     ]);
 
     //Address Book
     Route::post('default-address-book/{id}', [AddressBookController::class, 'setDefault']);
+
+    //WishList
+    Route::post('wishlist/{product_id}', [WishlistController::class, 'storeWishlist']);
 
     //Get City dpending on state_id
     Route::get('state-city/{stateId}', [CityController::class, 'getCity']);
