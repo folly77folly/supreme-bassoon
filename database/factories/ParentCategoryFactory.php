@@ -23,7 +23,7 @@ class ParentCategoryFactory extends Factory
 
         return [
             //
-            'name' => $this->faker->firstName,
+            'name' => $this->faker->unique()->firstName,
             'description' => $this->faker->text($maxNbChars = 200),
             'product_category_id' => function(){
                 $pc = ProductCategory::Factory()->create();

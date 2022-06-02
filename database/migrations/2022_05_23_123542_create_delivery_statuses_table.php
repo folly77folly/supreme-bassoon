@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cities', function (Blueprint $table) {
+        Schema::create('delivery_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('state_id')->constrained();
-            $table->double('shipping_rate')->default(0);
-            $table->boolean('is_active')->default(1)->comment('0=>inactive', '1=>active');
-            $table->softDeletes();
+            $table->string('name', 100);
+            $table->string('description', 200)->nullable();
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('delivery_statuses');
     }
 };

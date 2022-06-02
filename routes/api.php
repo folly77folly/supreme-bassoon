@@ -7,8 +7,14 @@ use App\Http\Controllers\Api\User\ChildrenProfileController;
 use App\Http\Controllers\Api\User\AddressBookController;
 use App\Http\Controllers\Api\User\CartController;
 use App\Http\Controllers\Api\User\WishlistController;
+use App\Http\Controllers\Api\User\CityController;
 use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
+use App\Http\Controllers\Api\User\{
+  CheckoutController,
+  WebhookTransactionController,
+  BuyNowController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +45,7 @@ Route::GET('email/resend', [VerificationController::class, 'resend']);
 Route::GET('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 // Route::POST('otp/verify', 'Api\User\VerificationController@verifyOTP')->name('verification.otp');
 
+Route::POST('/webhook', [WebhookTransactionController::class, 'confirmTransfer']);
 /*
 |--------------------------------------------------------------------------
 | Protected Routes
@@ -56,6 +63,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
       'cart' => CartController::class,
       'address-book' => AddressBookController::class,
       'wishlist' => WishlistController::class,
+      'checkout' => CheckoutController::class,
+      'buy-now' => BuyNowController::class,
+
     ]);
 
     //Address Book
@@ -64,8 +74,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //WishList
     Route::post('wishlist/{product_id}', [WishlistController::class, 'storeWishlist']);
 
+    //Get City dpending on state_id
+    Route::get('state-city/{stateId}', [CityController::class, 'getCity']);
+
     // Cart
     Route::POST('cart-quantity-update', [CartController::class, 'quantityUpdate']);
     Route::GET('cart-summary', [CartController::class, 'showCartSummary']);
 });
+
+
 

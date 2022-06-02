@@ -19,11 +19,17 @@ class CartFactory extends Factory
      */
     public function definition()
     {
+
         return [
             //'
-            'user_id' => function(){
-                $user = User::factory()->create();
-                return $user->id;
+            'user_id' => function() {
+                $allUsers = User::all();
+                if($allUsers->count() == 0){
+                    $user = User::factory()->create();
+                    return $user->id;
+                }
+                $userIds =  User::get('id');
+                return $this->faker->randomElement($userIds);
             },
             'product_id' => function(){
                 $product = Product::factory()->create();

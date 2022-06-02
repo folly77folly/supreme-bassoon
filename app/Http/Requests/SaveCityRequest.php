@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveCartRequest extends FormRequest
+class SaveCityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class SaveCartRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->role_id === config('constants.ROLES.user');
+        return true;
     }
 
     /**
@@ -24,8 +24,10 @@ class SaveCartRequest extends FormRequest
     public function rules()
     {
         return [
-            "product_id" => ['required','exists:products,id'],
-            "quantity" => ['integer','required', 'gt:0']
+            "name" => "required|string|max:255|unique:cities",
+            "state_id" => "required|exists:states,id",
+            "shipping_rate" => "required|max:200",
+            "is_active" => "required",
         ];
     }
 }
