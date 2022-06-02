@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\User\CityController;
 use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
 use App\Http\Controllers\Api\User\PaymentMethodController;
+use App\Http\Controllers\Api\User\ProductSearchController;
 use App\Http\Controllers\Api\User\{
   CheckoutController,
   WebhookTransactionController,
@@ -80,6 +81,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     //Get City dpending on state_id
     Route::get('state-city/{stateId}', [CityController::class, 'getCity']);
+
+    //Product Search Route
+    Route::post('search-product', [ProductSearchController::class, 'searchProduct']);
 
     // Cart
     Route::POST('cart-quantity-update', [CartController::class, 'quantityUpdate']);
