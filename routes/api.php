@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\User\WishlistController;
 use App\Http\Controllers\Api\User\CityController;
 use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
+use App\Http\Controllers\Api\User\PaymentMethodController;
 use App\Http\Controllers\Api\User\{
   CheckoutController,
   WebhookTransactionController,
@@ -73,6 +74,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     //WishList
     Route::post('wishlist/{product_id}', [WishlistController::class, 'storeWishlist']);
+
+    //Payment Method Endpoint
+    Route::get('payment-method', [PaymentMethodController::class, 'paymentMethod']);
 
     //Get City dpending on state_id
     Route::get('state-city/{stateId}', [CityController::class, 'getCity']);
