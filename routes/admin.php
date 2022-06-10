@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Admin\ParentCategoryController;
 use App\Http\Controllers\Api\Admin\CityController;
 use App\Http\Controllers\Api\Admin\ProductCategoryController;
 use App\Http\Controllers\Api\Admin\ParentSubCategoryController;
+use App\Http\Controllers\Api\Admin\CouponController;
 
 
 
@@ -41,6 +42,7 @@ Route::apiResources([
     'gift-shop' => GiftShopController::class,
     'product' => ProductController::class,
     'city' => CityController::class,
+    'coupon' => CouponController::class
 ]);
 
 
