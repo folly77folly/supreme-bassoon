@@ -28,4 +28,9 @@ class Vendor extends Model
         'is_active' => 'boolean',
      ];
 
+     public function order()
+     {
+         return $this->hasMany(Order::class);
+     }
+
 }

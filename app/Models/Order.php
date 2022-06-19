@@ -28,4 +28,22 @@ class Order extends Model
     public function getOrderNoAttribute(){
         return '#' . str_pad($this->id, 8, "0", STR_PAD_LEFT);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function deliveryStatus()
+    {
+        return $this->belongsTo(DeliveryStatus::class);
+    }
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
+    public function orderStatus()
+    {
+        return $this->belongsTo(OrderStatus::class);
+    }
 }

@@ -60,7 +60,7 @@ class CheckoutService{
                 // update the cart to completed
                 $buyers_cart = Cart::active()->where(['user_id' => $user_id])->update(['completed' => true]);
             }
-            return $order;
+            return $order->fresh()->load('user','orderStatus:id,name','deliveryStatus:id,name');
         });
 
         return $order;
@@ -70,7 +70,8 @@ class CheckoutService{
 
 
     public function isPaymentComplete($formData){
-        return $formData['amount'] === $this->expectedPayment($formData);
+
+        return floatVal($formData['amount']) == floatVal($this->expectedPayment($formData));
     }
 
     public function expectedPayment($formData){

@@ -52,7 +52,7 @@ class AddressBookController extends Controller
      */
     public function show($id)
     {
-        $addresBookId = AddressBook::find($id);
+        $addressBookId = AddressBook::find($id);
         if(!$addressBookId){
             return $this->apiResponse->failure('Address Book Not Found');
         }
