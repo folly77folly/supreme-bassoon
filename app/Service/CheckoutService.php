@@ -24,7 +24,7 @@ class CheckoutService{
         }
         
         $shippingRate = $this->shippingRate($formData['address_book_id']);
-        $deliveryDate = now();
+        $deliveryDate = $this->shippingDays($formData['address_book_id']);
         //save data to order table
         $data = [
             'user_id' => $formData['user_id'],
@@ -135,5 +135,14 @@ class CheckoutService{
         }
         $price = $product->is_discounted == true ? $product->discounted_price : $product->price;
         return $price * $quantity;
+    }
+
+    // This will return the number of days for delivery
+    public function shippingDays($addressId):int
+    {
+        if(!$addressId) return 0;
+        $city = City::where('state_id', $addressId)->first();
+        if(!$city) return 0;
+        return $city->shipping_days;
     }
 }

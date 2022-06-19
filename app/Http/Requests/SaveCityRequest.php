@@ -26,7 +26,8 @@ class SaveCityRequest extends FormRequest
         return [
             "name" => "required|string|max:255|unique:cities",
             "state_id" => "required|exists:states,id",
-            "shipping_rate" => "required|max:200",
+            "shipping_rate" => ['required','numeric'],
+            "shipping_days" => ['required','integer'],
             "is_active" => "required",
         ];
     }
