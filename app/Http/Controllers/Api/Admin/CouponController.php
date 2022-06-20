@@ -31,8 +31,9 @@ class CouponController extends Controller
     public function store(SaveCouponRequest $request)
     {
        $formData = $request->validated();
-        if (!$request->has('coupon_code')) {
-            $formData['coupon_code'] = Str::random(40);
+       if (is_null($request->coupon_code)) {
+            $randomString = Str::random(5);
+            $formData['coupon_code'] = str('bubble_colony_')->append($randomString);
             $data = Coupon::create($formData);
             return $this->apiResponse->successWithData($data, 'Coupon created successfully');
         }
