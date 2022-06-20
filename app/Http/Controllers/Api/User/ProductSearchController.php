@@ -17,7 +17,7 @@ class ProductSearchController extends Controller
         $products = Product::query()
         ->where('name', 'LIKE', "%{$search}%")
         ->orWhere('description', 'LIKE', "%{$search}%")
-        ->get();
+        ->paginate(config('constants.PAGE_LIMIT.user'));
 
         return $this->apiResponse->successWithData($products, 'Results of search');
     }
