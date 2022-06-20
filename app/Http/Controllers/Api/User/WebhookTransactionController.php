@@ -11,11 +11,11 @@ class WebhookTransactionController extends Controller
     //
     public function confirmTransfer()
     {
-        
         if ((strtoupper($_SERVER['REQUEST_METHOD']) != 'POST' ) || !array_key_exists('x_paystack_signature', $_SERVER) ) 
-
-                exit();
-
+        
+        exit();
+        
+        \Log::info($_SERVER);
             // Retrieve the request's body
             $input = @file_get_contents("php://input");
             

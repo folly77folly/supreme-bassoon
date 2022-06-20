@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Admin\CityController;
 use App\Http\Controllers\Api\Admin\SizeController;
 use App\Http\Controllers\Api\Admin\ColorController;
 use App\Http\Controllers\Api\Admin\CouponController;
+use App\Http\Controllers\Api\Admin\OrdersController;
 use App\Http\Controllers\Api\Admin\VendorController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\GiftShopController;
@@ -44,7 +45,8 @@ Route::apiResources([
     'product' => ProductController::class,
     'city' => CityController::class,
     'coupon' => CouponController::class,
-    'coupon-type' => CouponTypeController::class
+    'coupon-type' => CouponTypeController::class,
+    'order' => OrdersController::class,
 ]);
 
 

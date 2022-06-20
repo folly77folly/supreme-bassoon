@@ -49,8 +49,7 @@ class CheckoutController extends Controller
             return $this->apiResponse->failure($ape->getMessage());
         }
         catch(Throwable $th){
-            Log::critical($th->getMessage());
-            Log::critical($th->getLine());
+            $this->logError($th, __FUNCTION__);
             return $this->apiResponse->failure('something went wrong. try again');
         }
 

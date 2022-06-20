@@ -16,13 +16,14 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call([
-            // RoleSeeder::class,
-            // GenderSeeder::class,
-            // StateSeeder::class,
-            // CitySeeder::class,
-            // DeliveryStatusSeeder::class,
-            // PaymentMethodSeeder::class,
-            CouponTypeSeeder::class
+            CouponTypeSeeder::class,
+            RoleSeeder::class,
+            GenderSeeder::class,
+            StateSeeder::class,
+            CitySeeder::class,
+            DeliveryStatusSeeder::class,
+            PaymentMethodSeeder::class,
+            OrderStatusSeeder::class
         ]);
     }
 }
