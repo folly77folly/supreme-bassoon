@@ -24,12 +24,17 @@ class ProductFactory extends Factory
     {
         GiftShop::factory()->count(3)->create();
         Vendor::factory()->count(3)->create();
-        Color::factory()->create();
-        $product = ProductCategory::factory()
-        ->has(ParentCategory::factory()
-        ->has(ParentSubCategory::factory()))
-        ->count(3)
-        ->create();
+        if(Color::get()->count() == 0){
+            Color::factory()->create();
+        }
+        if(ProductCategory::get()->count() == 0){
+
+            $product = ProductCategory::factory()
+            ->has(ParentCategory::factory()
+            ->has(ParentSubCategory::factory()))
+            ->count(3)
+            ->create();
+        }
 
         $productCategoryIds = ProductCategory::get('id');
         $parentCategoryIds = ParentCategory::get('id');

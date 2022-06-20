@@ -18,7 +18,7 @@ class GiftShopFactory extends Factory
     {
         return [
             //
-            'name' => $this->faker->firstName,
+            'name' => $this->faker->unique()->firstName,
             'description' => $this->faker->text($maxNbChars = 200),
             'banner_image' => 'https://res.cloudinary.com/valenci007/image/upload/v1651322166/products/202204301236_whatsapp_image_2022_03_07_at_64149_pm.jpg',
             'thumbnail_image' => 'https://res.cloudinary.com/valenci007/image/upload/v1651322166/products/202204301236_whatsapp_image_2022_03_07_at_64149_pm.jpg'

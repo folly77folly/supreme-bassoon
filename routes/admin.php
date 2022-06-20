@@ -2,14 +2,15 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Admin\CityController;
 use App\Http\Controllers\Api\Admin\SizeController;
 use App\Http\Controllers\Api\Admin\ColorController;
+use App\Http\Controllers\Api\Admin\OrdersController;
 use App\Http\Controllers\Api\Admin\VendorController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\GiftShopController;
 use App\Http\Controllers\Api\Admin\MediaUploadController;
 use App\Http\Controllers\Api\Admin\ParentCategoryController;
-use App\Http\Controllers\Api\Admin\CityController;
 use App\Http\Controllers\Api\Admin\ProductCategoryController;
 use App\Http\Controllers\Api\Admin\ParentSubCategoryController;
 
@@ -41,6 +42,11 @@ Route::apiResources([
     'gift-shop' => GiftShopController::class,
     'product' => ProductController::class,
     'city' => CityController::class,
+    'order' => OrdersController::class,
 ]);
+
+Route::controller(OrdersController::class)->group(function(){
+    Route::POST('order-status/{id}');
+});
 
 

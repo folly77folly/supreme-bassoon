@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveCityRequest extends FormRequest
+class AdminUpdateDeliveryStatus extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,9 @@ class SaveCityRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|string|max:255|unique:cities",
-            "state_id" => "required|exists:states,id",
-            "shipping_rate" => ['required','numeric'],
-            "shipping_days" => ['required','integer'],
-            "is_active" => "required",
+            //
+            'delivery_status_id' => ['bail', 'nullable', 'integer', 'exists:delivery_statuses,id'],
+            'order_status_id' => ['bail', 'nullable', 'integer', 'exists:order_statuses,id']
         ];
     }
 }

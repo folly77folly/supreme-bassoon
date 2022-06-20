@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\{User, ChildrenProfile, AddressBook, PaymentMethod, DeliveryStatus};
+use App\Models\{User, ChildrenProfile, AddressBook, PaymentMethod, DeliveryStatus,OrderStatus};
 
 return new class extends Migration
 {
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(AddressBook::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(PaymentMethod::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(DeliveryStatus::class)->default(1)->onUpdateCascade()->onDeleteCascade();
+            $table->foreignIdFor(OrderStatus::class)->default(1)->onUpdateCascade()->onDeleteCascade();
             $table->double('total_price')->unsigned()->default(0);
             $table->double('shipping_price')->unsigned()->default(0);
             $table->string('trans_id');
