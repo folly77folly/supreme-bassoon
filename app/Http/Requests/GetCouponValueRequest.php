@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveCheckoutRequest extends FormRequest
+class GetCouponValueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,6 @@ class SaveCheckoutRequest extends FormRequest
     {
         return [
             //
-            'payment_method_id' => ['bail','required', 'numeric'],
             'amount' => ['bail','required', 'numeric'],
             'address_book_id' => ['bail','required'],
             'children_profile_id' => ['bail','required'],
@@ -35,7 +34,7 @@ class SaveCheckoutRequest extends FormRequest
             'product_id' => ['bail', 'required_if:type,2','uuid', 'exists:products,id'],
             'quantity' => ['bail', 'numeric','required_if:type,2','gt:0'],
             'type' => ['bail', 'required','numeric',Rule::in(1,2)],
-            'coupon_code' => ['bail','sometimes','nullable', 'exists:coupons,coupon_code'],
+            'coupon_code' => ['present', 'exists:coupons,coupon_code'],
         ];
     }
 }

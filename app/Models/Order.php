@@ -18,6 +18,7 @@ class Order extends Model
 
     protected $appends =[
         'order_no',
+        'delivery_date'
     ];
     
     public function orderItem()
@@ -45,5 +46,15 @@ class Order extends Model
     public function orderStatus()
     {
         return $this->belongsTo(OrderStatus::class);
+    }
+
+    public function getDeliveryDateAttribute()
+    {
+        $now = ($this->created_at);
+        $shipRecord = explode('-', $this->delivery_days);
+        $start = ($now->addDays($shipRecord[0]))->format('d M');
+        $end = ($now->addDays($shipRecord[1]))->format('d M');
+        $message = "Ready for delivery between {$start} & {$end}";
+        return $message;
     }
 }

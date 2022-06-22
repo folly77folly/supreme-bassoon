@@ -15,6 +15,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    Public static $uncaughtErrorMessage = 'Something went wrong';
+
     public function __construct(ApiResponseService $apiResponse)
     {
         $this->apiResponse = $apiResponse;

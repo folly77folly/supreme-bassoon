@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\User;
 
 use Throwable;
 use Illuminate\Http\Request;
+use App\Service\CouponService;
 use App\Service\CheckoutService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Exceptions\ApiResponseException;
@@ -34,15 +36,28 @@ class CheckoutController extends Controller
         $validatedData = $request->validated();
         $validatedData['user_id'] = auth()->id();
         $checkout = new CheckoutService ;
+        $amountOff = 0;
+        $validatedData['coupon_amount_off'] = $amountOff;
         try{
-            if($request->payment_method_id === 1){
-                $paidOrder = $checkout->checkoutWithCard($validatedData);
+            if(!is_null($request->coupon_code)){
+                $coupon = new CouponService($request->coupon_code) ;
+                $amount_total = (new CheckoutService)->expectedPayment($request->all());
+                $amountOff = $coupon->getDiscountAmount(auth()->user(), $amount_total);
+                $validatedData['coupon_amount_off'] = $amountOff;
 
-            }elseif($request->payment_method_id === 2){
-                $paidOrder = $checkout->checkoutWithCash($validatedData);
-            }else{
-                $paidOrder = $checkout->checkoutWithPoints($validatedData);
             }
+
+            $paidOrder = DB::transaction(fn () => 
+            match($request->payment_method_id){
+                1 => $checkout->checkoutWithCard($validatedData),
+                2 => $checkout->checkoutWithCash($validatedData),
+                3 => $checkout->checkoutWithPoints($validatedData),
+                 }
+            );
+                // Used Coupons
+                if ($amountOff  > 0){
+                    $coupon->recordUsedCoupon(auth()->user(), $amountOff);
+                }
 
             return $this->apiResponse->created($paidOrder, 'order placed successfully');
         }catch(ApiResponseException $ape){
@@ -50,7 +65,7 @@ class CheckoutController extends Controller
         }
         catch(Throwable $th){
             $this->logError($th, __FUNCTION__);
-            return $this->apiResponse->failure('something went wrong. try again');
+            return $this->apiResponse->failure('something went wrongs. try again');
         }
 
     }
