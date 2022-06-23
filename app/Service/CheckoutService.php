@@ -1,6 +1,7 @@
 <?php
 namespace App\Service;
 
+use Carbon\Carbon;
 use App\Models\City;
 use App\Models\Order;
 use App\Models\Product;
@@ -19,12 +20,12 @@ class CheckoutService{
     {
 
         if(! $this->isPaymentComplete($formData)){
-            $expectedAmount = $this->expectedPayment($formData);
+            $expectedAmount = $this->expectedPayment($formData) - $formData['coupon_amount_off'];
             Throw new ApiResponseException("Invalid amount, Payment must be {$expectedAmount}");
         }
         
         $shippingRate = $this->shippingRate($formData['address_book_id']);
-        $deliveryDate = $this->shippingDays($formData['address_book_id']);
+        $deliveryDate = ($this->shippingDays($formData['address_book_id']));
         //save data to order table
         $data = [
             'user_id' => $formData['user_id'],
@@ -35,7 +36,7 @@ class CheckoutService{
             'shipping_price' => $shippingRate,
             'trans_id' => $formData['trans_id'],
             'reference' => $formData['reference'],
-            'delivery_date' => $deliveryDate,
+            'delivery_days' => $deliveryDate,
             'paid' => true,
         ];
 
@@ -68,10 +69,10 @@ class CheckoutService{
 
     }
 
-
+    //check if the amount to pay is equal to calculated amount
     public function isPaymentComplete($formData){
-
-        return floatVal($formData['amount']) == floatVal($this->expectedPayment($formData));
+        
+        return floatVal($formData['amount']) == (floatVal($this->expectedPayment($formData) - $formData['coupon_amount_off']));
     }
 
     public function expectedPayment($formData){
@@ -79,7 +80,6 @@ class CheckoutService{
             $userCart = (new CartService)->myCartSummary($formData['user_id']);
             return ($userCart['estimated_total'] + $this->shippingRate($formData['address_book_id']));
         }
-        
         $price = $this->productPrice($formData['product_id'], $formData['quantity']);
         $totalAmount = $price + $this->shippingRate($formData['address_book_id']);
         return round($totalAmount, 2);
@@ -138,11 +138,15 @@ class CheckoutService{
     }
 
     // This will return the number of days for delivery
-    public function shippingDays($addressId):int
+    public function shippingDays($addressId):string
     {
         if(!$addressId) return 0;
         $city = City::where('state_id', $addressId)->first();
         if(!$city) return 0;
         return $city->shipping_days;
+    }
+
+    public function getCouponValue(){
+
     }
 }

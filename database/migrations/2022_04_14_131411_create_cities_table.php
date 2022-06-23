@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('state_id')->constrained();
             $table->double('shipping_rate')->default(0);
-            $table->double('shipping_days')->default(2);
+            $table->string('shipping_days')->default("1-3");
             $table->boolean('is_active')->default(1)->comment('0=>inactive', '1=>active');
             $table->softDeletes();
             $table->timestamps();

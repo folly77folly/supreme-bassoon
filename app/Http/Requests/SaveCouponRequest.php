@@ -29,10 +29,18 @@ class SaveCouponRequest extends FormRequest
            'coupon_type_id' => ['required', 'exists:coupon_types,id'],
            'min_amount' => ['required'],
            'usage_limit' => ['required'],
-           'emails_to_enjoy' => ['required'],
+           'emails_to_enjoy' => ['nullable','array'],
+           'emails_to_enjoy.*' => ['distinct','email:rfc,dns'],
            'active' => ['required'],
            'start_date' => ['required','date_format:Y-m-d'],
            'end_date' => ['required', 'date_format:Y-m-d', 'after_or_equal:today']
+        ];
+    }
+
+    public function messages()
+    {
+        return  [ 
+            // 'emails_to_enjoy' => 'The Email Address  is not correct when at position #:position.',
         ];
     }
 }

@@ -37,7 +37,7 @@ class OrderTest extends TestCase
         $quantity = rand(3,10);
         $amount = round(($quantity * floatVal($product->price)),2);
         $tx_ref = "1655519942845";
-        // var_dump(gettype($amount));
+        // var_dump(($user));
         $data = [
             "payment_method_id" => $paymentMethod->id,
             "amount" => doubleVal($amount),
@@ -52,7 +52,6 @@ class OrderTest extends TestCase
         $newAmount = (new CheckoutService)->expectedPayment($data);
         $data['amount'] = $newAmount;
         $response = $this->withAuthentication($user)->postJson($this->user_url.'checkout', $data);
-        // dd($response);
         $response->assertStatus(201);
     }
 

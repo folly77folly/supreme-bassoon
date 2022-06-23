@@ -26,7 +26,7 @@ return new class extends Migration
             $table->double('shipping_price')->unsigned()->default(0);
             $table->string('trans_id');
             $table->string('reference');
-            $table->dateTime('delivery_date');       
+            $table->string('delivery_days');       
             $table->boolean('paid')->default(0);  
             $table->boolean('approved')->default(0);
             $table->timestamps();

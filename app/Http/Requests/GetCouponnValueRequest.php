@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditCartRequest extends FormRequest
+class GetCouponnValueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class EditCartRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->role_id == config('constants.ROLES.user');
+        return false;
     }
 
     /**
@@ -25,7 +25,6 @@ class EditCartRequest extends FormRequest
     {
         return [
             //
-            'quantity' => ['required', 'integer', 'gt:0']
         ];
     }
 }

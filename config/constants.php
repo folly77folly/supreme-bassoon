@@ -8,6 +8,11 @@ return [
     "STOCK_LIMIT" => 4,
 
     "ROLES" => [
+        "super-admin" => 1,
+        "admin" => 2,
+        "operations" => 3,
+        "customer-care" => 4,
+        "vendor" => 5,
         "user" => 6
     ],
     "DELIVERY_STATUS" => [

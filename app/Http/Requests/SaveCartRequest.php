@@ -13,7 +13,7 @@ class SaveCartRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->role_id === config('constants.ROLES.user');
+        return auth()->user()->role_id == config('constants.ROLES.user');
     }
 
     /**

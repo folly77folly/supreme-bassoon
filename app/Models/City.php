@@ -12,7 +12,32 @@ class City extends Model
 
     protected $guarded =[];
 
+    protected $appends = [
+        'shipping_delivery_date',
+    ];
+
+    protected $cast =[
+        'shipping_delivery_date' => 'date'
+    ];
+
     public function state(){
-        return $this->belongsTO(State::class, 'state_id');
+        return $this->belongsTo(State::class, 'state_id');
+    }
+
+    // public function shippingDays():Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => 
+    //         explode('-', $value)
+    //     );
+    // }
+
+    public function getShippingDeliveryDateAttribute()
+    {
+        $shipRecord = explode('-', $this->shipping_days);
+        $start = (now()->addDays($shipRecord[0]))->format('d M');
+        $end = (now()->addDays($shipRecord[1]))->format('d M');
+        $message = "Ready for delivery between {$start} & {$end} ";
+        return $message;
     }
 }
