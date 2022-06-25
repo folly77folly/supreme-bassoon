@@ -68,6 +68,8 @@ class AuthController extends Controller
             if(!auth()->user()->hasVerifiedEmail()){
                 return $this->apiResponse->failure('Email has not been verified');
             }
+            //updated login date 
+            $newUser->updateLastLogin(now());
             $data = [
                 "auth" => [
                     "token" => $accessToken,
