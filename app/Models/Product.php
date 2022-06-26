@@ -30,6 +30,7 @@ class Product extends Model
         'product_name',
         'inventory_status',
         'unit_discount',
+        'sales_count'
     ];
 
 
@@ -102,4 +103,9 @@ class Product extends Model
         return round($discountAmt , 2);
     }
 
+    public function getSalesCountAttribute()
+    {
+        $count = OrderItems::where('product_id', $this->id)->get()->count();
+        return $count;
+    }
 }
