@@ -2,6 +2,8 @@
 namespace App\Service;
 
 use App\Models\User;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 
 class AuthService
 {
@@ -47,6 +49,26 @@ class AuthService
     public function updateLastLogin($now)
     {
         User::where('email', $this->validatedData['email'])->update(['updated_at' =>  $now]);
+    }
+
+    public function adminAuthorize():mixed
+    {
+    
+        if(!$this->verifyCredentials()){
+            return false;
+        }
+        $user = Admin::where('email',  $this->validatedData['email'])->first();
+        Auth::guard('admin')->login($user);
+        $accessToken = $user->createToken( $this->validatedData['email'])->plainTextToken;
+        return $accessToken;
+    }
+
+    private function verifyCredentials():bool
+    {
+        return Auth::guard('admin')->attempt([
+            'email' => $this->validatedData['email'],
+            'password' => $this->validatedData['password'],
+        ]);
     }
 
 }

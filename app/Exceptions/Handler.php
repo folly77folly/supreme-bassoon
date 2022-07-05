@@ -8,6 +8,9 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Illuminate\Auth\Access\AuthorizationException as AccessDeniedException;
+
 
 class Handler extends ExceptionHandler
 {
@@ -45,6 +48,7 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
+        // dd($exception); 
         if ($exception instanceof AuthenticationException) {
             return response()->json([
                 'status' => 'failed',
@@ -77,12 +81,20 @@ class Handler extends ExceptionHandler
                 'message' => 'the verification link is invalid',
             ], 404);
         }
+        elseif($exception instanceof AccessDeniedException)
+        {
+            return response()->json([
+                'status' => 'failed',
+                'status_code' => '401',
+                'message' => 'You do not has access here',
+            ], 401);
+        }
         // return response()->json([
         //     'status' => 'failed',
         //     'status_code' => 404,
         //     'message' => $exception->getMessage(),
         //     'error' => $exception->errors()
-        // ], 404);QueryException
+        // ], 404);QueryException AccessDeniedHttpException
             return parent::render($request, $exception);
     }
 }

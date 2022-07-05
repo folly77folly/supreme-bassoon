@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use Throwable;
 use App\Models\User;
+use App\Models\Admin;
 use App\Service\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -112,5 +113,23 @@ class AuthController extends Controller
         $user->password = Hash::make($newPassword);
         $user->save();
         return $this->apiResponse->successWithData('Password changed successfully', Response::HTTP_OK, $user);
+    }
+
+    public function adminLogin(Request $request)
+    {
+
+        // dd($request->all());
+        Auth::guard('admin')->attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+        $user = Admin::where('email', $request->email)->first();
+        // dd($user->createToken($request->email)->plainTextToken);
+        // dd(auth('admin')->login($user));
+        // dd(Auth::guard('admin')->login($user));
+        // dd(Auth::login($user));
+        Auth::guard('admin')->login($user);
+        $accessToken = $user->createToken($request->email)->plainTextToken;
+        return $this->apiResponse->successWithData($accessToken);
     }
 }
