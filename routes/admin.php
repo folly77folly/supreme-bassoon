@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Admin\MediaUploadController;
 use App\Http\Controllers\Api\Admin\ParentCategoryController;
 use App\Http\Controllers\Api\Admin\ProductCategoryController;
 use App\Http\Controllers\Api\Admin\ParentSubCategoryController;
+use App\Http\Controllers\Api\Admin\RoleController;
 
 
 
@@ -47,6 +48,7 @@ Route::apiResources([
     'coupon' => CouponController::class,
     'coupon-type' => CouponTypeController::class,
     'order' => OrdersController::class,
+    'role' => RoleController::class,
 ]);
 
 

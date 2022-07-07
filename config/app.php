@@ -168,7 +168,6 @@ return [
          * Package Service Providers...
          */      
         CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
-        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
 
         /*
          * Application Service Providers...
