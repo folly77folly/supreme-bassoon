@@ -16,6 +16,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         //
+        Role::truncate();
 
         $super_admin = new Role;
         $super_admin->name = 'Super Admin';

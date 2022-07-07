@@ -19,6 +19,7 @@ class StateSeeder extends Seeder
     {
 
         // DB::table('states')->delete();
+		State::truncate();
 		$states = array(
 			array('name' => "Abia"),
 			array('name' => "Abuja Federal Capital Territor"),

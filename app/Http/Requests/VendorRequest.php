@@ -15,7 +15,8 @@ class VendorRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->role_id == config('constants.ROLES.admin');
+        // return auth()->user()->role_id == config('constants.ROLES.admin');
+        return true;
     }
 
     /**

@@ -15,6 +15,7 @@ class PaymentMethodSeeder extends Seeder
      */
     public function run()
     {
+        PaymentMethod::truncate();
         $first_payment_method = new PaymentMethod;
         $first_payment_method->name = "Pay Now";
         $first_payment_method->description = "Pay with visa";

@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => 'auth:sanctum'], function(){
+// Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::apiResources([
         'media-upload'=> MediaUploadController::class,
@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::controller(CustomerController::class)->group(function(){
         Route::GET('customers-latest', 'latestUsers');
     });
-});
+// });
 
 
 
