@@ -40,26 +40,30 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'media-upload'=> MediaUploadController::class,
-    'vendor' => VendorController::class,
-    'product-category' => ProductCategoryController::class,
-    'parent-category' => ParentCategoryController::class,
-    'parent-sub-category' => ParentSubCategoryController::class,
-    'color' => ColorController::class,
-    'size' => SizeController::class,
-    'gift-shop' => GiftShopController::class,
-    'product' => ProductController::class,
-    'city' => CityController::class,
-    'coupon' => CouponController::class,
-    'coupon-type' => CouponTypeController::class,
-    'order' => OrdersController::class,
-    'admin-dashboard' => AdminDashboardController::class,
-    'customers' => CustomerController::class,
-]);
+Route::group(['middleware' => 'auth:sanctum'], function(){
 
-Route::controller(CustomerController::class)->group(function(){
-    Route::GET('customers-latest', 'latestUsers');
+    Route::apiResources([
+        'media-upload'=> MediaUploadController::class,
+        'vendor' => VendorController::class,
+        'product-category' => ProductCategoryController::class,
+        'parent-category' => ParentCategoryController::class,
+        'parent-sub-category' => ParentSubCategoryController::class,
+        'color' => ColorController::class,
+        'size' => SizeController::class,
+        'gift-shop' => GiftShopController::class,
+        'product' => ProductController::class,
+        'city' => CityController::class,
+        'coupon' => CouponController::class,
+        'coupon-type' => CouponTypeController::class,
+        'order' => OrdersController::class,
+        'admin-dashboard' => AdminDashboardController::class,
+        'customers' => CustomerController::class,
+    ]);
+    
+    Route::controller(CustomerController::class)->group(function(){
+        Route::GET('customers-latest', 'latestUsers');
+    });
 });
+
 
 

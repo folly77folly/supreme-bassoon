@@ -35,4 +35,8 @@ return [
         'fifteen' => 15,
         'twenty' => 20,
     ],
+    "PERMISSION" => [
+        "Super Admins" [1],
+        "Super Admins" [1],
+    ]
 ];

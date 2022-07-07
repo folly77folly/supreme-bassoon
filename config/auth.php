@@ -13,10 +13,14 @@ return [
     |
     */
 
-    'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
-    ],
+    // 'defaults' => [
+    //     'guard' => 'web',
+    //     'passwords' => 'users',
+    // ],
+    // 'admin' => [
+    //     'driver' => 'eloquent',
+    //     'model' => App\Models\Admin::class,
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +44,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'users' => [
+        'user' => [
             'driver' => 'sanctum',
             'provider' => 'users',
         ],

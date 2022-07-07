@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Service\AuthService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserLoginRequest;
 
 class AuthController extends Controller
@@ -72,11 +73,15 @@ class AuthController extends Controller
     {
         $validatedData = $request->validated();
         $authorizedUser = new AuthService($validatedData);
-        $accessToken = $authorizedUser->adminAuthorize($validatedData);
+        $accessToken = $authorizedUser->adminAuthorize($request);
         if (!$accessToken){
             return $this->apiResponse->failure('Invalid email or password');
         }
+        // $request->session()->regenerate();
+        // dd(Auth::check());
+        // dd(Auth::user());
         $admin = Admin::where('email', $validatedData['email'])->first();
+        // Auth::guard('admin')->login($admin);
         $data = [
             "auth" => [
                 "token" => $accessToken,

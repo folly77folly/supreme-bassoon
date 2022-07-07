@@ -13,10 +13,8 @@ class VendorRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize(Request $request)
+    public function authorize()
     {
-        dd(Auth::check());
-        dd( auth()->user()->role_id);
         return auth()->user()->role_id == config('constants.ROLES.admin');
     }
 

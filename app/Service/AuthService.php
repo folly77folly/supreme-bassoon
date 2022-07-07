@@ -51,12 +51,13 @@ class AuthService
         User::where('email', $this->validatedData['email'])->update(['updated_at' =>  $now]);
     }
 
-    public function adminAuthorize():mixed
+    public function adminAuthorize($request):mixed
     {
     
         if(!$this->verifyCredentials()){
             return false;
         }
+
         $user = Admin::where('email',  $this->validatedData['email'])->first();
         Auth::guard('admin')->login($user);
         $accessToken = $user->createToken( $this->validatedData['email'])->plainTextToken;
@@ -69,6 +70,11 @@ class AuthService
             'email' => $this->validatedData['email'],
             'password' => $this->validatedData['password'],
         ]);
+    }
+
+    public function registerAdmin()
+    {
+        
     }
 
 }
