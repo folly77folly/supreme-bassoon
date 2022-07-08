@@ -44,4 +44,9 @@ class AuthService
 
     }
 
+    public function updateLastLogin($now)
+    {
+        User::where('email', $this->validatedData['email'])->update(['updated_at' =>  $now]);
+    }
+
 }

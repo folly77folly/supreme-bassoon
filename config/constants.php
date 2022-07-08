@@ -23,5 +23,16 @@ return [
     "CHECKOUT_TYPE" => [
         'checkout' => 1,
         'buy-now' => 2,
-    ]
+    ],
+    "ORDER_STATUS" => [
+        'pending' => 1,
+        'completed' => 2,
+        'cancelled' => 3,
+    ],
+    "RECORDS_TAKE" => [
+        'five' => 5,
+        'ten' => 10,
+        'fifteen' => 15,
+        'twenty' => 20,
+    ],
 ];

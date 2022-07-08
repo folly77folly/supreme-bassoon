@@ -9,9 +9,11 @@ use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\OrdersController;
 use App\Http\Controllers\Api\Admin\VendorController;
 use App\Http\Controllers\Api\Admin\ProductController;
+use App\Http\Controllers\Api\Admin\CustomerController;
 use App\Http\Controllers\Api\Admin\GiftShopController;
 use App\Http\Controllers\Api\Admin\CouponTypeController;
 use App\Http\Controllers\Api\Admin\MediaUploadController;
+use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\ParentCategoryController;
 use App\Http\Controllers\Api\Admin\ProductCategoryController;
 use App\Http\Controllers\Api\Admin\ParentSubCategoryController;
@@ -49,6 +51,12 @@ Route::apiResources([
     'coupon-type' => CouponTypeController::class,
     'order' => OrdersController::class,
     'role' => RoleController::class,
+    'admin-dashboard' => AdminDashboardController::class,
+    'customers' => CustomerController::class,
 ]);
+
+Route::controller(CustomerController::class)->group(function(){
+    Route::GET('customers-latest', 'latestUsers');
+});
 
 

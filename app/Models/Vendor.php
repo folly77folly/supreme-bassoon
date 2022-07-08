@@ -28,9 +28,19 @@ class Vendor extends Model
         'is_active' => 'boolean',
      ];
 
+     protected $appends = [
+        'sales_count',
+     ];
+
      public function order()
      {
          return $this->hasMany(Order::class);
+     }
+
+     public function getSalesCountAttribute()
+     {
+         $count = OrderItems::where('vendor_id', $this->id)->get()->count();
+         return $count;
      }
 
 }
