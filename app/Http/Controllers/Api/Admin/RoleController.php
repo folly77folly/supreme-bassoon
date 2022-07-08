@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SaveRoleRequest;
 use App\Http\Requests\EditRoleRequest;
 use App\Models\Role;
+use App\Models\User;
 
 class RoleController extends Controller
 {
@@ -20,7 +21,6 @@ class RoleController extends Controller
         $roles = Role::where('status', true)->get();
         return $this->apiResponse->successWithData($roles);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -33,7 +33,6 @@ class RoleController extends Controller
         $role = Role::create($formData);
         return $this->apiResponse->created($role, 'Role saved successfully');
     }
-
     /**
      * Display the specified resource.
      *
@@ -68,8 +67,10 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::findOrFail($id);
-        Role::destroy($id);
-        return $this->apiResponse->success('Role deleted');
+       if(User::where("role_id", $id)->count() > 0){
+            return $this->apiResponse->failure('The role is already attached to a user and role cannot be deleted');
+       }
+       Role::destroy($id);
+       return $this->apiResponse->success('Role deleted');
     }
 }
