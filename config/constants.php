@@ -30,9 +30,11 @@ return [
         'cancelled' => 3,
     ],
     "RECORDS_TAKE" => [
+        'three' => 3,
         'five' => 5,
         'ten' => 10,
         'fifteen' => 15,
         'twenty' => 20,
+        'twentyFive' => 25,
     ],
 ];

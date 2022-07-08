@@ -23,6 +23,7 @@ class Product extends Model
         'price' => 'double',
         'commission_fee' => 'double',
         'discount_percentage' => 'double',
+        'visibility' => 'boolean',
     ];
 
     protected $appends = [
@@ -103,9 +104,16 @@ class Product extends Model
         return round($discountAmt , 2);
     }
 
-    public function getSalesCountAttribute()
+    public function getSalesCountAttribute():int
     {
         $count = OrderItems::where('product_id', $this->id)->get()->count();
         return $count;
+    }
+
+    public function scopeVisible($query):mixed
+    {
+        return $query->where([
+            'visibility' => true,
+        ]);
     }
 }

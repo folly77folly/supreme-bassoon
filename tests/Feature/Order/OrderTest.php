@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\AddressBook;
 use App\Models\PaymentMethod;
+use App\Models\DeliveryStatus;
 use App\Models\ChildrenProfile;
 use App\Service\CheckoutService;
 use Illuminate\Support\Facades\Schema;
@@ -67,7 +68,7 @@ class OrderTest extends TestCase
     {
         $order = Order::factory()->create();
         $data = [
-            'delivery_status_id' => 1,
+            'delivery_status_id' => DeliveryStatus::first()->id,
         ];
         $response = $this->withAuthentication()->putJson($this->admin_url.'order/'.$order->id, $data);
         $response->assertOk();

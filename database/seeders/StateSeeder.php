@@ -18,7 +18,7 @@ class StateSeeder extends Seeder
     public function run()
     {
 
-        // DB::table('states')->delete();
+        State::truncate();
 		$states = array(
 			array('name' => "Abia"),
 			array('name' => "Abuja Federal Capital Territor"),

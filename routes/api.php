@@ -16,7 +16,8 @@ use App\Http\Controllers\Api\User\{
   CheckoutController,
   WebhookTransactionController,
   BuyNowController,
-  CouponController
+  CouponController,
+  LandingPageController
 };
 
 /*
@@ -49,6 +50,16 @@ Route::GET('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 // Route::POST('otp/verify', 'Api\User\VerificationController@verifyOTP')->name('verification.otp');
 
 Route::POST('/webhook', [WebhookTransactionController::class, 'confirmTransfer']);
+
+//Landing Page
+Route::controller(LandingPageController::class)->group(function(){
+  Route::GET('landing-page', 'index');
+  Route::GET('landing-page-new-additions', 'getAllNewAdditions');
+  Route::GET('landing-page-top-selling', 'getTopSellingProducts');
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Protected Routes
