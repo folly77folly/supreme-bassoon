@@ -57,9 +57,7 @@ class ProductTest extends TestCase
             "limited_stock" =>  false
         ];
 
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->postJson($this->admin_url.'parent-category', $data);
+        $response = $this->withAuthentication()->postJson($this->admin_url.'parent-category', $data);
         
         $response->assertStatus(201);
     }
@@ -71,9 +69,7 @@ class ProductTest extends TestCase
             "name" => "Love",
             "description" => "All clubs are rich"
         ];
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->putJson($this->admin_url.'product/'.$product->id, $data);
+        $response = $this->withAuthentication()->putJson($this->admin_url.'product/'.$product->id, $data);
 
         $response->assertOk();
     }
@@ -81,9 +77,7 @@ class ProductTest extends TestCase
     public function test_that_i_can_view_product()
     {
         $product = Product::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->getJson($this->admin_url.'product/'.$product->id);
+        $response = $this->withAuthentication()->getJson($this->admin_url.'product/'.$product->id);
         
         $response->assertOk();
     }
@@ -91,9 +85,7 @@ class ProductTest extends TestCase
     public function test_that_i_can_view_all_product()
     {
         $product = Product::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->getJson($this->admin_url.'product');
+        $response = $this->withAuthentication()->getJson($this->admin_url.'product');
         
         $response->assertOk();
     }
@@ -101,9 +93,7 @@ class ProductTest extends TestCase
     public function test_that_i_can_delete_product()
     {
         $product = Product::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->deleteJson($this->admin_url.'product/'.$product->id);
+        $response = $this->withAuthentication()->deleteJson($this->admin_url.'product/'.$product->id);
         
         $response->assertOk();
     }

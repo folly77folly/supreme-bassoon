@@ -43,7 +43,7 @@ Route::controller(AuthController::class)->group(function(){
 // Route::POST('auth/password/reset', [ForgotPasswordController::class, 'reset'])->name('password.reset');
 
 
-Route::middleware('auth:admin')->get('/user', function (Request $request) {
+Route::middleware('admin')->get('/user', function (Request $request) {
     return $request->user();
 });
 

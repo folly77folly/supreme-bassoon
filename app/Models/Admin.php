@@ -15,6 +15,7 @@ class Admin extends Authenticatable implements MustVerifyEmail
 
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $guard = 'admin';
 
     protected $guarded = [];
 

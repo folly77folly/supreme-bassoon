@@ -15,8 +15,10 @@ class VendorRequest extends FormRequest
      */
     public function authorize()
     {
-        // dd(Auth::guard('admin')->check());
-        // dd(Auth::check());
+        // dd(config('constants.ROLES.admin'));
+        // dd(Auth::guard('admin'));
+        // dd(Auth::guard('admin')->user());
+        // dd(auth()->user());
         return auth()->user()->role_id == config('constants.ROLES.admin');
         // return true;
     }

@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Models\User;
+use App\Models\Admin;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -30,11 +31,29 @@ abstract class TestCase extends BaseTestCase
         return $token;
     }
 
+    public function createAdminToken(){
+
+        $token = Admin::factory()->create()->createToken('api')->plainTextToken;
+        return $token;
+    }
+
     public function withAuthentication($user = null){
         if($user){
             $token = $user->createToken('api')->plainTextToken;
         }else{
             $token = $this->createUserToken();
+        }
+       return $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer {$token}",
+        ]);
+    }
+
+    public function withAdminAuthentication($admin = null){
+        if($admin){
+            $token = $user->createToken('api')->plainTextToken;
+        }else{
+            $token = $this->createAdminToken();
         }
        return $this->withHeaders([
             'Accept' => 'application/json',

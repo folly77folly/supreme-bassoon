@@ -54,7 +54,7 @@ class AuthService
         User::where('email', $this->validatedData['email'])->update(['updated_at' =>  $now]);
     }
 
-    public function adminAuthorize($request):mixed
+    public function adminAuthorize():mixed
     {
     
         if(!$this->verifyCredentials()){

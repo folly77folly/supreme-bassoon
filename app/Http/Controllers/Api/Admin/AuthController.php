@@ -91,7 +91,7 @@ class AuthController extends Controller
     {
         $validatedData = $request->validated();
         $authorizedUser = new AuthService($validatedData);
-        $accessToken = $authorizedUser->adminAuthorize($request);
+        $accessToken = $authorizedUser->adminAuthorize();
         if (!$accessToken){
             return $this->apiResponse->failure('Invalid email or password');
         }

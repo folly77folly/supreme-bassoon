@@ -55,6 +55,11 @@ return [
         // 'admin' => [
         //     'driver' => 'sanctum',
         //     'provider' => 'admins',
+        //     'hash' => true,
+        // ],
+        // 'admin' => [
+        //     'driver' => 'sanctum',
+        //     'provider' => 'admins',
         // ]
     ],
 
