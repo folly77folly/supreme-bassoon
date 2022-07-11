@@ -53,6 +53,7 @@ class OrderTest extends TestCase
         $newAmount = (new CheckoutService)->expectedPayment($data);
         $data['amount'] = $newAmount;
         $response = $this->withAuthentication($user)->postJson($this->user_url.'checkout', $data);
+
         $response->assertStatus(201);
     }
 
@@ -67,6 +68,7 @@ class OrderTest extends TestCase
     public function test_that_admin_can_update_delivery_status()
     {
         $order = Order::factory()->create();
+        $deliveryId = DeliveryStatus::first();
         $data = [
             'delivery_status_id' => DeliveryStatus::first()->id,
         ];

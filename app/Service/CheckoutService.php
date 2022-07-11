@@ -48,7 +48,7 @@ class CheckoutService{
         if (array_key_exists('product_id', $formData) && $formData['type'] === config('constants.CHECKOUT_TYPE.buy-now')){
 
             $orderItems = $this->getBuyNowOrderItems($formData['product_id'], $formData['quantity']);
-            // dd($orderItems);
+            
         }else{
             $orderItems = $this->getUserOrderItems($formData['user_id']);
         }

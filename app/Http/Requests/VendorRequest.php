@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VendorRequest extends FormRequest
@@ -13,7 +15,10 @@ class VendorRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        // dd(Auth::guard('admin')->check());
+        // dd(Auth::check());
+        return auth()->user()->role_id == config('constants.ROLES.admin');
+        // return true;
     }
 
     /**

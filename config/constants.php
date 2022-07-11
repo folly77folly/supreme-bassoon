@@ -37,4 +37,15 @@ return [
         'twenty' => 20,
         'twentyFive' => 25,
     ],
+    "PERMISSION" => [
+        "super-admin" => array(1),
+        "admins" => array(
+            1,
+            2,
+            3,
+        ),
+        "customer-care" => array(
+            4,
+        ),
+    ]
 ];

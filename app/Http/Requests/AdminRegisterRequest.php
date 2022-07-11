@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserLoginRequest extends FormRequest
+class AdminRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,8 +13,8 @@ class UserLoginRequest extends FormRequest
      */
     public function authorize()
     {
-        // return !Auth::check();
         return true;
+        return in_array(auth()->user()->role_id, config('constants.PERMISSION.admins'));
     }
 
     /**
@@ -26,8 +25,9 @@ class UserLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'=> ['bail','required','email:rfc,dns'],
-            'password'=> ['required'],
+            //
+            'email' => ['required', 'email:rfc,dns', 'unique:admins'],
+            'role_id' => ['required', 'exists:roles,id'],
         ];
     }
 }

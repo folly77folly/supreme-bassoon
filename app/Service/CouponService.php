@@ -47,7 +47,7 @@ class CouponService{
 
     public function emailToUseCoupon(Coupon $coupon, User $user)
     {
-        // dd($coupon);
+
         if(count($coupon->emails_to_enjoy) == 0 ){
             return false;
         };

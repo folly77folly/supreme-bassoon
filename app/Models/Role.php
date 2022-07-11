@@ -13,4 +13,9 @@ class Role extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function admin()
+    {
+        return $this->hasMany(Admin::class);
+    }
 }

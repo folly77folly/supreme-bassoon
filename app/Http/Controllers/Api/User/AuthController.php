@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use Throwable;
 use App\Models\User;
+use App\Models\Admin;
 use App\Service\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -113,4 +114,5 @@ class AuthController extends Controller
         $user->save();
         return $this->apiResponse->successWithData('Password changed successfully', Response::HTTP_OK, $user);
     }
+
 }

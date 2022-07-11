@@ -23,8 +23,7 @@ class AdminDashboardController extends Controller
         $en = CarbonImmutable::now()->locale('en_US');
         $start_date = $en->startOfWeek()->format('Y-m-d H:i'); 
         $end_date = $en->endOfWeek()->format('Y-m-d H:i'); 
-        // dd($end_date->format('y-m-d'));
-    //    $orders =  Order::whereBetween('created_date', [$start_date, $end_date])->get();
+
        $orders = new  AdminDashboardService($start_date, $end_date);
        $result = [
             'sales_value_by_date' => $orders->salesValueByDate(),

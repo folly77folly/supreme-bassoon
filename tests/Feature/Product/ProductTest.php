@@ -36,7 +36,7 @@ class ProductTest extends TestCase
                     ->has(ParentCategory::factory()
                     ->has(ParentSubCategory::factory()))
                     ->create();
-        // dd($parent->parentSubCategory[0]->id); 
+
         $parentSubCategory = ParentSubCategory::first()->id;
 
         $data = [

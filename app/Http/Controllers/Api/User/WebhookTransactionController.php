@@ -34,7 +34,7 @@ class WebhookTransactionController extends Controller
 
             // parse event (which is json string) as object
             $response = json_decode($input);
-            // dd($response);
+
             // Do something - that will not take long - with $event
             $result = $this->handleEvent($response);
             // dd($result);
@@ -57,9 +57,9 @@ class WebhookTransactionController extends Controller
 
     public function approveTransaction($reference)
     {
-        // dd($reference);
+
         $order =  (new OrderService)->approveReference($reference);
-        // dd($order);
+
         $value = $order == true ?  200: 500;
         return $value;
     }

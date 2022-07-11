@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Order;
+use App\Models\OrderItems;
 use App\Models\AddressBook;
 use App\Models\OrderStatus;
 use Illuminate\Support\Str;
@@ -55,5 +57,16 @@ class OrderFactory extends Factory
             'paid' => true,
             'approved' => true,
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function(Order $order){
+
+            OrderItems::factory()->create([
+                'order_id' => $order->id,
+            ]);
+
+        });
     }
 }

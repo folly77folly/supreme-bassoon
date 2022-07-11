@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call([
-            CouponTypeSeeder::class,
             RoleSeeder::class,
+            CouponTypeSeeder::class,
             GenderSeeder::class,
             StateSeeder::class,
             CitySeeder::class,

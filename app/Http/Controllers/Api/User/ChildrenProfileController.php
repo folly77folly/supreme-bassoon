@@ -31,6 +31,7 @@ class ChildrenProfileController extends Controller
      */
     public function store(SaveChildrenProfileRequest $request)
     {   
+
         $formData = $request->validated();
         $formData['user_id'] = Auth::id();
         $ChildrenProfile = ChildrenProfile::create($formData);

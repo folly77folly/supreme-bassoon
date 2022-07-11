@@ -18,7 +18,7 @@ class ProductService{
         if($validatedData['discount_percentage'] > 0){
             $validatedData['is_discounted'] = true;
         }
-        // dd('jj');
+
         $product = Product::create($validatedData);
         return $product;
 
