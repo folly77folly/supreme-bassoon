@@ -63,16 +63,16 @@ class Handler extends ExceptionHandler
                 'message' => "Resource not found"
             ], 404);
         }
-        // elseif($exception instanceof QueryException)
-        // {
-        //     return response()->json([
-        //         'status' => 'failed',
-        //         'status_code' => '500',
-        //         'message' => $exception->getMessage(),
-        //         'file' => $exception->getFile(),
-        //         'line' => $exception->getLine(),
-        //     ], 500);
-        // }
+        elseif($exception instanceof QueryException)
+        {
+            return response()->json([
+                'status' => 'failed',
+                'status_code' => '500',
+                'message' => $exception->getMessage(),
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+            ], 500);
+        }
         elseif($exception instanceof InvalidSignatureException)
         {
             return response()->json([
