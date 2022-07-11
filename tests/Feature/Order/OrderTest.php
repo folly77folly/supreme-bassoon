@@ -53,7 +53,6 @@ class OrderTest extends TestCase
         $newAmount = (new CheckoutService)->expectedPayment($data);
         $data['amount'] = $newAmount;
         $response = $this->withAuthentication($user)->postJson($this->user_url.'checkout', $data);
-
         $response->assertStatus(201);
     }
 

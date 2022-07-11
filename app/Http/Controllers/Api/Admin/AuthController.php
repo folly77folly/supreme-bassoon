@@ -95,7 +95,6 @@ class AuthController extends Controller
         if (!$accessToken){
             return $this->apiResponse->failure('Invalid email or password');
         }
-
         $admin = Admin::where('email', $validatedData['email'])->first();
         // Auth::guard('admin')->login($admin);
         $data = [

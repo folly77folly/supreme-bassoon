@@ -31,7 +31,7 @@ class Admin extends Authenticatable implements MustVerifyEmail
 
     public function sendPasswordResetSuccessNotification()
     {
-        $fullName = "aqim";
+
         $this->notify(new PasswordChangeNotification($fullName));
     }
 }
