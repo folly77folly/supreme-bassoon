@@ -17,7 +17,8 @@ use App\Http\Controllers\Api\User\{
   WebhookTransactionController,
   BuyNowController,
   CouponController,
-  LandingPageController
+  LandingPageController,
+  ProductReviewController,
 };
 
 /*
@@ -103,6 +104,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::controller(CouponController::class)->group(function(){
       Route::POST('coupon', 'couponValue');
+    });
+
+    Route::controller(ProductReviewController::class)->group(function(){
+      Route::post('product-review', 'createReview');
+      Route::put('product-review/{id}', 'updateReview');
+      Route::delete('product-review/{id}', 'deleteReview');
     });
 });
 
