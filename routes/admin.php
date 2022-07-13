@@ -36,6 +36,7 @@ use App\Http\Controllers\Api\Admin\RoleController;
 Route::controller(AuthController::class)->group(function(){
     Route::POST('/login', 'login');
     Route::POST('auth/password/reset', 'reset')->name('password.reset');
+    Route::POST('forgot-password', 'forgotPassword');
 });
 
 
