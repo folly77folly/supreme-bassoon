@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Service\ApiResponseService;
-use App\Http\Requests\EditVendorRequest;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Models\Vendor;
+use App\Models\Product;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Service\ApiResponseService;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\VendorRequest;
+use App\Http\Requests\EditVendorRequest;
 
 class VendorController extends Controller
 {
@@ -25,7 +26,7 @@ class VendorController extends Controller
        $vendor->email = strtolower($request->email);
        $vendor->store_address = $request->store_address;
        $vendor->description = $request->description;
-       $vendor->slug = Str::slug($request->vendor_name);
+       $vendor->slug = Str::slug($request->vendor_name, '_');
        $vendor->commission_fee = ($request->commission_fee);
 
        $vendor->save();
@@ -69,10 +70,27 @@ class VendorController extends Controller
 
     //Show a vendor
     public function show($slug){
-      $vendor = Vendor::where('slug', $slug)->first();
+      $vendor = Vendor::with(['product' => function($query){
+        $query->latest()->get()->take(config('constants.RECORDS_TAKE.six'));
+      }])
+      ->where('slug', $slug)->first();
       if(!$vendor){
         return $this->apiResponse->failure('Vendor not found');
       }
       return $this->apiResponse->successWithData($vendor, 'Vendor retrieved successfully',);
     }
+
+      //Show a vendor
+      public function vendorAllProducts($slug){
+        $vendor = Vendor::where('slug', $slug)->first();
+        if(!$vendor){
+          return $this->apiResponse->failure('Vendor not found');
+        }
+        $products = Product::where([
+          'vendor_id' => $vendor->id,
+        ])
+        ->latest()
+        ->paginate(config('constants.PAGE_LIMIT.admin'));
+        return $this->apiResponse->successWithData($products);
+      }
 }

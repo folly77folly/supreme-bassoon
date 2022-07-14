@@ -24,6 +24,7 @@ class Product extends Model
         'commission_fee' => 'double',
         'discount_percentage' => 'double',
         'visibility' => 'boolean',
+        'markup_percentage' => 'float',
     ];
 
     protected $appends = [
@@ -115,5 +116,15 @@ class Product extends Model
         return $query->where([
             'visibility' => true,
         ]);
+    }
+
+    public function orderItem(){
+
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function vendor(){
+
+        return $this->belongsTo(Vendor::class);
     }
 }

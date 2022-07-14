@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -27,10 +29,14 @@ class DatabaseSeeder extends Seeder
             PaymentMethodSeeder::class,
             OrderStatusSeeder::class
         ]);
-        if(in_array(env('APP_ENV'), ['local', 'debug', 'development']) ){
+        // dd(env('APP_ENV'));
+        // dd(in_array(env('APP_ENV'), ['local', 'debug', 'development']));
+        // if(in_array(env('APP_ENV'), ['local', 'debug', 'development']) ){
 
             Admin::factory()->create(['email' => 'super_admin@yopmail.com']);
             User::factory()->create(['email' => 'user@yopmail.com']);
-        }
+            Product::factory()->count(10)->create();
+            Order::factory()->count(10)->create();
+        // }
     }
 }
