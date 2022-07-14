@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,5 +27,10 @@ class DatabaseSeeder extends Seeder
             PaymentMethodSeeder::class,
             OrderStatusSeeder::class
         ]);
+        if(in_array(env('APP_ENV'), ['local', 'debug', 'development']) ){
+
+            Admin::factory()->create(['email' => 'super_admin@yopmail.com']);
+            User::factory()->create(['email' => 'user@yopmail.com']);
+        }
     }
 }

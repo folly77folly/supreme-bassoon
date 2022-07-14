@@ -3,13 +3,19 @@ namespace App\Service;
 
 use App\Models\User;
 use App\Models\Admin;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Auth\Passwords\CanResetPassword;
+
+
+// use SendsPasswordResetEmails;
 
 class AuthService
 {
+    use CanResetPassword;
     public function __construct($validatedData)
     {
         $this->validatedData['email'] = strtolower($validatedData['email']);
@@ -115,5 +121,10 @@ class AuthService
     {
         return Auth::guard('admin');
     }
+
+    public function sendPasswordResetNotification($token)
+{
+    return $token;
+}
 
 }
