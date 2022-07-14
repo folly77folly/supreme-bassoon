@@ -42,11 +42,9 @@ class AuthController extends Controller
         $user = $adminUser->registerAdminUser($validatedData);
 
         $sentMsg = $adminUser->sendResetLinkEmail($validatedData['email']);
-
         return $sentMsg === 'passwords.sent'
             ? $this->apiResponse->successWithData($user, 'The email link has been sent to the user')
             : $this->apiResponse->failure('User Created but email was not sent');
-        // return $this->apiResponse->successWithData($user);
 
     }
 
@@ -146,9 +144,22 @@ class AuthController extends Controller
         $adminUser = new AuthService($validatedData);
 
         $sentMsg = $adminUser->sendResetLinkEmail($validatedData['email']);
-
         return $sentMsg === 'passwords.sent'
             ? $this->apiResponse->success('The email link has been sent to the user')
             : $this->apiResponse->failure('email was not sent');
     }
+
+
+    public function forgotPassword(AdminResetLinkRequest $request)
+    {
+        $validatedData = $request->validated();
+        $validatedData['password'] = "password";
+        $adminUser = new AuthService($validatedData);
+        $sentMsg = $adminUser->sendResetLinkEmail($validatedData['email']);
+
+        return $sentMsg === 'passwords.sent'
+            ? $this->apiResponse->success('The email link has been sent check your email')
+            : $this->apiResponse->failure('email was not sent');
+    }
+
 }

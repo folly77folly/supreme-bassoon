@@ -50,7 +50,7 @@ Route::middleware('admin')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
-
+    
     Route::apiResources([
         'media-upload'=> MediaUploadController::class,
         'vendor' => VendorController::class,
