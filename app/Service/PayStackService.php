@@ -14,10 +14,7 @@ class PayStackService{
 
     private function withAuthorization()
     {
-        // $response =  Http::withHeaders([
-        //     'Authorization' => "Bearer {$this->payStackSecretKey}"
-        // ]);
-        // return $response;
+
         return Http::withToken($this->payStackSecretKey);
     }
 
