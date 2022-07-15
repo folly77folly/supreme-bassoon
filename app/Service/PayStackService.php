@@ -32,7 +32,6 @@ class PayStackService{
     public function verifyReference($reference)
     {
         $response =  $this->withAuthorization()->get($this->payStackBaseUrl.'/transaction/verify/'.$reference);
-
         $arrayResponse = $response->json();
         if(array_key_exists('data', $arrayResponse)){
 

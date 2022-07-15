@@ -48,6 +48,7 @@ class OrderTest extends TestCase
             "quantity" => $quantity,
             "trans_id" => str()->random(10),
             "reference" => $tx_ref, //str()->random(10),
+            "delivery_days" => "1-3",
             "type" => 2
         ];
         $newAmount = (new CheckoutService)->expectedPayment($data);
