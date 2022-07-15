@@ -42,11 +42,11 @@ class ProductFactory extends Factory
         $vendorIds = Vendor::get('id');
         $colorIds = Color::get();
         $giftShopIds = GiftShop::get();
-        $retailPrice = $this->faker->numberBetween(0, 500);
-        $markupPercent = $this->faker->numberBetween(0, 70);
-        $price = $this->faker->numberBetween(0, 500);
-        $discountPercent = $this->faker->numberBetween(0, 50);
-        $stockQuantity = $this->faker->numberBetween(0, 50);
+        $retailPrice = $this->faker->numberBetween(1, 500);
+        $markupPercent = $this->faker->numberBetween(1, 70);
+        $price = $retailPrice + (($markupPercent/100) * $retailPrice );//$this->faker->numberBetween(0, 500);
+        $discountPercent = $this->faker->numberBetween(1, 50);
+        $stockQuantity = $this->faker->numberBetween(1, 50);
         $images = [
             'https://res.cloudinary.com/valenci007/image/upload/v1651322166/products/202204301236_whatsapp_image_2022_03_07_at_64149_pm.jpg',
             'https://res.cloudinary.com/valenci007/image/upload/v1651322166/products/202204301236_whatsapp_image_2022_03_07_at_64149_pm.jpg'

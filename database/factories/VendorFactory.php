@@ -20,7 +20,7 @@ class VendorFactory extends Factory
     public function definition()
     {
         $vendorName = $this->faker->name();
-        $vendorSlug = Str::slug($vendorName);
+        $vendorSlug = Str::slug($vendorName, '_');
         
         return [
             'vendor_name' => $vendorName,

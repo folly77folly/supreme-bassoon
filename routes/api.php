@@ -102,6 +102,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::POST('cart-quantity-update', [CartController::class, 'quantityUpdate']);
     Route::GET('cart-summary', [CartController::class, 'showCartSummary']);
 
+    //Coupon
     Route::controller(CouponController::class)->group(function(){
       Route::POST('coupon', 'couponValue');
     });

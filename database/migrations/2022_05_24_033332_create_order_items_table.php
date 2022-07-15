@@ -1,9 +1,11 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\OrderStatus;
+use App\Models\DeliveryStatus;
 use Illuminate\Support\Facades\Schema;
 use App\Models\{Order, Product, Vendor};
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -19,6 +21,8 @@ return new class extends Migration
             $table->foreignIdFor(Order::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(Product::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(Vendor::class)->onUpdateCascade()->onDeleteCascade();
+            $table->foreignIdFor(DeliveryStatus::class)->default(1)->onUpdateCascade()->onDeleteCascade();
+            $table->foreignIdFor(OrderStatus::class)->default(1)->onUpdateCascade()->onDeleteCascade();
             $table->double('unit_price')->unsigned()->default(0);
             $table->integer('quantity')->default(0)->unsigned();
             $table->double('total_amount')->default(0)->unsigned();           

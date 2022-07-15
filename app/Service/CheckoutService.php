@@ -41,7 +41,9 @@ class CheckoutService{
         ];
 
         //make call to pay-stack to verify the transaction was completed
-        $verify = env('APP_ENV')== 'testing' ? true : (new PayStackService)->verifyReference($formData['reference']);
+   
+        $verify = (config('app.env')) == 'testing' ? true : (new PayStackService)->verifyReference($formData['reference']);
+
         if($verify){
             $data['approved'] = true;
         }
@@ -140,9 +142,9 @@ class CheckoutService{
     // This will return the number of days for delivery
     public function shippingDays($addressId):string
     {
-        if(!$addressId) return 0;
+        if(!$addressId) return "1-3";
         $city = City::where('state_id', $addressId)->first();
-        if(!$city) return 0;
+        if(!$city) return "1-3";
         return $city->shipping_days;
     }
 

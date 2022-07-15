@@ -44,7 +44,7 @@ class OrderItemsFactory extends Factory
             //
             'order_id' => $order->id,
             'product_id' => $product->id,
-            'vendor_id' => $vendor->id,
+            'vendor_id' => $product->vendor_id,
             'unit_price' => $product->price,
             'quantity' => $quantity,
             'total_amount' => $product->price * $quantity,

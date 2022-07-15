@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Admin\AuthController;
 use App\Http\Controllers\Api\Admin\CityController;
+use App\Http\Controllers\Api\Admin\RoleController;
 use App\Http\Controllers\Api\Admin\SizeController;
 use App\Http\Controllers\Api\Admin\ColorController;
 use App\Http\Controllers\Api\Admin\CouponController;
@@ -13,12 +14,12 @@ use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\CustomerController;
 use App\Http\Controllers\Api\Admin\GiftShopController;
 use App\Http\Controllers\Api\Admin\CouponTypeController;
+use App\Http\Controllers\Api\Admin\OrderItemsController;
 use App\Http\Controllers\Api\Admin\MediaUploadController;
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\ParentCategoryController;
 use App\Http\Controllers\Api\Admin\ProductCategoryController;
 use App\Http\Controllers\Api\Admin\ParentSubCategoryController;
-use App\Http\Controllers\Api\Admin\RoleController;
 
 
 
@@ -65,6 +66,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         'coupon' => CouponController::class,
         'coupon-type' => CouponTypeController::class,
         'order' => OrdersController::class,
+        'order-item' => OrderItemsController::class,
         'admin-dashboard' => AdminDashboardController::class,
         'customers' => CustomerController::class,
     ]);
@@ -77,6 +79,15 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::POST('register', 'store');
         Route::POST('resend-register-email', 'resendLink');
     });
+
+
+    //Vendor All Products
+    Route::controller(VendorController::class)->group(function(){
+        Route::GET('vendor-products/{slug}', 'vendorAllProducts');
+      });
+
+
+      
 });
 
 

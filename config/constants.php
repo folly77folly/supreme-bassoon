@@ -32,6 +32,7 @@ return [
     "RECORDS_TAKE" => [
         'three' => 3,
         'five' => 5,
+        'six' => 6,
         'ten' => 10,
         'fifteen' => 15,
         'twenty' => 20,
