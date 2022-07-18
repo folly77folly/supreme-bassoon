@@ -2,9 +2,20 @@
 namespace App\Service;
 
 use App\Models\User;
+use App\Models\Admin;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Auth\Passwords\CanResetPassword;
+
+
+// use SendsPasswordResetEmails;
 
 class AuthService
 {
+    use CanResetPassword;
     public function __construct($validatedData)
     {
         $this->validatedData['email'] = strtolower($validatedData['email']);
@@ -48,5 +59,72 @@ class AuthService
     {
         User::where('email', $this->validatedData['email'])->update(['updated_at' =>  $now]);
     }
+
+    public function adminAuthorize():mixed
+    {
+    
+        if(!$this->verifyCredentials()){
+            return false;
+        }
+
+        $user = Admin::where('email',  $this->validatedData['email'])->first();
+        Auth::guard('admin')->login($user);
+        $accessToken = $user->createToken( $this->validatedData['email'])->plainTextToken;
+        return $accessToken;
+    }
+
+    private function verifyCredentials():bool
+    {
+        return Auth::guard('admin')->attempt([
+            'email' => $this->validatedData['email'],
+            'password' => $this->validatedData['password'],
+        ]);
+    }
+
+    public function registerAdminUser($formData):mixed
+    {
+
+        $nakedPassword = Str::random(16);
+        
+        $data = [
+            ...$formData,
+            'password' => Hash::make($nakedPassword),
+            'email_verified_at' => now(),
+        ];
+
+        return Admin::create($data);
+    }
+
+    public function sendResetLinkEmail($email)
+    {
+
+        $status = Password::sendResetLink(['email' => $email]);
+        return $status;
+    }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker('admins');
+    }
+
+    /**
+     * Get the guard to be used during password reset.
+     *
+     * @return StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('admin');
+    }
+
+    public function sendPasswordResetNotification($token)
+{
+    return $token;
+}
 
 }

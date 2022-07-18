@@ -14,10 +14,7 @@ class PayStackService{
 
     private function withAuthorization()
     {
-        // $response =  Http::withHeaders([
-        //     'Authorization' => "Bearer {$this->payStackSecretKey}"
-        // ]);
-        // return $response;
+
         return Http::withToken($this->payStackSecretKey);
     }
 
@@ -32,7 +29,6 @@ class PayStackService{
     public function verifyReference($reference)
     {
         $response =  $this->withAuthorization()->get($this->payStackBaseUrl.'/transaction/verify/'.$reference);
-        // dd(gettype($response->json()));
         $arrayResponse = $response->json();
         if(array_key_exists('data', $arrayResponse)){
 

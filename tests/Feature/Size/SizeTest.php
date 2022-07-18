@@ -19,10 +19,8 @@ class SizeTest extends TestCase
         $data = [
             "size" => 10.5,
         ];
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->postJson($this->admin_url.'size', $data);
-        
+        $response = $this->withAuthentication()->postJson($this->admin_url.'size', $data);
+        // dd($response);
         $response->assertStatus(201);
     }
 
@@ -32,9 +30,7 @@ class SizeTest extends TestCase
         $editData = [
             'size' => 11.5
         ];
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->putJson($this->admin_url.'size/'.$size->id, $editData);
+        $response = $this->withAuthentication()->putJson($this->admin_url.'size/'.$size->id, $editData);
         
         $response->assertOk()
         ->assertJson([
@@ -45,9 +41,7 @@ class SizeTest extends TestCase
     public function test_that_i_can_view_Size()
     {
         $size = Size::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->getJson($this->admin_url.'size/'.$size->id);
+        $response = $this->withAuthentication()->getJson($this->admin_url.'size/'.$size->id);
         
         $response->assertOk();
     }
@@ -55,9 +49,7 @@ class SizeTest extends TestCase
     public function test_that_i_can_view_all_Sizes()
     {
         $size = Size::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->getJson($this->admin_url.'size');
+        $response = $this->withAuthentication()->getJson($this->admin_url.'size');
         
         $response->assertOk();
     }
@@ -65,9 +57,7 @@ class SizeTest extends TestCase
     public function test_that_i_can_delete_Size()
     {
         $size = Size::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->deleteJson($this->admin_url.'size/'.$size->id);
+        $response = $this->withAuthentication()->deleteJson($this->admin_url.'size/'.$size->id);
         
         $response->assertOk();
     }

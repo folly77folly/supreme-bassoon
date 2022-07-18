@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\AddressBook;
 use App\Models\PaymentMethod;
+use App\Models\DeliveryStatus;
 use App\Models\ChildrenProfile;
 use App\Service\CheckoutService;
 use Illuminate\Support\Facades\Schema;
@@ -47,6 +48,7 @@ class OrderTest extends TestCase
             "quantity" => $quantity,
             "trans_id" => str()->random(10),
             "reference" => $tx_ref, //str()->random(10),
+            "delivery_days" => "1-3",
             "type" => 2
         ];
         $newAmount = (new CheckoutService)->expectedPayment($data);
@@ -66,8 +68,9 @@ class OrderTest extends TestCase
     public function test_that_admin_can_update_delivery_status()
     {
         $order = Order::factory()->create();
+        $deliveryId = DeliveryStatus::first();
         $data = [
-            'delivery_status_id' => 1,
+            'delivery_status_id' => DeliveryStatus::first()->id,
         ];
         $response = $this->withAuthentication()->putJson($this->admin_url.'order/'.$order->id, $data);
         $response->assertOk();

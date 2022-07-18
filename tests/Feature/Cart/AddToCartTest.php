@@ -52,7 +52,7 @@ class AddToCartTest extends TestCase
         );
         $cartInserted = Cart::find($cart->id);
         $type = [0, 1];
-        // dd($cart, $cart->product_id);
+
         $data = [
             "product_id" => $cartInserted->product_id,
             "quantity" => 2,

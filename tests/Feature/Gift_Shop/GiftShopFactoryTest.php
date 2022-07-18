@@ -3,6 +3,7 @@
 namespace Tests\Feature\Gift_Shop;
 
 use Tests\TestCase;
+use App\Models\Admin;
 use App\Models\GiftShop;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -29,27 +30,25 @@ class GiftShopFactoryTest extends TestCase
      */
     public function test_that_i_can_create_gift_shop()
     {
+        $admin = Admin::factory()->create();
         $data = [
             "name" => "club",
             "description" => "A football club like manchester united and arsenal",
         ];
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->postJson($this->admin_url.'gift-shop', $data);
+        $response = $this->withAuthentication($admin)->postJson($this->admin_url.'gift-shop', $data);
         
         $response->assertStatus(201);
     }
 
     public function test_that_i_can_edit_gift_shop()
     {
+        $admin = Admin::factory()->create();
         $giftShop = GiftShop::factory()->create();
         $data = [
             "name" => "Love",
             "description" => "All clubs are rich"
         ];
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->putJson($this->admin_url.'gift-shop/'.$giftShop->id, $data);
+        $response = $this->withAuthentication($admin)->putJson($this->admin_url.'gift-shop/'.$giftShop->id, $data);
         
         $response->assertOk()
         ->assertJson([
@@ -60,9 +59,7 @@ class GiftShopFactoryTest extends TestCase
     public function test_that_i_can_view_gift_shop()
     {
         $giftShop = GiftShop::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->getJson($this->admin_url.'gift-shop/'.$giftShop->id);
+        $response = $this->withAdminAuthentication()->getJson($this->admin_url.'gift-shop/'.$giftShop->id);
         
         $response->assertOk();
     }
@@ -70,9 +67,7 @@ class GiftShopFactoryTest extends TestCase
     public function test_that_i_can_view_all_gift_shop()
     {
         $giftShop = GiftShop::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->getJson($this->admin_url.'gift-shop');
+        $response = $this->withAdminAuthentication()->getJson($this->admin_url.'gift-shop');
         
         $response->assertOk();
     }
@@ -80,9 +75,7 @@ class GiftShopFactoryTest extends TestCase
     public function test_that_i_can_delete_gift_shop()
     {
         $giftShop = GiftShop::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->deleteJson($this->admin_url.'gift-shop/'.$giftShop->id);
+        $response = $this->withAdminAuthentication()->deleteJson($this->admin_url.'gift-shop/'.$giftShop->id);
         
         $response->assertOk();
     }

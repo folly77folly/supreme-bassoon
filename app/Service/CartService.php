@@ -9,7 +9,6 @@ use App\Exceptions\ApiResponseException;
 class CartService{
     public function saveCart($validatedData){
         $product = Product::find($validatedData['product_id']);
-        // dd($product);
         //check if product is in stock
         if (!$product->inventory_status === 'Out of stock' ) {
             throw new ApiResponseException('product out of stock');

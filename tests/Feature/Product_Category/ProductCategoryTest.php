@@ -20,9 +20,7 @@ class ProductCategoryTest extends TestCase
             "name" => "club",
             "description" => "A football club like manchester united and arsenal"
         ];
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->postJson($this->admin_url.'product-category', $data);
+        $response = $this->withAuthentication()->postJson($this->admin_url.'product-category', $data);
         
         $response->assertStatus(201);
     }
@@ -34,9 +32,7 @@ class ProductCategoryTest extends TestCase
             "name" => "Love",
             "description" => "All clubs are rich"
         ];
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->putJson($this->admin_url.'product-category/'.$productCategory->id, $data);
+        $response = $this->withAuthentication()->putJson($this->admin_url.'product-category/'.$productCategory->id, $data);
         
         $response->assertOk()
         ->assertJson([
@@ -47,9 +43,7 @@ class ProductCategoryTest extends TestCase
     public function test_that_i_can_view_product_category()
     {
         $productCategory = ProductCategory::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->getJson($this->admin_url.'product-category/'.$productCategory->id);
+        $response = $this->withAuthentication()->getJson($this->admin_url.'product-category/'.$productCategory->id);
         
         $response->assertOk();
     }
@@ -57,9 +51,7 @@ class ProductCategoryTest extends TestCase
     public function test_that_i_can_view_all_product_category()
     {
         $productCategory = ProductCategory::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->getJson($this->admin_url.'product-category');
+        $response = $this->withAuthentication()->getJson($this->admin_url.'product-category');
         
         $response->assertOk();
     }
@@ -67,9 +59,7 @@ class ProductCategoryTest extends TestCase
     public function test_that_i_can_view_delete_product_category()
     {
         $productCategory = ProductCategory::factory()->create();
-        $response = $this->withHeaders([
-            'accept' => 'application/json',
-        ])->deleteJson($this->admin_url.'product-category/'.$productCategory->id);
+        $response = $this->withAuthentication()->deleteJson($this->admin_url.'product-category/'.$productCategory->id);
         
         $response->assertOk();
     }

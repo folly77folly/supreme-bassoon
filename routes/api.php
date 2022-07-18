@@ -16,7 +16,9 @@ use App\Http\Controllers\Api\User\{
   CheckoutController,
   WebhookTransactionController,
   BuyNowController,
-  CouponController
+  CouponController,
+  LandingPageController,
+  ProductReviewController,
 };
 
 /*
@@ -49,6 +51,16 @@ Route::GET('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 // Route::POST('otp/verify', 'Api\User\VerificationController@verifyOTP')->name('verification.otp');
 
 Route::POST('/webhook', [WebhookTransactionController::class, 'confirmTransfer']);
+
+//Landing Page
+Route::controller(LandingPageController::class)->group(function(){
+  Route::GET('landing-page', 'index');
+  Route::GET('landing-page-new-additions', 'getAllNewAdditions');
+  Route::GET('landing-page-top-selling', 'getTopSellingProducts');
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Protected Routes
@@ -90,8 +102,15 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::POST('cart-quantity-update', [CartController::class, 'quantityUpdate']);
     Route::GET('cart-summary', [CartController::class, 'showCartSummary']);
 
+    //Coupon
     Route::controller(CouponController::class)->group(function(){
       Route::POST('coupon', 'couponValue');
+    });
+
+    Route::controller(ProductReviewController::class)->group(function(){
+      Route::post('product-review', 'createReview');
+      Route::put('product-review/{id}', 'updateReview');
+      Route::delete('product-review/{id}', 'deleteReview');
     });
 });
 

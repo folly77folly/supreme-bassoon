@@ -4,25 +4,19 @@ namespace App\Http\Controllers\Api\Admin;
 
 use Illuminate\Http\Request;
 use App\Service\OrderService;
-use App\Service\ApiResponseService;
 use App\Http\Controllers\Controller;
-use App\Exceptions\ApiResponseException;
 use App\Http\Requests\AdminUpdateDeliveryStatus;
 
-class OrdersController extends Controller
+class OrderItemsController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(OrderService $orderService)
+    public function index()
     {
         //
-        // $orders = (new OrderService)->allOrders();
-        $orders = $orderService->allOrders();
-        return $this->apiResponse->successWithData($orders);
     }
 
     /**
@@ -44,10 +38,10 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-
+        //
         try {
 
-            $order = (new OrderService)->viewOrder($id);
+            $order = (new OrderService)->viewOrderItem($id);
             
             return $this->apiResponse->successWithData($order);
 
@@ -60,7 +54,6 @@ class OrdersController extends Controller
             $this->logError($th, __FUNCTION__);
             return $this->apiResponse->failure(parent::$uncaughtErrorMessage);
         }
-
     }
 
     /**
@@ -75,16 +68,21 @@ class OrdersController extends Controller
         //
         $validatedData = $request->validated();
         try {
-            $order = $orderService->updateDeliveryStatus($id, $validatedData);
-            return $this->apiResponse->successWithData($order);
+            $orderItem = $orderService->updateOrderItemDeliveryStatus($id, $validatedData);
+
+            return $this->apiResponse->successWithData($orderItem);
+
         } catch (ApiResponseException $ape) {
+
             return $this->apiResponse->failure($ape->getMessage());
+
         } catch (\Throwable $th) {
             //throw $th;
             $this->logError($th, __FUNCTION__);
             return $this->apiResponse->failure(parent::$uncaughtErrorMessage);
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -95,9 +93,5 @@ class OrdersController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function updateOrderStatus(AdminUpdateDeliveryStatus $request, OrderService $orderService, $id){
-
     }
 }

@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Api\User;
 
-use Carbon\Carbon;
-use App\Models\Order;
-use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
+use App\Service\LandingPageService;
 use App\Http\Controllers\Controller;
-use App\Service\AdminDashboardService;
 
-class AdminDashboardController extends Controller
+class LandingPageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,24 +16,10 @@ class AdminDashboardController extends Controller
     public function index()
     {
         //
-        
-        $en = CarbonImmutable::now()->locale('en_US');
-        $start_date = $en->startOfWeek()->format('Y-m-d H:i'); 
-        $end_date = $en->endOfWeek()->format('Y-m-d H:i'); 
+        $landingPage = (new LandingPageService)->landingPage();
+        return $this->apiResponse->successWithData($landingPage);
+        // allNewAdditions
 
-       $orders = new  AdminDashboardService($start_date, $end_date);
-       $result = [
-            'sales_value_by_date' => $orders->salesValueByDate(),
-            'sales_volume_by_date' => $orders->salesVolumeByDate(),
-            'total_sales_value' => $orders->TotalSalesValue(),
-            'total_sales_volume' => $orders->TotalSalesVolume(),
-            'total_vendors' => $orders->TotalVendors(),
-            'chart' => $orders->ordersChart(),
-            'recent_orders' => $orders->recentOrders(),
-            'top_product' => $orders->popularProducts(),
-            'top_vendors' => $orders->popularVendors(),
-       ];
-       return $this->apiResponse->successWithData($result);
     }
 
     /**
@@ -82,5 +65,17 @@ class AdminDashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAllNewAdditions()
+    {
+        $newAdditions = (new LandingPageService)->allNewAdditions();
+        return $this->apiResponse->successWithData($newAdditions);
+    }
+
+    public function getTopSellingProducts()
+    {
+        $newAdditions = (new LandingPageService)->allTopSellingProducts();
+        return $this->apiResponse->successWithData($newAdditions);
     }
 }

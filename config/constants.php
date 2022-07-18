@@ -30,9 +30,23 @@ return [
         'cancelled' => 3,
     ],
     "RECORDS_TAKE" => [
+        'three' => 3,
         'five' => 5,
+        'six' => 6,
         'ten' => 10,
         'fifteen' => 15,
         'twenty' => 20,
+        'twentyFive' => 25,
     ],
+    "PERMISSION" => [
+        "super-admin" => array(1),
+        "admins" => array(
+            1,
+            2,
+            3,
+        ),
+        "customer-care" => array(
+            4,
+        ),
+    ]
 ];

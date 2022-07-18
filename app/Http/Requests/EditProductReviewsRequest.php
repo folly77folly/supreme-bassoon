@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserLoginRequest extends FormRequest
+class EditProductReviewsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,6 @@ class UserLoginRequest extends FormRequest
      */
     public function authorize()
     {
-        // return !Auth::check();
         return true;
     }
 
@@ -26,8 +24,8 @@ class UserLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'=> ['bail','required','email:rfc,dns'],
-            'password'=> ['required'],
+            'review' => 'nullable|string|max:500',
+            'product_id' => 'nullable|exists:products,id',
         ];
     }
 }

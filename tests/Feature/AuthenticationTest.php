@@ -18,7 +18,7 @@ class AuthenticationTest extends TestCase
      */
     public function test_register()
     {
-        Artisan::call('migrate:fresh --seed');
+        // Artisan::call('migrate:fresh --seed');
 
         $response = $this->postJson('api/register',[
             "email" => "kingsconsult@gmail.com",
@@ -43,7 +43,7 @@ class AuthenticationTest extends TestCase
 
     public function test_login()
     {
-        Artisan::call('migrate:fresh --seed');
+
         $user = User::factory()->create();
         $data = [
             'email' => $user->email,

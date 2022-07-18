@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Api\Vendor;
 
-use Carbon\Carbon;
-use App\Models\Order;
-use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Service\AdminDashboardService;
+use App\Service\VendorDashboardService;
 
-class AdminDashboardController extends Controller
+class VendorDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,12 +16,11 @@ class AdminDashboardController extends Controller
     public function index()
     {
         //
-        
         $en = CarbonImmutable::now()->locale('en_US');
         $start_date = $en->startOfWeek()->format('Y-m-d H:i'); 
         $end_date = $en->endOfWeek()->format('Y-m-d H:i'); 
 
-       $orders = new  AdminDashboardService($start_date, $end_date);
+       $orders = new  VendorDashboardService($start_date, $end_date, auth()->user()->vendor_id);
        $result = [
             'sales_value_by_date' => $orders->salesValueByDate(),
             'sales_volume_by_date' => $orders->salesVolumeByDate(),

@@ -16,6 +16,7 @@ class DeliveryStatusSeeder extends Seeder
     public function run()
     {
         //
+        // DeliveryStatus::truncate();
         DeliveryStatus::insert([
             [
             'name' => 'Order Placed'

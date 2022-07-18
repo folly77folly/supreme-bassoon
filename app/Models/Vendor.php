@@ -43,4 +43,8 @@ class Vendor extends Model
          return $count;
      }
 
+     public function product(){
+        return $this->hasMany(Product::class);
+     }
+
 }
