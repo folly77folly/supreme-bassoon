@@ -21,7 +21,7 @@ class VendorDashboardController extends Controller
         $en = CarbonImmutable::now()->locale('en_US');
         $start_date = $en->startOfWeek()->format('Y-m-d H:i'); 
         $end_date = $en->endOfWeek()->format('Y-m-d H:i'); 
-        // dd(auth()->user()->isVendor());
+
         $vendor = Vendor::where('admin_id', auth()->id())->first();
         if(!$vendor){
             return $this->apiResponse->failure("You have to be a vendor to access");
