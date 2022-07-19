@@ -36,4 +36,17 @@ class Admin extends Authenticatable implements MustVerifyEmail
 
         $this->notify(new PasswordChangeNotification($fullName));
     }
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class);
+    }
+
+    public function isVendor(){
+        $vendor = Vendor::where('admin_id', auth()->id())->first();
+        if(! $vendor){
+            return false;
+        }
+        return true;
+    }
+
 }

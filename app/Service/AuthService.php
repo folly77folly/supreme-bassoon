@@ -84,7 +84,7 @@ class AuthService
     public function registerAdminUser($formData):mixed
     {
 
-        $nakedPassword = Str::random(16);
+       $nakedPassword = env('APP_ENV') === 'local' ?  "password":Str::random(16);
         
         $data = [
             ...$formData,

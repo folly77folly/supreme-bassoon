@@ -18,6 +18,11 @@ class OrderItems extends Model
         'total_amount' => 'float',
         'total_discount' => 'float',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     
     public function order()
     {
@@ -41,5 +46,11 @@ class OrderItems extends Model
     public function orderStatus()
     {
         return $this->belongsTo(OrderStatus::class);
+    }
+
+    public function scopeVendorOwner($query){
+        if(auth()->user()->isVendor()){
+            return $query->where('vendor_id',  auth()->user()->Vendor->id);
+        }
     }
 }

@@ -101,12 +101,14 @@ class CheckoutService{
         $orderItemsList[] = $carts->map(function($cart, $key){
         
             return [
+                'user_id' => auth()->id(),
                 'product_id' => $cart->product_id,
                 'vendor_id' => $cart->vendor_id,
                 'unit_price' => $cart->vendor_id,
                 'quantity' => $cart->quantity,
                 'total_amount' => $cart->total_amount,
                 'total_discount' => $cart->total_discount,
+                'total_price' => round(($cart->total_amount - $cart->total_discount),2),
             ];
             
         });
@@ -118,6 +120,7 @@ class CheckoutService{
         $price = $product->is_discounted ? $product->discounted_price : $product->price;
 
         $orderItemsList[] = [
+                'user_id' => auth()->id(),
                 'product_id' => $product->id,
                 'vendor_id' => $product->vendor_id,
                 'unit_price' => $product->price,

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\User;
+namespace App\Http\Controllers\Api\Admin;
 
-use Illuminate\Http\Request;
-use App\Service\LandingPageService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class LandingPageController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +15,8 @@ class LandingPageController extends Controller
     public function index()
     {
         //
-        $landingPage = (new LandingPageService)->landingPage();
-        return $this->apiResponse->successWithData($landingPage);
-        // allNewAdditions
-
+        $profile = Vendor::owner()->first();
+        return $this->apiResponse->successWithData($profile);
     }
 
     /**
@@ -65,23 +62,5 @@ class LandingPageController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function getAllNewAdditions()
-    {
-        $newAdditions = (new LandingPageService)->allNewAdditions();
-        return $this->apiResponse->successWithData($newAdditions);
-    }
-
-    public function getTopSellingProducts()
-    {
-        $newAdditions = (new LandingPageService)->allTopSellingProducts();
-        return $this->apiResponse->successWithData($newAdditions);
-    }
-
-    public function getParentCategory()
-    {
-        $parentCat = (new LandingPageService)->parentCategory();
-        return $this->apiResponse->successWithData($parentCat);
     }
 }
