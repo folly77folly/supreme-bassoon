@@ -57,6 +57,7 @@ Route::controller(LandingPageController::class)->group(function(){
   Route::GET('landing-page', 'index');
   Route::GET('landing-page-new-additions', 'getAllNewAdditions');
   Route::GET('landing-page-top-selling', 'getTopSellingProducts');
+  Route::GET('landing-page-parent-category', 'getParentCategory');
 });
 
 

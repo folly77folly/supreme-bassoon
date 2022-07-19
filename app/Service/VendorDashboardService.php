@@ -20,7 +20,7 @@ class VendorDashboardService{
 
     public function salesValueByDate()
     {
-        return Order::whereBetween('created_at', [$this->start_date, $this->end_date])
+        return OrderItems::vendorOwner()->whereBetween('created_at', [$this->start_date, $this->end_date])
         ->where([
             'order_status_id' => config('constants.ORDER_STATUS.completed')
             ])
@@ -29,7 +29,7 @@ class VendorDashboardService{
 
     public function salesVolumeByDate()
     {
-        return Order::whereBetween('created_at', [$this->start_date, $this->end_date])
+        return OrderItems::vendorOwner()->whereBetween('created_at', [$this->start_date, $this->end_date])
         ->where([
             'order_status_id' => config('constants.ORDER_STATUS.completed')
             ])
@@ -38,8 +38,8 @@ class VendorDashboardService{
 
     public function TotalSalesValue()
     {
-        return Order::
-        where([
+        return OrderItems::vendorOwner()
+        ->where([
             'order_status_id' => config('constants.ORDER_STATUS.completed')
             ])
         ->get()->sum('total_price');
@@ -47,20 +47,33 @@ class VendorDashboardService{
 
     public function TotalSalesVolume()
     {
-        return Order::where([
+        return OrderItems::vendorOwner()->where([
             'order_status_id' => config('constants.ORDER_STATUS.completed')
             ])
         ->get()->count();
     }
 
-    public function TotalVendors()
+    public function TotalOrders()
     {
-        return Vendor::get()->count();
+        // dd(OrderItems::VendorOwner()->get());
+        return OrderItems::VendorOwner()->get()->count();
+    }
+
+    public function TotalCancelledOrders()
+    {
+        return OrderItems::VendorOwner()->where([
+            'order_status_id' => config('constants.ORDER_STATUS.cancelled')
+        ])->get()->count();
+    }
+
+    public function totalProducts()
+    {
+        return Product::productOwner()->get()->count();
     }
 
     public function OrdersCancelledByDate()
     {
-        return Order::whereBetween('created_at', [$this->start_date, $this->end_date])
+        return OrderItems::vendorOwner()->whereBetween('created_at', [$this->start_date, $this->end_date])
         ->where([
             'order_status_id' => config('constants.ORDER_STATUS.cancelled')
             ])
@@ -94,7 +107,7 @@ class VendorDashboardService{
 
     private function earningsByDate($startDate, $endDate)
     {
-        $earings = Order::where([
+        $earings = OrderItems::vendorOwner()->where([
             'order_status_id' => config('constants.ORDER_STATUS.completed')
         ])
             ->whereBetween('created_at', [$startDate, $endDate])->sum('total_price');
@@ -103,7 +116,7 @@ class VendorDashboardService{
 
     public function recentOrders()
     {
-        return Order::with('user')
+        return OrderItems::vendorOwner()->with('user')
         ->where([
             'order_status_id' => config('constants.ORDER_STATUS.pending')
             ])
@@ -112,6 +125,18 @@ class VendorDashboardService{
         ->get();
     }
 
+    public function cancelledOrders()
+    {
+        return OrderItems::vendorOwner()->with('user')
+        ->where([
+            'order_status_id' => config('constants.ORDER_STATUS.cancelled')
+            ])
+        ->latest()
+        ->take(config('constants.PAGE_LIMIT.admin'))
+        ->get();
+    }
+
+    //off
     public function popularProducts()
     {
         $products = Product::take(config('constants.RECORDS_TAKE.five'))->get();
@@ -119,7 +144,7 @@ class VendorDashboardService{
         $result = $sortedProducts->values();
         return $result;
     }
-
+    //off
     public function popularVendors()
     {
         $vendors = Vendor::take(config('constants.RECORDS_TAKE.five'))->get();

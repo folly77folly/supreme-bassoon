@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Models\Vendor;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use App\Service\AuthService;
 use Illuminate\Http\Request;
 use App\Service\ApiResponseService;
 use App\Http\Controllers\Controller;
@@ -19,19 +20,36 @@ class VendorController extends Controller
        $formData = $request->validated();
 
        $vendor = new Vendor;
+      try {
+        //code...
+        $vendor->vendor_name = ($request->vendor_name);
+        $vendor->contact_name = ($request->contact_name);
+        $vendor->phone_no = $request->phone_no;
+        $vendor->email = strtolower($request->email);
+        $vendor->store_address = $request->store_address;
+        $vendor->description = $request->description;
+        $vendor->slug = Str::slug($request->vendor_name, '_');
+        $vendor->commission_fee = ($request->commission_fee);
 
-       $vendor->vendor_name = ($request->vendor_name);
-       $vendor->contact_name = ($request->contact_name);
-       $vendor->phone_no = $request->phone_no;
-       $vendor->email = strtolower($request->email);
-       $vendor->store_address = $request->store_address;
-       $vendor->description = $request->description;
-       $vendor->slug = Str::slug($request->vendor_name, '_');
-       $vendor->commission_fee = ($request->commission_fee);
+        $vendor->save();
 
-       $vendor->save();
+        // Register Vendor Signup
+        $signUpData['password'] = "password";
+        $signUpData['email'] = $formData['email'];
+        $signUpData['role_id'] = config('constants.ROLES.vendor');
+        $adminUser = new AuthService($signUpData);
+        $admin = $adminUser->registerAdminUser($signUpData);
 
-       return $this->apiResponse->created($vendor, 'Vendor created successfully');
+        $updateVendor = Vendor::find($vendor->id);
+        $updateVendor->admin_id = $admin->id;
+        $updateVendor->save();
+
+        return $this->apiResponse->created($vendor, 'Vendor created successfully');
+      } catch (\Throwable $th) {
+        //throw $th;
+        $this->logError($th, __FUNCTION__);
+        return $this->apiResponse->failure(parent::$uncaughtErrorMessage);
+      }
 
     }
 

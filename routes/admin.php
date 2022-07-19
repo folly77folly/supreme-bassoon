@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\Admin\MediaUploadController;
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\ParentCategoryController;
 use App\Http\Controllers\Api\Admin\ProductCategoryController;
+use App\Http\Controllers\Api\Vendor\VendorDashboardController;
 use App\Http\Controllers\Api\Admin\ParentSubCategoryController;
 use App\Http\Controllers\Api\Admin\RoleController;
 
@@ -89,6 +90,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         'order' => OrdersController::class,
         'order-item' => OrderItemsController::class,
         'admin-dashboard' => AdminDashboardController::class,
+        'vendor-dashboard' => VendorDashboardController::class,
         'customers' => CustomerController::class,
     ]);
 >>>>>>> 2d0856653e3c6588d221e33922f1a8f69cc0f9a5

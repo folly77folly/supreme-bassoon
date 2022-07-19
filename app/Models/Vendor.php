@@ -47,4 +47,9 @@ class Vendor extends Model
         return $this->hasMany(Product::class);
      }
 
+     public function admin()
+     {
+         return $this->belongsTo(Admin::class);
+     }
+
 }

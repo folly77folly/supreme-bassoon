@@ -127,4 +127,10 @@ class Product extends Model
 
         return $this->belongsTo(Vendor::class);
     }
+
+    public function scopeProductOwner($query){
+        if(auth()->user()->isVendor()){
+            return $query->where('vendor_id',  auth()->user()->Vendor->id);
+        }
+    }
 }
