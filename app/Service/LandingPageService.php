@@ -61,4 +61,10 @@ class LandingPageService {
         $products = Product::visible()->inRandomOrder()->latest()->paginate(config('constants.PAGE_LIMIT.admin'));
         return $products;
     }
+
+    public function parentCategory():mixed
+    {
+        $products = ParentCategory::active()->inRandomOrder()->get()->take(config('constants.RECORDS_TAKE.three'));
+        return $products;
+    }
 }

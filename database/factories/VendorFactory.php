@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Admin;
+use App\Models\Vendor;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Vendor>
@@ -33,6 +35,17 @@ class VendorFactory extends Factory
             'commission_fee' => $this->faker->randomNumber(1,2000)
 
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function(Vendor $vendor){
+            $admin = Admin::factory()->create([
+                'email' => $vendor->email,
+                'role_id' => config('constants.ROLES.vendor')
+            ]);
+            Vendor::find($vendor->id)->update(['admin_id' => $admin->id]);
+        });
     }
 }
 

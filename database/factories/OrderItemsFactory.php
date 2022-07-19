@@ -42,6 +42,7 @@ class OrderItemsFactory extends Factory
         $quantity = $this->faker->numberBetween(10, 40);
         return [
             //
+            'user_id' => $order->user_id,
             'order_id' => $order->id,
             'product_id' => $product->id,
             'vendor_id' => $product->vendor_id,
@@ -49,6 +50,7 @@ class OrderItemsFactory extends Factory
             'quantity' => $quantity,
             'total_amount' => $product->price * $quantity,
             'total_discount' => $product->unitDiscount * $quantity,
+            'total_price' => ($product->price * $quantity) - ($product->unitDiscount * $quantity),
         ];
     }
 }

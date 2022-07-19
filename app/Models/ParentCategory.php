@@ -34,4 +34,9 @@ class ParentCategory extends Model
             get: fn ($value) => ucfirst($value),
         );
     }
+
+    public function scopeActive($query)
+    {
+      return $query->where('is_active', true);
+    }
 }

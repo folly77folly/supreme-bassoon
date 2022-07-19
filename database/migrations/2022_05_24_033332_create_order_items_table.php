@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use App\Models\OrderStatus;
 use App\Models\DeliveryStatus;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,7 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(User::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(Order::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(Product::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(Vendor::class)->onUpdateCascade()->onDeleteCascade();
@@ -27,6 +29,7 @@ return new class extends Migration
             $table->integer('quantity')->default(0)->unsigned();
             $table->double('total_amount')->default(0)->unsigned();           
             $table->double('total_discount')->default(0)->unsigned();                  
+            $table->double('total_price')->default(0)->unsigned();                  
             $table->timestamps();
         });
     }

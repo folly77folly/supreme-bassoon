@@ -65,6 +65,7 @@ class OrderFactory extends Factory
 
             OrderItems::factory()->create([
                 'order_id' => $order->id,
+                'user_id' => $order->user_id
             ]);
 
         });
