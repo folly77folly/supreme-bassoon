@@ -24,8 +24,9 @@ class EditProductReviewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'review' => 'nullable|string|max:500',
-            'product_id' => 'nullable|exists:products,id',
+            'review_title' => 'nullable|string|max:50',
+             'review_body' => 'nullable|string|max:500',
+             'ratings' => 'nullable|numeric',
         ];
     }
 }

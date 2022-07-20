@@ -24,8 +24,9 @@ class CreateProductReviewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'review' => 'required|string|max:500',
-            'product_id' => 'required|exists:products,id',
+             'review_title' => 'nullable|string|max:50',
+             'review_body' => 'required|string|max:500',
+             'ratings' => 'required|numeric',
         ];
     }
 }
