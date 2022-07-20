@@ -43,7 +43,7 @@ class AuthController extends Controller
 
         $sentMsg = $adminUser->sendResetLinkEmail($validatedData['email']);
         return $sentMsg === 'passwords.sent'
-            ? $this->apiResponse->successWithData($user, 'The email link has been sent to the user')
+            ? $this->apiResponse->created($user, 'The email link has been sent to the user')
             : $this->apiResponse->failure('User Created but email was not sent');
 
     }
@@ -94,7 +94,7 @@ class AuthController extends Controller
             return $this->apiResponse->failure('Invalid email or password');
         }
         $admin = Admin::where('email', $validatedData['email'])->first();
-        // Auth::guard('admin')->login($admin);
+
         $data = [
             "auth" => [
                 "token" => $accessToken,
