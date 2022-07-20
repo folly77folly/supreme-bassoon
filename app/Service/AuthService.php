@@ -85,13 +85,13 @@ class AuthService
     {
 
        $nakedPassword = env('APP_ENV') === 'local' ?  "password":Str::random(16);
-        
-        $data = [
-            ...$formData,
-            'password' => Hash::make($nakedPassword),
-            'email_verified_at' => now(),
-        ];
-
+        $data = array_merge(
+            $formData,
+            [
+                'password' => Hash::make($nakedPassword),
+                'email_verified_at' => now(),
+            ]
+            );
         return Admin::create($data);
     }
 
