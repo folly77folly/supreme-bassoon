@@ -52,4 +52,8 @@ class Vendor extends Model
          return $this->belongsTo(Admin::class);
      }
 
+     public function scopeOwner($query){
+        return $query->where('admin_id', auth()->id());
+     }
+
 }

@@ -97,8 +97,8 @@ class AuthService
 
     public function sendResetLinkEmail($email)
     {
-
-        $status = Password::sendResetLink(['email' => $email]);
+        $data = ['email' => $email];
+        $status = $this->broker()->sendResetLink($data);
         return $status;
     }
 

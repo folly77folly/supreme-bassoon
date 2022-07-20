@@ -51,13 +51,20 @@ abstract class TestCase extends BaseTestCase
 
     public function withAdminAuthentication($admin = null){
         if($admin){
-            $token = $user->createToken('api')->plainTextToken;
+            $token = $admin->createToken('api')->plainTextToken;
         }else{
             $token = $this->createAdminToken();
         }
        return $this->withHeaders([
             'Accept' => 'application/json',
             'Authorization' => "Bearer {$token}",
+        ]);
+    }
+
+    public function withoutAuthentication(){
+
+       return $this->withHeaders([
+            'Accept' => 'application/json',
         ]);
     }
 }

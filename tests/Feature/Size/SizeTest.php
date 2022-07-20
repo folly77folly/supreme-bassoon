@@ -20,7 +20,6 @@ class SizeTest extends TestCase
             "size" => 10.5,
         ];
         $response = $this->withAuthentication()->postJson($this->admin_url.'size', $data);
-        // dd($response);
         $response->assertStatus(201);
     }
 

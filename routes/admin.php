@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\OrdersController;
 use App\Http\Controllers\Api\Admin\VendorController;
 use App\Http\Controllers\Api\Admin\ProductController;
+use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\CustomerController;
 use App\Http\Controllers\Api\Admin\GiftShopController;
 use App\Http\Controllers\Api\Admin\CouponTypeController;
@@ -71,6 +72,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         'admin-dashboard' => AdminDashboardController::class,
         'vendor-dashboard' => VendorDashboardController::class,
         'customers' => CustomerController::class,
+        'profile' => ProfileController::class,
+        'role' => RoleController::class,
     ]);
 
     Route::controller(CustomerController::class)->group(function(){
