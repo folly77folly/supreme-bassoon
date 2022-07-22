@@ -22,7 +22,6 @@ use App\Http\Controllers\Api\Admin\ParentCategoryController;
 use App\Http\Controllers\Api\Admin\ProductCategoryController;
 use App\Http\Controllers\Api\Vendor\VendorDashboardController;
 use App\Http\Controllers\Api\Admin\ParentSubCategoryController;
-use App\Http\Controllers\Api\Admin\RoleController;
 
 
 
@@ -53,26 +52,6 @@ Route::middleware('admin')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-<<<<<<< HEAD
-Route::apiResources([
-    'media-upload'=> MediaUploadController::class,
-    'vendor' => VendorController::class,
-    'product-category' => ProductCategoryController::class,
-    'parent-category' => ParentCategoryController::class,
-    'parent-sub-category' => ParentSubCategoryController::class,
-    'color' => ColorController::class,
-    'size' => SizeController::class,
-    'gift-shop' => GiftShopController::class,
-    'product' => ProductController::class,
-    'city' => CityController::class,
-    'coupon' => CouponController::class,
-    'coupon-type' => CouponTypeController::class,
-    'order' => OrdersController::class,
-    'role' => RoleController::class,
-    'admin-dashboard' => AdminDashboardController::class,
-    'customers' => CustomerController::class,
-]);
-=======
 Route::group(['middleware' => 'auth:sanctum'], function(){
     
     Route::apiResources([
@@ -96,7 +75,6 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         'profile' => ProfileController::class,
         'role' => RoleController::class,
     ]);
->>>>>>> 2d0856653e3c6588d221e33922f1a8f69cc0f9a5
 
     Route::controller(CustomerController::class)->group(function(){
         Route::GET('customers-latest', 'latestUsers');
