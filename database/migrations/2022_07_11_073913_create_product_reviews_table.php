@@ -19,7 +19,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->onupdateCascade()->onDeleteCascade();
             $table->foreignIdFor(Product::class)->onupdateCascade()->onDeleteCascade();
-            $table->string('review');
+            $table->string('review_title')->nullable();
+            $table->string('review_body');
+            $table->integer('ratings');
             $table->timestamps();
         });
     }
