@@ -20,6 +20,7 @@ trait UuidTrait
                 if ($model->getKey() === null) {
                     $model->setAttribute($model->getKeyName(), Str::uuid()->toString());
                 }
+                $model->slug = Str::slug($model->brand . ' ' .$model->name).'-' .now()->format('ymd');
             });
         }
         

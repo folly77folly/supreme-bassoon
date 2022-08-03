@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, UuidTrait;
 
     protected $guarded = []; 
+    // protected $keyType = 'string';
 
     protected $casts = [
         'discounted' => 'boolean',
@@ -37,13 +38,13 @@ class Product extends Model
     ];
 
 
-    public static function boot(){
-        parent::boot();
-        static::creating(function($product){
-            $product->slug = Str::slug($product->brand . ' ' .$product->name). now()->format('ymd');
-            $product->id = Str::uuid()->toString();
-        });
-    }
+    // public static function boot(){
+    //     parent::boot();
+    //     static::creating(function($product){
+    //         $product->slug = Str::slug($product->brand . ' ' .$product->name).'-' .now()->format('ymd');
+    //         // $product->id = Str::uuid()->toString();
+    //     });
+    // }
 
     public function images(): Attribute
     {
