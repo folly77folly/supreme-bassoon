@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\User\VerificationController;
 use App\Http\Controllers\Api\User\ForgotPasswordController;
 use App\Http\Controllers\Api\User\PaymentMethodController;
 use App\Http\Controllers\Api\User\ProductSearchController;
+use App\Http\Controllers\Api\User\ViewProductController;
 use App\Http\Controllers\Api\User\{
   CheckoutController,
   WebhookTransactionController,
@@ -114,6 +115,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
       Route::delete('product-review/{id}', 'deleteReview');
     });
 });
+
+Route::get('show-product', [ViewProductController::class, 'ViewProduct']);
 
 
 
