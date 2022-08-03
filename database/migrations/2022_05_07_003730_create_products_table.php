@@ -29,7 +29,6 @@ return new class extends Migration
             $table->float('markup_percentage')->default(0);
             $table->double('price', 12,2)->default(0);
             $table->foreignIdFor(Vendor::class)->onUpdate('cascade')->onDelete('cascade');
-            // $table->foreignIdFor(GiftShop::class)->onUpdate('cascade')->onDelete('cascade');
             $table->longText('gift_shops');
             $table->longText('colors');
             $table->string('dimension')->nullable();
@@ -41,6 +40,7 @@ return new class extends Migration
             $table->longText('images')->nullable();
             $table->longText('main_image')->nullable();
             $table->boolean('visibility')->default(1);
+            $table->string('slug');
             $table->timestamps();
         });
     }

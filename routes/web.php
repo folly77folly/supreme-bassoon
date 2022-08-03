@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/{id}', function ($id) {
+    $order =  Order::find($id);
+    // dd($order);
+    return view('emails.orderCompleted', ['order' => $order]);
 });
+
+

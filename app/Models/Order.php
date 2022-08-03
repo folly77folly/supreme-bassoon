@@ -14,6 +14,9 @@ class Order extends Model
     protected $casts = [
         'status' => 'boolean',
         'paid' => 'boolean',
+        'discount' => 'float',
+        'total_price' => 'float',
+        'shipping_price' => 'float',
     ];
 
     protected $appends =[
@@ -33,6 +36,11 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
     }
 
     public function deliveryStatus()
