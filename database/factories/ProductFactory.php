@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Color;
 use App\Models\Vendor;
 use App\Models\GiftShop;
+use Illuminate\Support\Str;
 use App\Models\ParentCategory;
 use App\Models\ProductCategory;
 use App\Models\ParentSubCategory;
@@ -51,10 +52,13 @@ class ProductFactory extends Factory
             'https://res.cloudinary.com/valenci007/image/upload/v1651322166/products/202204301236_whatsapp_image_2022_03_07_at_64149_pm.jpg',
             'https://res.cloudinary.com/valenci007/image/upload/v1651322166/products/202204301236_whatsapp_image_2022_03_07_at_64149_pm.jpg'
         ];
+        $randomImageIndex = array_rand($images);
+        $lastName = $this->faker->lastName;
+        $firstName = $this->faker->firstName;
         return [
             //
-            'name' => $this->faker->lastName,
-            'brand' => $this->faker->firstName,
+            'name' => $lastName,
+            'brand' => $firstName,
             'description' => $this->faker->firstName,
             'product_category_id' => $this->faker->randomElement($productCategoryIds),
             'parent_category_id' => $this->faker->randomElement($parentCategoryIds),
@@ -68,7 +72,9 @@ class ProductFactory extends Factory
             'gift_shops' => [$this->faker->randomElement($giftShopIds)->id],
             'colors' => [$this->faker->randomElement($colorIds)->id],
             'images' => $images,
+            'main_image' => $images[$randomImageIndex],
             'is_discounted' => $this->faker->randomElement([0,1]),
+            // 'slug' => Str::slug($lastName. ' ' .$firstName),
         ];
     }
 }

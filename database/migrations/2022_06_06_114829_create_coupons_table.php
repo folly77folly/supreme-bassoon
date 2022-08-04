@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(Coupon_type::class)->onDelete('cascade')->onUpdate('cascade');
             $table->double('min_amount', 12,2)->default(0);
             $table->integer('usage_limit')->default(0);
-            $table->longtext('emails_to_enjoy');
+            $table->longText('emails_to_enjoy')->nullable();
             $table->boolean('active');
             $table->datetime('start_date');
             $table->datetime('end_date');

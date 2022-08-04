@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\UuidTrait;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +13,7 @@ class Product extends Model
     use HasFactory, UuidTrait;
 
     protected $guarded = []; 
+    // protected $keyType = 'string';
 
     protected $casts = [
         'discounted' => 'boolean',
@@ -36,6 +38,13 @@ class Product extends Model
     ];
 
 
+    // public static function boot(){
+    //     parent::boot();
+    //     static::creating(function($product){
+    //         $product->slug = Str::slug($product->brand . ' ' .$product->name).'-' .now()->format('ymd');
+    //         // $product->id = Str::uuid()->toString();
+    //     });
+    // }
 
     public function images(): Attribute
     {
@@ -133,4 +142,16 @@ class Product extends Model
             return $query->where('vendor_id',  auth()->user()->Vendor->id);
         }
     }
+
+    // public function slug():Attribute
+    // {
+    //     return Attribute::make(
+    //         set: fn($value) => ['slug' => Str::slug($value,'_'), 'name' => ($value)],
+    //     );
+    // }
+
+    // public function setSlugAttribute()
+    // {
+    //     $this->attributes['slug'] = str_slug($this->brand , "-");
+    // }
 }

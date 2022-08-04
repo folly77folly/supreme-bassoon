@@ -15,4 +15,8 @@ class PaymentMethod extends Model
         'status' => 'boolean'
     ];
     
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
