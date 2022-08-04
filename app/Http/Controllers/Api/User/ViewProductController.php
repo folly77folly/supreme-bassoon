@@ -8,8 +8,11 @@ use App\Models\Product;
 
 class ViewProductController extends Controller
 {
-    public function ViewProduct($product_id){
-        $product = Product::findOrFail($product_id);
+    public function ViewProduct($slug){
+        $product = Product::where('slug', $slug)->get();
+        if($product->count() == 0){
+            return $this->apiResponse->failure("Product doesnt exist");
+        }
         return $this->apiResponse->successWithData($product);
     }
 }
