@@ -116,7 +116,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 });
 
-Route::get('show-product', [ViewProductController::class, 'ViewProduct']);
+Route::get('show-product/{product_id}', [ViewProductController::class, 'ViewProduct']);
 
 
 
