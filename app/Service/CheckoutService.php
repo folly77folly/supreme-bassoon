@@ -36,6 +36,7 @@ class CheckoutService{
             'shipping_price' => $shippingRate,
             'trans_id' => $formData['trans_id'],
             'reference' => $formData['reference'],
+            'discount' => $formData['coupon_amount_off'],
             'delivery_days' => $deliveryDate,
             'paid' => true,
         ];

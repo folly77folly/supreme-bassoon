@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Order;
+use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
             User::factory()->create(['email' => 'user@yopmail.com']);
             Product::factory()->count(10)->create();
             Order::factory()->count(10)->create();
+            Coupon::factory()->count(10)->create();
         // }
     }
 }

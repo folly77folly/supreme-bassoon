@@ -29,7 +29,10 @@ return new class extends Migration
             $table->integer('quantity')->default(0)->unsigned();
             $table->double('total_amount')->default(0)->unsigned();           
             $table->double('total_discount')->default(0)->unsigned();                  
-            $table->double('total_price')->default(0)->unsigned();                  
+            $table->double('cost_price')->default(0)->unsigned();               
+            $table->double('total_price')->default(0)->unsigned();  
+            $table->foreignId('vendor_fulfillment_id')->nullable()->constrained()->references('id')->on('vendors')->onUpdateCascade()->onDeleteCascade();                
+            $table->foreignId('extra notes')->nullable();                
             $table->timestamps();
         });
     }

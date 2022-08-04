@@ -40,6 +40,7 @@ class ProductController extends Controller
             //code...
             $formData = $request->validated();
             $newProduct = new ProductService;
+            // $formData['slug'] = Str::slug($request->brand. ' ' .$request->name, '-');
             $product = $newProduct->saveProduct($formData);
             return $this->apiResponse->successWithData($product, 'product successfully created');
 

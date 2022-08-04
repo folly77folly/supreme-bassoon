@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Exceptions\ApiResponseException;
 use App\Http\Requests\SaveCheckoutRequest;
+use App\Notifications\OrderCompletedNotification;
 
 class CheckoutController extends Controller
 {
@@ -54,10 +55,14 @@ class CheckoutController extends Controller
                 3 => $checkout->checkoutWithPoints($validatedData),
                  }
             );
-                // Used Coupons
-                if ($amountOff  > 0){
-                    $coupon->recordUsedCoupon(auth()->user(), $amountOff);
-                }
+            // Used Coupons
+            if ($amountOff  > 0){
+                $coupon->recordUsedCoupon(auth()->user(), $amountOff);
+            }
+
+            //send notification for completed order
+            auth()->user()->notify(new OrderCompletedNotification($paidOrder));
+            
 
             return $this->apiResponse->created($paidOrder, 'order placed successfully');
         }catch(ApiResponseException $ape){
