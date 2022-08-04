@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\User\{
   CouponController,
   LandingPageController,
   ProductReviewController,
+  ProductController,
 };
 
 /*
@@ -116,7 +117,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 });
 
-Route::get('show-product/{slug}', [ViewProductController::class, 'ViewProduct']);
+Route::apiResources([
+    'show-product' => ProductController::class,
+]);
 
 
 
