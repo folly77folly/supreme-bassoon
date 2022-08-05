@@ -38,9 +38,6 @@ class ProductController extends Controller
     public function show($slug)
     {   
         $product = Product::where('slug', $slug)->first();
-        if(!$product->exists()){
-            return $this->apiResponse->failure("Product doesnt exist");
-        }
         return $this->apiResponse->successWithData($product);
     }
 
