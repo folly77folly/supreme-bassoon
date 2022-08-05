@@ -117,9 +117,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 });
 
-Route::apiResources([
-    'show-product' => ProductController::class,
-]);
+Route::get('product/{slug}', [ProductController::class, 'show']);
 
 
 
