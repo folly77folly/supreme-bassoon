@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\User\{
   LandingPageController,
   ProductReviewController,
   ProductController,
+  MailingListController,
 };
 
 /*
@@ -61,6 +62,8 @@ Route::controller(LandingPageController::class)->group(function(){
   Route::GET('landing-page-top-selling', 'getTopSellingProducts');
   Route::GET('landing-page-parent-category', 'getParentCategory');
 });
+
+Route::POST('mailing-list', [MailingListController::class, 'store']);
 
 
 
