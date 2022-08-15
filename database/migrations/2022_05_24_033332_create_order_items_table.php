@@ -21,7 +21,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(Order::class)->onUpdateCascade()->onDeleteCascade();
-            $table->foreignIdFor(Product::class)->onUpdateCascade()->onDeleteCascade();
+            $table->foreignUuid('product_id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignIdFor(Vendor::class)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(DeliveryStatus::class)->default(1)->onUpdateCascade()->onDeleteCascade();
             $table->foreignIdFor(OrderStatus::class)->default(1)->onUpdateCascade()->onDeleteCascade();
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->double('cost_price')->default(0)->unsigned();               
             $table->double('total_price')->default(0)->unsigned();  
             $table->foreignId('vendor_fulfillment_id')->nullable()->constrained()->references('id')->on('vendors')->onUpdateCascade()->onDeleteCascade();                
-            $table->foreignId('extra notes')->nullable();                
+            $table->string('extra_notes')->nullable();                
             $table->timestamps();
         });
     }

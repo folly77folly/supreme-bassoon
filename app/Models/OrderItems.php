@@ -17,6 +17,7 @@ class OrderItems extends Model
         'unit_price' => 'float',
         'total_amount' => 'float',
         'total_discount' => 'float',
+        'total_price' => 'float',
     ];
 
     public function user()

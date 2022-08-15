@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\AddressBook;
+use App\Models\ChildrenProfile;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\EmailVerifyNotification;
@@ -9,8 +11,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\PasswordChangeNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\ChildrenProfile;
-use App\Models\AddressBook;
+use App\Notifications\AbandonedCartReminderNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -60,7 +61,12 @@ class User extends Authenticatable implements MustVerifyEmail
         $fullName = $this->fullName();
         $this->notify(new PasswordChangeNotification($fullName));
     }
-    
+
+    public function sendAbandonCartReminderNotification()
+    {
+        $fullName = $this->fullName();
+        $this->notify(new AbandonedCartReminderNotification($fullName));
+    }
 
     public function fullName(){
         return "{$this->first_name} {$this->last_name}" ;
@@ -83,6 +89,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
     }
 
 }

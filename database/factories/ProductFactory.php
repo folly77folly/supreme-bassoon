@@ -23,8 +23,15 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        GiftShop::factory()->count(3)->create();
-        Vendor::factory()->count(3)->create();
+        if(GiftShop::get()->count() == 0){
+
+            GiftShop::factory()->count(3)->create();
+        }
+
+        if(Vendor::get()->count() == 0){
+
+            Vendor::factory()->count(3)->create();
+        }
         if(Color::get()->count() == 0){
             Color::factory()->create();
         }

@@ -26,7 +26,10 @@ class AdminUpdateDeliveryStatus extends FormRequest
         return [
             //
             'delivery_status_id' => ['bail', 'nullable', 'integer', 'exists:delivery_statuses,id'],
-            'order_status_id' => ['bail', 'nullable', 'integer', 'exists:order_statuses,id']
+            'order_status_id' => ['bail', 'nullable', 'integer', 'exists:order_statuses,id'],
+            'cost_price' => ['bail', 'numeric'],
+            'vendor_fulfillment_id' => ['bail', 'nullable', 'exists:vendors,id'],
+            'extra_notes' => ['bail', 'nullable', 'max:220'],
         ];
     }
 }
