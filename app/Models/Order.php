@@ -58,7 +58,7 @@ class Order extends Model
 
     public function getDeliveryDateAttribute()
     {
-        $now = ($this->created_at);
+        $now = ($this->created_at??=now());
         $shipRecord = explode('-', $this->delivery_days);
         $start = ($now->addDays($shipRecord[0]))->format('d M');
         $end = ($now->addDays($shipRecord[1]))->format('d M');

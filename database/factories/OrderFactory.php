@@ -53,7 +53,7 @@ class OrderFactory extends Factory
             'shipping_price' => $this->faker->numberBetween(100, 300),
             'trans_id' => Str::random(10),
             'reference' => Str::random(10),
-            'delivery_days' => "1-2",
+            'delivery_days' => "1-3",
             'paid' => true,
             'approved' => true,
         ];
