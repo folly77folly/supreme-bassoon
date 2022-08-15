@@ -31,14 +31,12 @@ class AbandonedCartReminderCommand extends Command
     {
         $startDate = now()->subDays(2);
         $endDate = now();
-        $carts = Cart::distinct('user_id')->whereBetween('updated_at', [$startDate, $endDate])->get();
+        $carts = Cart::active()->distinct('user_id')->whereBetween('updated_at', [$startDate, $endDate])->get();
         // if the cart has records within the dates
         if($carts->count() > 0){
-            Log::info('sending..');
             $carts->each(function($cart){
                 $cart->user->sendAbandonCartReminderNotification();
             });
         }
-        Log::info('no record..');
     }
 }
