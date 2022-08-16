@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MailingListTest extends TestCase
 {
-    use WithFaker;
+    // use WithFaker;
     /**
      * A basic feature test example.
      *
@@ -19,7 +19,8 @@ class MailingListTest extends TestCase
     {
 
         $data = [
-            "email" => preg_replace('/@example\..*/', '@yopmail.com', $this->faker->unique()->safeEmail),
+            "email" => 'iamlola@yopmail.com',
+            // "email" => preg_replace('/@example\..*/', '@yopmail.com', $this->faker->unique()->safeEmail),
         ];
         $response = $this->withOutAuthentication()->postJson($this->user_url.'mailing-list', $data);
         
