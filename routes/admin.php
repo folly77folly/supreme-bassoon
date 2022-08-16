@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\Admin\CustomerController;
 use App\Http\Controllers\Api\Admin\GiftShopController;
 use App\Http\Controllers\Api\Admin\CouponTypeController;
 use App\Http\Controllers\Api\Admin\OrderItemsController;
+use App\Http\Controllers\Api\Admin\MailingListController;
 use App\Http\Controllers\Api\Admin\MediaUploadController;
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\ParentCategoryController;
@@ -74,6 +75,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         'customers' => CustomerController::class,
         'profile' => ProfileController::class,
         'role' => RoleController::class,
+        'mailing-list' => MailingListController::class
     ]);
 
     Route::controller(CustomerController::class)->group(function(){
