@@ -8,6 +8,9 @@ use Illuminate\Auth\Events\PasswordReset;
 use App\Listeners\SendPasswordResetSuccessNotification;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Listeners\SendDeliveryStatusNotification;
+use App\Event\DeliveryStatusEvent;
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,11 @@ class EventServiceProvider extends ServiceProvider
         PasswordReset::class => [
             SendPasswordResetSuccessNotification::class,
         ],
+
+        DeliveryStatusEvent::class => [
+            SendDeliveryStatusNotification::class,
+        ],
+
     ];
 
     /**

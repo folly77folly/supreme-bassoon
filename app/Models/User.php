@@ -8,6 +8,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\EmailVerifyNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Listeners\SendDeliveryStatusNotification;
 use App\Notifications\PasswordChangeNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -73,6 +74,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $fullName = $this->fullName();
         $this->notify(new ProductReviewReminderNotification($fullName, $orderItem));
+    }
+
+    // DeliveryStatusNotification
+    public function DeliveryStatusNotification($orderItem)
+    {
+        $fullName = $this->fullName();
+        $this->notify(new SendDeliveryStatusNotification($fullName, $orderItem));
     }
 
     public function fullName(){

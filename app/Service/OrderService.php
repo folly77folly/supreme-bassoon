@@ -55,6 +55,10 @@ class OrderService {
         }
 
         $orderItem->update($formData);
+
+        //Event to send notification to user
+        new event  (DeliveryStatusEvent($orderItem));
+        
         return $orderItem->load(
             'deliveryStatus:id,name',
             'orderStatus:id,name',
