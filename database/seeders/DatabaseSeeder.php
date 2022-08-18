@@ -34,11 +34,11 @@ class DatabaseSeeder extends Seeder
         // dd(in_array(env('APP_ENV'), ['local', 'debug', 'development']));
         // if(in_array(env('APP_ENV'), ['local', 'debug', 'development']) ){
 
-            Admin::factory()->create(['email' => 'super_admin@yopmail.com']);
-            User::factory()->create(['email' => 'user@yopmail.com']);
-            Product::factory()->count(20)->create();
-            Order::factory()->count(20)->create();
-            Coupon::factory()->count(20)->create();
+            \App\Models\Admin::factory()->create(['email' => 'super_admin@yopmail.com']);
+            \App\Models\User::factory()->create(['email' => 'user@yopmail.com']);
+            \App\Models\Product::factory()->count(20)->create();
+            \App\Models\Order::factory()->count(20)->create();
+            \App\Models\Coupon::factory()->count(20)->create();
         // }
     }
 }
