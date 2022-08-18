@@ -29,7 +29,7 @@ class AbandonedCartReminderCommand extends Command
      */
     public function handle()
     {
-        $startDate = now()->subDays(2);
+        $startDate = now()->subDays(config('constants.NUMBERS.two'));
         $endDate = now();
         $carts = Cart::active()->distinct('user_id')->whereBetween('updated_at', [$startDate, $endDate])->get();
         // if the cart has records within the dates

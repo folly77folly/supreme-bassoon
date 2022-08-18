@@ -18,6 +18,8 @@ class OrderItems extends Model
         'total_amount' => 'float',
         'total_discount' => 'float',
         'total_price' => 'float',
+        'send_for_review' => 'boolean',
+        'reviewed' => 'boolean',
     ];
 
     public function user()

@@ -16,7 +16,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        // send-product-review:cron
         $schedule->command('abandonedCartReminder:cron')
+        ->daily()
+        ->withoutOverlapping();
+
+        $schedule->command('send-product-review:cron')
         ->daily()
         ->withoutOverlapping();
     }
