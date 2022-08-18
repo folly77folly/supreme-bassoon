@@ -36,9 +36,9 @@ class DatabaseSeeder extends Seeder
 
             Admin::factory()->create(['email' => 'super_admin@yopmail.com']);
             User::factory()->create(['email' => 'user@yopmail.com']);
-            Product::factory()->count(10)->create();
-            Order::factory()->count(10)->create();
-            Coupon::factory()->count(10)->create();
+            Product::factory()->count(20)->create();
+            Order::factory()->count(20)->create();
+            Coupon::factory()->count(20)->create();
         // }
     }
 }
