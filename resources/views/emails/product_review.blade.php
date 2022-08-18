@@ -189,7 +189,7 @@
                                             <!--<![endif]-->
                                             <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
                                                 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 0px;padding-left: 0px;" align="center"><![endif]-->
-                                                <img align="center" border="0" class="center fixedwidth" src="{{ asset('/images/logo.png') }}" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 120px; display: block;" width="120" />
+                                                <img align="center" border="0" class="center fixedwidth" src="{{  asset('/images/logo.png')  }}" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 120px; display: block;" width="120" />
                                                 <div style="font-size:1px;line-height:24px"> </div>
                                                 <!--[if mso]></td></tr></table><![endif]-->
                                             </div>
@@ -197,7 +197,7 @@
                                                 <tr style="vertical-align: top;" valign="top">
                                                     <td align="center" style="word-break: break-word; vertical-align: top; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; text-align: center; width: 100%;" valign="top" width="100%">
                                                         <h1 style="color:#000000;direction:ltr;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;font-size:28px;font-weight:normal;letter-spacing:normal;line-height:120%;text-align:center;margin-top:0;margin-bottom:0;">
-                                                            <strong>Order Notification</strong>
+                                                            <strong>Product Review</strong>
                                                         </h1>
                                                     </td>
                                                 </tr>
@@ -226,7 +226,7 @@
                                                 <tr style="vertical-align: top;" valign="top">
                                                     <td align="center" style="word-break: break-word; vertical-align: top; padding-bottom: 24px; padding-left: 40px; padding-right: 40px; padding-top: 0px; text-align: center; width: 100%;" valign="top" width="100%">
                                                         <h1 style="color:#000000;direction:ltr;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;font-size:23px;font-weight:normal;letter-spacing:normal;line-height:120%;text-align:left;margin-top:0;margin-bottom:0;">
-                                                            <strong>Dear {{ $order->user->fullName() }},</strong>
+                                                            <strong>Dear {{ $fullName }},</strong>
                                                         </h1>
                                                     </td>
                                                 </tr>
@@ -236,8 +236,7 @@
                                                 <div class="txtTinyMce-wrapper" style="line-height: 2; font-size: 12px; font-family: 'Roboto', Tahoma, Verdana, Segoe, sans-serif; color: #888f82; mso-line-height-alt: 24px;">
                                                     <p style="font-size: 18px; line-height: 2; font-family: Roboto, Tahoma, Verdana, Segoe, sans-serif; word-break: break-word; mso-line-height-alt: 36px; margin: 0;">
                                                         <span style="font-size: 18px;">Thank you for your order on
-                                                            Bubble Colony. This mail is to confirm that we have received and
-                                                            have started processing your order.</span>
+                                                            Bubble Colony. This mail is to request for product review.</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -246,7 +245,7 @@
                                                 <tr style="vertical-align: top;" valign="top">
                                                     <td align="center" style="word-break: break-word; vertical-align: top; padding-bottom: 24px; padding-left: 40px; padding-right: 40px; padding-top: 24px; text-align: center; width: 100%;" valign="top" width="100%">
                                                         <h1 style="color:#293d1d;direction:ltr;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;font-size:18px;font-weight:normal;letter-spacing:normal;line-height:120%;text-align:left;margin-top:0;margin-bottom:0;">
-                                                            <strong>Order reference: {{ $order->OrderNo }}</strong>
+                                                            <strong>Order reference: {{ $orderItem->Order_id }}</strong>
                                                         </h1>
                                                     </td>
                                                 </tr>
@@ -255,7 +254,7 @@
                                                 <tr style="vertical-align: top;" valign="top">
                                                     <td align="center" style="word-break: break-word; vertical-align: top; padding-bottom: 24px; padding-left: 40px; padding-right: 40px; padding-top: 24px; text-align: center; width: 100%;" valign="top" width="100%">
                                                         <h1 style="color:#000000;direction:ltr;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;font-size:18px;font-weight:normal;letter-spacing:normal;line-height:120%;text-align:center;margin-top:0;margin-bottom:0;">
-                                                            <strong>Here's a list of item(s) you've ordered</strong>
+                                                            <strong>Here's a an item you've ordered</strong>
                                                         </h1>
                                                     </td>
                                                 </tr>
@@ -281,43 +280,35 @@
                                 <th style="padding-top:15px;padding-right:0px;padding-bottom:15px;padding-left:0px;">Price</th>
                             </tr>
                             <tbody style="background-color: #ffffff;">
-                                @foreach($order->orderItem as $item)
+                                {{-- {{dd( $orderItem )}} --}}
                                 <tr style="text-align: center;color:#888f82;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.2;font-size:13px; border-bottom: 1px solid #BBBBBB;">
                                     <td style="padding-top:15px;padding-right:0px;padding-bottom:15px;padding-left:30px;text-align:left; width:45px;">
-                                        <img src="{{ $item->product->main_image }}" alt="product image" srcset="{{ $item->product->main_image }}" style="max-width: 100%; max-height:100%; object-fix:cover;">   
+                                        <img src="{{ $orderItem->product->main_image }}" alt="product image" srcset="{{ $orderItem->product->main_image }}" style="max-width: 100%; max-height:100%; object-fix:cover;">   
                                     </td>
                                     <td style="padding-top:15px;padding-right:0px;padding-bottom:15px;padding-left:0px;">
-                                        {{ $item->product->product_name }}
+                                        {{ $orderItem->product->product_name }}
                                     </td>
                                     <td style="padding-top:15px;padding-right:0px;padding-bottom:15px;padding-left:0px;">
-                                        {{  $item->quantity }}
+                                        {{  $orderItem->quantity }}
                                     </td>
                                     <td style="padding-top:15px;padding-right:0px;padding-bottom:15px;padding-left:0px;">
-                                        ₦ {{ $item->product->is_discounted == true ? $item->product->discounted_price : $item->product->price; }}
+                                        ₦ {{ $orderItem->product->is_discounted == true ? $orderItem->product->discounted_price : $orderItem->product->price; }}
                                     </td>
                                 </tr>
-                                @endforeach
+                                {{-- @endforeach --}}
                             </tbody>
                         </table>
-
-
                         <table style="min-width: 320px; max-width: 600px; width:100%; margin: 0 auto;">
-                            <tbody style="background-color: #ffffff;">
-                                <tr style="line-height:1.2;font-size:16px;">
-                                    <td style="padding-top:2px;padding-right:0px;padding-bottom:2px;padding-left:30px;text-align: left;">Shipping Cost</td>
-                                    <td style="padding-top:2px;padding-right:0px;padding-bottom:2px;padding-left:0px;text-align:right;">₦ {{ $order->shipping_price }}</td>
-                                </tr>
-                                <tr style="line-height:1.2;font-size:16px;">
-                                    <td style="padding-top:2px;padding-right:0px;padding-bottom:2px;padding-left:30px;text-align: left;">Discount</td>
-                                    <td style="padding-top:5px;padding-right:0px;padding-bottom:2px;padding-left:0px;text-align:right;">₦ {{ $order->discount }}</td>
-                                </tr>
-                                <tr style="line-height:1.2;font-size:16px;">
-                                    <td style="padding-top:2px;padding-right:0px;padding-bottom:2px;padding-left:30px;text-align: left;">Total</td>
-                                    <td style="padding-top:2px;padding-right:0px;padding-bottom:2px;padding-left:0px;text-align:right;">₦ {{ $order->total_price }}</td>
+                            <tbody>
+                                <tr>
+                                    <td style="padding-top:15px;padding-bottom:15px;padding-left:0px; text-align:center;">
+                                        <a href="{{ env('FRONT_END_BASE_URL').'product/'. $orderItem->product_id}}" rel="noopener" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; 
+                                        position: relative; border-radius: 4px; color: rgba(255, 255, 255, 1); display: inline-block; overflow: hidden; text-decoration: none; background-color: rgba(45, 55, 72, 1); 
+                                        border-bottom: 8px solid rgba(45, 55, 72, 1); border-left: 18px solid rgba(45, 55, 72, 1); border-right: 18px solid rgba(45, 55, 72, 1); border-top: 8px solid rgba(45, 55, 72, 1)">Review  Product</a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-
 
                     </div>
 

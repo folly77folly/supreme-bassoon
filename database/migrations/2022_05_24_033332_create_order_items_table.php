@@ -31,6 +31,8 @@ return new class extends Migration
             $table->double('total_discount')->default(0)->unsigned();                  
             $table->double('cost_price')->default(0)->unsigned();               
             $table->double('total_price')->default(0)->unsigned();  
+            $table->boolean('send_for_review')->default(0);
+            $table->boolean('reviewed')->default(0);
             $table->foreignId('vendor_fulfillment_id')->nullable()->constrained()->references('id')->on('vendors')->onUpdateCascade()->onDeleteCascade();                
             $table->string('extra_notes')->nullable();                
             $table->timestamps();

@@ -12,6 +12,7 @@ use App\Notifications\PasswordChangeNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\AbandonedCartReminderNotification;
+use App\Notifications\ProductReviewReminderNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -66,6 +67,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $fullName = $this->fullName();
         $this->notify(new AbandonedCartReminderNotification($fullName));
+    }
+
+    public function sendProductReviewReminderNotification($orderItem)
+    {
+        $fullName = $this->fullName();
+        $this->notify(new ProductReviewReminderNotification($fullName, $orderItem));
     }
 
     public function fullName(){
