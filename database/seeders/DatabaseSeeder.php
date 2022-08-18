@@ -9,6 +9,7 @@ use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,11 +35,11 @@ class DatabaseSeeder extends Seeder
         // dd(in_array(env('APP_ENV'), ['local', 'debug', 'development']));
         // if(in_array(env('APP_ENV'), ['local', 'debug', 'development']) ){
 
-            \App\Models\Admin::factory()->create(['email' => 'super_admin@yopmail.com']);
-            \App\Models\User::factory()->create(['email' => 'user@yopmail.com']);
-            \App\Models\Product::factory()->count(20)->create();
-            \App\Models\Order::factory()->count(20)->create();
-            \App\Models\Coupon::factory()->count(20)->create();
+            // \App\Models\Admin::factory()->create(['email' => 'super_admin@yopmail.com']);
+            // \App\Models\User::factory()->create(['email' => 'user@yopmail.com']);
+            // \App\Models\Product::factory()->count(20)->create();
+            // \App\Models\Order::factory()->count(20)->create();
+            // \App\Models\Coupon::factory()->count(20)->create();
         // }
     }
 }
