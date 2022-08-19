@@ -85,7 +85,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
       'address-book' => AddressBookController::class,
       'wishlist' => WishlistController::class,
       'checkout' => CheckoutController::class,
-      'buy-now' => BuyNowController::class,
 
     ]);
 
@@ -98,7 +97,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //Payment Method Endpoint
     Route::get('payment-method', [PaymentMethodController::class, 'paymentMethod']);
 
-    //Get City dpending on state_id
+    //Get City depending on state_id
     Route::get('state-city/{stateId}', [CityController::class, 'getCity']);
 
     //Product Search Route

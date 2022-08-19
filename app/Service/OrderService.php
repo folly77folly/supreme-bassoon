@@ -4,6 +4,7 @@ namespace App\Service;
 use App\Models\Order;
 use App\Models\OrderItems;
 use Illuminate\Http\Request;
+use App\Event\DeliveryStatusEvent;
 use App\Exceptions\ApiResponseException;
 use App\Http\Requests\AdminUpdateDeliveryStatus;
 
@@ -55,6 +56,10 @@ class OrderService {
         }
 
         $orderItem->update($formData);
+
+        //Event to send notification to user
+         event (new DeliveryStatusEvent($orderItem));
+        
         return $orderItem->load(
             'deliveryStatus:id,name',
             'orderStatus:id,name',

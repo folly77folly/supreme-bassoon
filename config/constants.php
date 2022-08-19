@@ -19,6 +19,7 @@ return [
         'order_placed' => 1,
         'order_shipped' => 2,
         'order_delivered' => 3,
+        'order_cancelled' => 4,
     ],
     "CHECKOUT_TYPE" => [
         'checkout' => 1,
