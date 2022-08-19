@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\EmailVerifyNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Listeners\SendDeliveryStatusNotification;
+use App\Notifications\DeliveryStatusNotification;
 use App\Notifications\PasswordChangeNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -77,10 +78,10 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     // DeliveryStatusNotification
-    public function DeliveryStatusNotification($orderItem)
+    public function DeliveryStatusNotification($orderStatus):void
     {
         $fullName = $this->fullName();
-        $this->notify(new SendDeliveryStatusNotification($fullName, $orderItem));
+        $this->notify(new DeliveryStatusNotification($fullName, $orderStatus));
     }
 
     public function fullName(){

@@ -26,6 +26,9 @@ class DeliveryStatusSeeder extends Seeder
             ],
             [
                 'name' => 'Order Delivered'
+            ],
+            [
+                'name' => 'Order Cancelled'
             ]
 
         ]);

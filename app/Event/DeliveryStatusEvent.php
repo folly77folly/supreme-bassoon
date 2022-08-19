@@ -14,14 +14,17 @@ class DeliveryStatusEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $orderItem;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($orderItem)
     {
         //
+        $this->orderItem = $orderItem;
     }
 
     /**

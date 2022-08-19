@@ -3,9 +3,10 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class DeliveryStatusNotification extends Notification
 {
@@ -16,9 +17,11 @@ class DeliveryStatusNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(private string $fullName, private string $orderStatus)
     {
         //
+        $this->fullName = $fullName;
+        $this->orderStatus = $orderStatus;
     }
 
     /**
@@ -40,10 +43,13 @@ class DeliveryStatusNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = env('FRONT_END_BASE_URL');
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        ->subject(Lang::get('Delivery Status'))
+        ->greeting(Lang::get('Hi '. $this->fullName. ',' ))
+        ->line(Lang::get('We Would like to inform you that your order has been ' .$this->orderStatus))
+        ->line(Lang::get('Ready to view status'))
+        ->action(Lang::get('Order Status'), $url);
     }
 
     /**
