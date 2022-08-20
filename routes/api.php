@@ -22,6 +22,9 @@ use App\Http\Controllers\Api\User\{
   ProductReviewController,
   ProductController,
   MailingListController,
+  ProductCategoryController,
+  ParentSubCategoryController,
+  ParentCategoryController,
 };
 
 /*
@@ -65,6 +68,18 @@ Route::controller(LandingPageController::class)->group(function(){
 
 Route::POST('mailing-list', [MailingListController::class, 'store']);
 
+Route::get('product/{slug}', [ProductController::class, 'show']);
+Route::get('parent-sub-category/{id}', [ProductController::class, 'productByParentSubCategory']);
+Route::get('parent-category/{id}', [ProductController::class, 'productByParentCategory']);
+Route::get('product-category/{id}', [ProductController::class, 'productByProductCategory']);
+
+Route::get('parent-sub-category', [ParentSubCategoryController::class, 'index']);
+Route::get('parent-category', [ParentCategoryController::class, 'index']);
+Route::get('product-category', [ProductCategoryController::class, 'index']);
+
+// 'product-category' => ProductCategoryController::class,
+// 'parent-category' => ParentCategoryController::class,
+// 'parent-sub-category' => ParentSubCategoryController::class,
 
 
 /*
@@ -119,7 +134,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 });
 
-Route::get('product/{slug}', [ProductController::class, 'show']);
 
 
 
