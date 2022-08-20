@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api\User;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Http\Request;
+use App\Models\ParentCategory;
+use App\Models\ProductCategory;
+use App\Models\ParentSubCategory;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
@@ -65,5 +68,35 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function productByParentSubCategory($id)
+    {
+        $category = ParentSubCategory::find($id);
+        if(!$category){
+            return $this->apiResponse->failure('category is not found'); 
+        }
+        $products = Product::where('parent_sub_category_id', $id)->latest()->paginate(config('constants.PAGE_LIMIT.user'));
+        return $this->apiResponse->successWithData($products);
+    }
+
+    public function productByParentCategory($id)
+    {
+        $category = ParentCategory::find($id);
+        if(!$category){
+            return $this->apiResponse->failure('category is not found'); 
+        }
+        $products = Product::where('parent_category_id', $id)->latest()->paginate(config('constants.PAGE_LIMIT.user'));
+        return $this->apiResponse->successWithData($products);
+    }
+
+    public function productByProductCategory($id)
+    {
+        $category = ProductCategory::find($id);
+        if(!$category){
+            return $this->apiResponse->failure('category is not found'); 
+        }
+        $products = Product::where('product_category_id', $id)->latest()->paginate(config('constants.PAGE_LIMIT.user'));
+        return $this->apiResponse->successWithData($products);
     }
 }
