@@ -40,7 +40,7 @@ class ProductController extends Controller
      */
     public function show($slug)
     {   
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::visible()->where('slug', $slug)->first();
         if(!$product){
             return $this->apiResponse->failure("Product not found");
         }
@@ -76,7 +76,7 @@ class ProductController extends Controller
         if(!$category){
             return $this->apiResponse->failure('category is not found'); 
         }
-        $products = Product::where('parent_sub_category_id', $id)->latest()->paginate(config('constants.PAGE_LIMIT.user'));
+        $products = Product::visible()->where('parent_sub_category_id', $id)->latest()->paginate(config('constants.PAGE_LIMIT.user'));
         return $this->apiResponse->successWithData($products);
     }
 
@@ -86,7 +86,7 @@ class ProductController extends Controller
         if(!$category){
             return $this->apiResponse->failure('category is not found'); 
         }
-        $products = Product::where('parent_category_id', $id)->latest()->paginate(config('constants.PAGE_LIMIT.user'));
+        $products = Product::visible()->where('parent_category_id', $id)->latest()->paginate(config('constants.PAGE_LIMIT.user'));
         return $this->apiResponse->successWithData($products);
     }
 
@@ -96,7 +96,7 @@ class ProductController extends Controller
         if(!$category){
             return $this->apiResponse->failure('category is not found'); 
         }
-        $products = Product::where('product_category_id', $id)->latest()->paginate(config('constants.PAGE_LIMIT.user'));
+        $products = Product::visible()->where('product_category_id', $id)->latest()->paginate(config('constants.PAGE_LIMIT.user'));
         return $this->apiResponse->successWithData($products);
     }
 }

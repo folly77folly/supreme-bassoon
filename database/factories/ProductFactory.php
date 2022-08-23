@@ -56,8 +56,16 @@ class ProductFactory extends Factory
         $discountPercent = $this->faker->numberBetween(1, 50);
         $stockQuantity = $this->faker->numberBetween(1, 50);
         $images = [
-            'https://res.cloudinary.com/valenci007/image/upload/v1651322166/products/202204301236_whatsapp_image_2022_03_07_at_64149_pm.jpg',
-            'https://res.cloudinary.com/valenci007/image/upload/v1651322166/products/202204301236_whatsapp_image_2022_03_07_at_64149_pm.jpg'
+            'https://res.cloudinary.com/valenci007/image/upload/v1661242019/products/202208230806_image10.jpg',
+            'https://res.cloudinary.com/valenci007/image/upload/v1661241977/products/202208230806_image9.jpg',
+            'https://res.cloudinary.com/valenci007/image/upload/v1661241936/products/202208230805_image8.jpg',
+            'https://res.cloudinary.com/valenci007/image/upload/v1661241886/products/202208230804_image7.jpg',
+            'https://res.cloudinary.com/valenci007/image/upload/v1661241843/products/202208230804_image6.jpg',
+            'https://res.cloudinary.com/valenci007/image/upload/v1661241802/products/202208230803_image5.png',
+            'https://res.cloudinary.com/valenci007/image/upload/v1661241664/products/202208230800_image4.jpg',
+            'https://res.cloudinary.com/valenci007/image/upload/v1661241355/products/202208230755_image3.jpg',
+            'https://res.cloudinary.com/valenci007/image/upload/v1661241292/products/202208230754_image2.jpg',
+            'https://res.cloudinary.com/valenci007/image/upload/v1661240872/products/202208230747_image1.jpg',
         ];
         $randomImageIndex = array_rand($images);
         $lastName = $this->faker->lastName;

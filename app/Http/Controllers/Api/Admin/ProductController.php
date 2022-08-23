@@ -9,6 +9,7 @@ use App\Service\ProductService;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Exceptions\ApiResponseException;
+use App\Http\Requests\VisibilityRequest;
 use App\Http\Requests\EditProductRequest;
 use App\Http\Requests\SaveProductRequest;
 
@@ -126,5 +127,27 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function productVisibility(VisibilityRequest $request, $id)
+    {
+
+        try {
+            //code...
+            $formData = $request->validated();
+            $product = (new ProductService)->updateProductVisibility($formData, $id);
+            return $this->apiResponse->successWithData($product, 'product updated successfully');
+        } catch (ApiResponseException $e) {
+            //throw $th;
+            return $this->apiResponse->failure($e->getMessage());
+        }
+        catch (\Throwable $th) {
+            //throw $th;
+            Log::error($th->getMessage());
+            Log::error($th->getLine());
+            Log::error($th->getFile());
+            return $this->apiResponse->failure('something went wrong, try again.');
+        }
+
     }
 }

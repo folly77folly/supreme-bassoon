@@ -84,4 +84,15 @@ class ProductService{
                 return $th;
             }
         }
+
+    public function updateProductVisibility($validatedData, $id){
+
+        $newProduct  = Product::find($id);
+        if(! $newProduct){
+            throw new ApiResponseException('product not found');
+        }
+        $newProduct->update($validatedData);
+        return $newProduct->refresh();
+
+    }
 }

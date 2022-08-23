@@ -85,7 +85,7 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'status' => 'failed',
                 'status_code' => '401',
-                'message' => 'You do not has access here',
+                'message' => 'You do not have access here',
             ], 401);
         }
         // return response()->json([
